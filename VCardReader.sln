@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCardReader", "VCardReader\VCardReader.csproj", "{3B0F8EB2-D92E-44DB-BA49-9FA2D7F50BB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCardViewer", "VCardViewer\VCardViewer.csproj", "{9A03E6ED-E5D6-4008-BB69-496CD1CECD4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3B0F8EB2-D92E-44DB-BA49-9FA2D7F50BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B0F8EB2-D92E-44DB-BA49-9FA2D7F50BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B0F8EB2-D92E-44DB-BA49-9FA2D7F50BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A03E6ED-E5D6-4008-BB69-496CD1CECD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A03E6ED-E5D6-4008-BB69-496CD1CECD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A03E6ED-E5D6-4008-BB69-496CD1CECD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A03E6ED-E5D6-4008-BB69-496CD1CECD4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
