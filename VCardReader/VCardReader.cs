@@ -8,8 +8,7 @@ namespace VCardReader
 {
     /// <summary>
     ///     Reads a vCard written in the standard 2.0 or 3.0 text formats.
-    ///     This is the primary (standard) vCard format used by most
-    ///     applications.  
+    ///     This is the primary (standard) vCard format used by most applications.  
     /// </summary>
     public class VCardReader
     {

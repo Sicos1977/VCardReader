@@ -57,6 +57,23 @@
     <Compile Include="Exceptions\VCRFileIsCorrupt.cs" />
     <Compile Include="Exceptions\VCRFileTypeNotSupported.cs" />
     <Compile Include="Gender.cs" />
+    <Compile Include="Helpers\EmailAddress.cs" />
+    <Compile Include="Helpers\ExceptionHelpers.cs" />
+    <Compile Include="Localization\LanguageConsts.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageConsts.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\LanguageConsts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageConsts.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\LanguageConsts.nl.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageConsts.nl.resx</DependentUpon>
+    </Compile>
     <Compile Include="Note.cs" />
     <Compile Include="NoteCollection.cs" />
     <Compile Include="Phone.cs" />
@@ -82,7 +99,20 @@
     <Compile Include="WebsiteTypes.cs" />
     <Compile Include="WriterOptions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\LanguageConsts.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageConsts.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LanguageConsts.nl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageConsts.nl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LanguageConsts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageConsts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
