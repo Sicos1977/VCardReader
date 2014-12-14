@@ -44,14 +44,14 @@
   <ItemGroup>
     <Compile Include="AccessClassification.cs" />
     <Compile Include="Certificate.cs" />
-    <Compile Include="CertificateCollection.cs" />
+    <Compile Include="Collections\CertificateCollection.cs" />
     <Compile Include="DeliveryAddress.cs" />
-    <Compile Include="DeliveryAddressCollection.cs" />
+    <Compile Include="Collections\DeliveryAddressCollection.cs" />
     <Compile Include="DeliveryAddressTypes.cs" />
     <Compile Include="DeliveryLabel.cs" />
-    <Compile Include="DeliveryLabelCollection.cs" />
+    <Compile Include="Collections\DeliveryLabelCollection.cs" />
     <Compile Include="EmailAddress.cs" />
-    <Compile Include="EmailAddressCollection.cs" />
+    <Compile Include="Collections\EmailAddressCollection.cs" />
     <Compile Include="EmailAddressType.cs" />
     <Compile Include="Exceptions\VCardException.cs" />
     <Compile Include="Exceptions\VCRFileContainsNoData.cs" />
@@ -76,27 +76,27 @@
       <DependentUpon>LanguageConsts.nl.resx</DependentUpon>
     </Compile>
     <Compile Include="Note.cs" />
-    <Compile Include="NoteCollection.cs" />
+    <Compile Include="Collections\NoteCollection.cs" />
     <Compile Include="Phone.cs" />
-    <Compile Include="PhoneCollection.cs" />
+    <Compile Include="Collections\PhoneCollection.cs" />
     <Compile Include="PhoneTypes.cs" />
     <Compile Include="Photo.cs" />
-    <Compile Include="PhotoCollection.cs" />
+    <Compile Include="Collections\PhotoCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
-    <Compile Include="PropertyCollection.cs" />
+    <Compile Include="Collections\PropertyCollection.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Source.cs" />
-    <Compile Include="SourceCollection.cs" />
+    <Compile Include="Collections\SourceCollection.cs" />
     <Compile Include="Subproperty.cs" />
-    <Compile Include="SubpropertyCollection.cs" />
-    <Compile Include="ValueCollection.cs" />
+    <Compile Include="Collections\SubpropertyCollection.cs" />
+    <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="VCard.cs" />
     <Compile Include="VCardEncoding.cs" />
     <Compile Include="VCardReader.cs" />
     <Compile Include="VCardWriter.cs" />
     <Compile Include="Website.cs" />
-    <Compile Include="WebsiteCollection.cs" />
+    <Compile Include="Collections\WebsiteCollection.cs" />
     <Compile Include="WebsiteTypes.cs" />
     <Compile Include="WriterOptions.cs" />
   </ItemGroup>

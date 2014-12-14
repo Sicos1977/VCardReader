@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 
-namespace VCardReader
+namespace VCardReader.Collections
 {
     /// <summary>
-    ///     A collection of <see cref="Source"/> objects.
+    ///     A collection of <see cref="Source" /> objects.
     /// </summary>
-    /// <seealso cref="Source"/>
+    /// <seealso cref="Source" />
     public class SourceCollection : Collection<Source>
     {
     }

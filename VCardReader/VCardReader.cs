@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
@@ -8,21 +9,18 @@ namespace VCardReader
 {
     /// <summary>
     ///     Reads a vCard written in the standard 2.0 or 3.0 text formats.
-    ///     This is the primary (standard) vCard format used by most applications.  
+    ///     This is the primary (standard) vCard format used by most applications.
     /// </summary>
-    internal class VCardReader
+    public class VCardReader
     {
         #region Enum QuotedPrintableState
         /// <summary>
         ///     The state of the quoted-printable decoder (private).
         /// </summary>
         /// <remarks>
-        ///     The <see cref="DecodeQuotedPrintable(string)"/> function
-        ///     is a utility function that parses a string that
-        ///     has been encoded with the QUOTED-PRINTABLE format.
-        ///     The function is implemented as a state-pased parser
-        ///     where the state is updated after examining each 
-        ///     character of the input string.  This enumeration
+        ///     The <see cref="DecodeQuotedPrintable(string)" /> function is a utility function that parses a string that
+        ///     has been encoded with the QUOTED-PRINTABLE format. The function is implemented as a state-pased parser
+        ///     where the state is updated after examining each character of the input string. This enumeration
         ///     defines the various states of the parser.
         /// </remarks>
         private enum QuotedPrintableState
@@ -36,25 +34,23 @@ namespace VCardReader
 
         #region Fields
         /// <summary>
-        ///     The DeliveryAddressTypeNames array contains the recognized
-        ///     TYPE values for an ADR (delivery address).
+        ///     The DeliveryAddressTypeNames array contains the recognized TYPE values for an ADR (delivery address).
         /// </summary>
         // ReSharper disable once UnusedMember.Local
         private readonly string[] _deliveryAddressTypeNames =
         {
-            "DOM",      // Domestic address
-            "INTL",     // International address
-            "POSTAL",   // Postal address
-            "PARCEL",   // Parcel delivery address
-            "HOME",     // Home address
-            "WORK",     // Work address
-            "PREF" };   // Preferred address
-        
+            "DOM", // Domestic address
+            "INTL", // International address
+            "POSTAL", // Postal address
+            "PARCEL", // Parcel delivery address
+            "HOME", // Home address
+            "WORK", // Work address
+            "PREF"
+        }; // Preferred address
+
         /// <summary>
-        ///     The PhoneTypeNames constant defines the recognized
-        ///     subproperty names that identify the category or
-        ///     classification of a phone.  The names are used with
-        ///     the TEL property.
+        ///     The PhoneTypeNames constant defines the recognized subproperty names that identify the category or
+        ///     classification of a phone. The names are used with the TEL property.
         /// </summary>
         // ReSharper disable once UnusedMember.Local
         private readonly string[] _phoneTypeNames =
@@ -71,13 +67,13 @@ namespace VCardReader
             "PREF",
             "VIDEO",
             "VOICE",
-            "WORK" };
+            "WORK"
+        };
         #endregion
 
         #region Properties
         /// <summary>
-        ///     A collection of warning messages that were generated
-        ///     during the output of a vCard.
+        ///     A collection of warning messages that were generated  during the output of a vCard.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
@@ -86,7 +82,7 @@ namespace VCardReader
 
         #region Constructor
         /// <summary>
-        ///     Initializes a new instance of the <see cref="VCardReader"/>.
+        ///     Initializes a new instance of the <see cref="VCardReader" />.
         /// </summary>
         // ReSharper disable once EmptyConstructor
         public VCardReader()
@@ -100,30 +96,23 @@ namespace VCardReader
         ///     Decodes a string containing BASE64 characters.
         /// </summary>
         /// <param name="value">
-        ///     A string containing data that has been encoded with
-        ///     the BASE64 format.
+        ///     A string containing data that has been encoded with the BASE64 format.
         /// </param>
         /// <returns>
         ///     The decoded data as a byte array.
         /// </returns>
         public static byte[] DecodeBase64(string value)
         {
-
-            // Currently the .NET implementation is acceptable.  However,
-            // a different algorithm may be used in the future.  For
-            // this reason callers should use this function
-            // instead of the FromBase64String function in .NET.
-            // Performance is not an issue because the runtime engine
-            // will inline the code or eliminate the extra call.
-
+            // Currently the .NET implementation is acceptable. However, a different algorithm may be used in the future. 
+            // For this reason callers should use this function instead of the FromBase64String function in .NET.
+            // Performance is not an issue because the runtime engine will inline the code or eliminate the extra call.
             return Convert.FromBase64String(value);
         }
         #endregion
 
         #region DecodeBase64(char[])
         /// <summary>
-        ///     Converts BASE64 data that has been stored in a 
-        ///     character array.
+        ///     Converts BASE64 data that has been stored in a character array.
         /// </summary>
         /// <param name="value">
         ///     A character array containing BASE64 data.
@@ -149,10 +138,10 @@ namespace VCardReader
         ///     The email address type keyword found in the vCard file (e.g. AOL or INTERNET).
         /// </param>
         /// <returns>
-        ///     Null or the decoded <see cref="EmailAddressType"/>.
+        ///     Null or the decoded <see cref="EmailAddressType" />.
         /// </returns>
-        /// <seealso cref="EmailAddress"/>
-        /// <seealso cref="EmailAddressType"/>
+        /// <seealso cref="EmailAddress" />
+        /// <seealso cref="EmailAddressType" />
         public static EmailAddressType? DecodeEmailAddressType(string keyword)
         {
             if (string.IsNullOrEmpty(keyword))
@@ -160,7 +149,6 @@ namespace VCardReader
 
             switch (keyword.ToUpperInvariant())
             {
-
                 case "INTERNET":
                     return EmailAddressType.Internet;
 
@@ -205,8 +193,7 @@ namespace VCardReader
 
         #region DecodeEscaped
         /// <summary>
-        ///     Decodes a string that has been encoded with the standard
-        ///     vCard escape codes.
+        ///     Decodes a string that has been encoded with the standard vCard escape codes.
         /// </summary>
         /// <param name="value">
         ///     A string encoded with vCard escape codes.
@@ -242,7 +229,6 @@ namespace VCardReader
                         value.Length - startIndex);
 
                     break;
-
                 }
 
                 // A backslash was located somewhere in the string.
@@ -262,7 +248,6 @@ namespace VCardReader
 
                 switch (code)
                 {
-
                     case '\\':
                     case ',':
                     case ';':
@@ -288,13 +273,10 @@ namespace VCardReader
                         builder.Append(code);
                         nextIndex += 2;
                         break;
-
                 }
 
                 startIndex = nextIndex;
-
-            }
-            while (startIndex < value.Length);
+            } while (startIndex < value.Length);
 
             return builder.ToString();
         }
@@ -302,8 +284,7 @@ namespace VCardReader
 
         #region DecodeHexadecimal
         /// <summary>
-        ///     Converts a single hexadecimal character to
-        ///     its integer value.
+        ///     Converts a single hexadecimal character to its integer value.
         /// </summary>
         /// <param name="value">
         ///     A Unicode character.
@@ -320,7 +301,6 @@ namespace VCardReader
 
             if ((value >= 'A') && (value <= 'F'))
             {
-
                 // The character is one of the characters
                 // between 'A' (value 65) and 'F' (value 70).
                 // The character "A" (hex) is "10" (decimal).
@@ -330,13 +310,11 @@ namespace VCardReader
 
             if ((value >= 'a') && (value <= 'f'))
             {
-
                 // The character is one of the characters
                 // between 'a' (value 97) and 'f' (value 102).
                 // The character "A" or "a" (hex) is "10" (decimal).
 
                 return Convert.ToInt32(value) - 87;
-
             }
 
             // The specified character cannot be interpreted
@@ -349,7 +327,6 @@ namespace VCardReader
 
         #region DecodeQuotedPrintable
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -365,7 +342,7 @@ namespace VCardReader
         ///     A string that has been encoded in QUOTED-PRINTABLE.
         /// </param>
         /// <param name="encoding">
-        ///     charset encoding 
+        ///     charset encoding
         /// </param>
         /// <returns>
         ///     The decoded string.
@@ -378,7 +355,7 @@ namespace VCardReader
             var firstHexChar = '\x0';
             var state = QuotedPrintableState.None;
 
-            var charList = new System.Collections.Generic.List<Char>();
+            var charList = new List<Char>();
 
             foreach (var c in value)
             {
@@ -408,7 +385,6 @@ namespace VCardReader
 
                         if (IsHexDigit(c))
                         {
-
                             // The next character is a hexadecimal character.
                             // Therefore the equal sign marks the beginning
                             // of an escape sequence.
@@ -417,21 +393,22 @@ namespace VCardReader
                             state = QuotedPrintableState.ExpectingHexChar2;
                         }
 
-                        else switch (c)
-                        {
-                            case '\r':
-                                state = QuotedPrintableState.ExpectingLineFeed;
-                                break;
-                            case '=':
-                                charList.Add('=');
-                                state = QuotedPrintableState.ExpectingHexChar1;
-                                break;
-                            default:
-                                charList.Add('=');
-                                charList.Add(c);
-                                state = QuotedPrintableState.None;
-                                break;
-                        }
+                        else
+                            switch (c)
+                            {
+                                case '\r':
+                                    state = QuotedPrintableState.ExpectingLineFeed;
+                                    break;
+                                case '=':
+                                    charList.Add('=');
+                                    state = QuotedPrintableState.ExpectingHexChar1;
+                                    break;
+                                default:
+                                    charList.Add('=');
+                                    charList.Add(c);
+                                    state = QuotedPrintableState.None;
+                                    break;
+                            }
                         break;
 
                     case QuotedPrintableState.ExpectingHexChar2:
@@ -443,7 +420,6 @@ namespace VCardReader
 
                         if (IsHexDigit(c))
                         {
-
                             // Each hexadecimal character represents
                             // four bits of the encoded ASCII value.
                             // The first character was the upper 4 bits.
@@ -452,14 +428,12 @@ namespace VCardReader
                                 (DecodeHexadecimal(firstHexChar) << 4) +
                                 DecodeHexadecimal(c);
 
-                            charList.Add((char)charValue);
+                            charList.Add((char) charValue);
 
                             state = QuotedPrintableState.None;
-
                         }
                         else
                         {
-
                             // The parser was expecting the second
                             // hexadecimal character after the equal sign.
                             // Since this is not a hexadecimal character,
@@ -470,7 +444,6 @@ namespace VCardReader
                             charList.Add(firstHexChar);
                             charList.Add(c);
                             state = QuotedPrintableState.None;
-
                         }
                         break;
 
@@ -535,10 +508,8 @@ namespace VCardReader
 
         #region IsHexDigit
         /// <summary>
-        ///     Indicates whether the specified character is
-        ///     a hexadecimal digit.
+        ///     Indicates whether the specified character is a hexadecimal digit.
         /// </summary>
-        /// 
         /// <param name="value">
         ///     A unicode character
         /// </param>
@@ -558,11 +529,6 @@ namespace VCardReader
         }
         #endregion
 
-        // The following functions (Parse*) are utility functions
-        // that convert string values into their corresponding
-        // enumeration values from the class library.  Some misc.
-        // parser functions are also present.
-
         #region ParseDate
         /// <summary>
         ///     Parses a string containing a date/time value.
@@ -574,8 +540,7 @@ namespace VCardReader
         ///     The parsed date, or null if no date could be parsed.
         /// </returns>
         /// <remarks>
-        ///     Some revision dates, such as those generated by Outlook,
-        ///     are not directly supported by the .NET DateTime parser.
+        ///     Some revision dates, such as those generated by Outlook, are not directly supported by the .NET DateTime parser.
         ///     This function attempts to accomodate the non-standard formats.
         /// </remarks>
         public static DateTime? ParseDate(string value)
@@ -595,18 +560,17 @@ namespace VCardReader
             //   |   ++---------------- Month (2 digits)             
             //   +--+------------------ Year (4 digits)
             //
-            // This format does not seem to be recognized by
-            // the standard DateTime parser.  A custom string
-            // can be defined:
+            // This format does not seem to be recognized by the standard DateTime parser.
+            // A custom string can be defined:
             //
-            //   yyyyMMdd\THHmmss\Z
+            // yyyyMMdd\THHmmss\Z
 
             if (DateTime.TryParseExact(
-                  value,
-                  @"yyyyMMdd\THHmmss\Z",
-                  null,
-                  DateTimeStyles.AssumeUniversal,
-                  out parsed))
+                value,
+                @"yyyyMMdd\THHmmss\Z",
+                null,
+                DateTimeStyles.AssumeUniversal,
+                out parsed))
                 return parsed;
 
             return null;
@@ -615,8 +579,7 @@ namespace VCardReader
 
         #region ParseEncoding
         /// <summary>
-        ///     Parses an encoding name (such as "BASE64") and returns
-        ///     the corresponding <see cref="VCardEncoding"/> value.
+        ///     Parses an encoding name (such as "BASE64") and returns the corresponding <see cref="VCardEncoding" /> value.
         /// </summary>
         /// <param name="name">
         ///     The name of an encoding from a standard vCard property.
@@ -626,8 +589,7 @@ namespace VCardReader
         /// </returns>
         public static VCardEncoding ParseEncoding(string name)
         {
-            // If not specified, the default encoding (escaped) used
-            // by the vCard file specification is assumed.
+            // If not specified, the default encoding (escaped) used by the vCard file specification is assumed.
 
             if (string.IsNullOrEmpty(name))
                 return VCardEncoding.Unknown;
@@ -635,8 +597,7 @@ namespace VCardReader
             switch (name.ToUpperInvariant())
             {
                 case "B":
-                    // Some vCard specification documents list the
-                    // encoding name "b" instead of "base64".
+                    // Some vCard specification documents list the encoding name "b" instead of "base64".
                     return VCardEncoding.Base64;
 
                 case "BASE64":
@@ -653,15 +614,13 @@ namespace VCardReader
 
         #region ParsePhoneType(string)
         /// <summary>
-        ///     Parses the name of a phone type and returns the
-        ///     corresponding <see cref="PhoneTypes"/> value.
+        ///     Parses the name of a phone type and returns the corresponding <see cref="PhoneTypes" /> value.
         /// </summary>
         /// <param name="name">
         ///     The name of a phone type from a TEL vCard property.
         /// </param>
         /// <returns>
-        ///     The enumerated value of the phone type, or Default
-        ///     if the phone type could not be determined.
+        ///     The enumerated value of the phone type, or Default if the phone type could not be determined.
         /// </returns>
         public static PhoneTypes ParsePhoneType(string name)
         {
@@ -670,8 +629,6 @@ namespace VCardReader
 
             switch (name.Trim().ToUpperInvariant())
             {
-
-
                 case "BBS":
                     return PhoneTypes.Bbs;
 
@@ -719,16 +676,14 @@ namespace VCardReader
 
         #region ParsePhoneType(string[])
         /// <summary>
-        ///     Decodes the bitmapped phone type given an array of
-        ///     phone type names.
+        ///     Decodes the bitmapped phone type given an array of phone type names.
         /// </summary>
         /// <param name="names">
         ///     An array containing phone type names such as BBS or VOICE.
         /// </param>
         /// <returns>
-        ///     The phone type value that represents the combination
-        ///     of all names defined in the array.  Unknown names are
-        ///     ignored.
+        ///     The phone type value that represents the combination of all names defined in the array.  
+        ///     Unknown names are ignored.
         /// </returns>
         public static PhoneTypes ParsePhoneType(string[] names)
         {
@@ -749,9 +704,8 @@ namespace VCardReader
         ///     The single value of a TYPE subproperty for the ADR property.
         /// </param>
         /// <returns>
-        ///     The <see cref="DeliveryAddressTypes"/> that corresponds
-        ///     with the TYPE keyword, or vCardPostalAddressType.Default if
-        ///     the type could not be identified.
+        ///     The <see cref="DeliveryAddressTypes" /> that corresponds with the TYPE keyword, or vCardPostalAddressType.
+        ///     Default if the type could not be identified.
         /// </returns>
         public static DeliveryAddressTypes ParseDeliveryAddressType(string value)
         {
@@ -786,20 +740,16 @@ namespace VCardReader
 
         #region ParseDeliveryAddressType(string[])
         /// <summary>
-        ///     Parses a string array containing one or more
-        ///     postal address types.
+        ///     Parses a string array containing one or more postal address types.
         /// </summary>
         /// <param name="typeNames">
-        ///     A string array containing zero or more keywords
-        ///     used with the TYPE subproperty of the ADR property.
+        ///     A string array containing zero or more keywords used with the TYPE subproperty of the ADR property.
         /// </param>
         /// <returns>
-        ///     A <see cref="DeliveryAddressTypes"/> flags enumeration
-        ///     that corresponds with all known type names from the array.
+        ///     A <see cref="DeliveryAddressTypes" /> flags enumeration that corresponds with all known type names from the array.
         /// </returns>
         public static DeliveryAddressTypes ParseDeliveryAddressType(string[] typeNames)
         {
-
             var allTypes = DeliveryAddressTypes.Default;
 
             foreach (var typeName in typeNames)
@@ -808,7 +758,7 @@ namespace VCardReader
             return allTypes;
         }
         #endregion
-        
+
         #region ReadInto(vCard, TextReader)
         /// <summary>
         ///     Reads a vCard (VCF) file from an input stream.
@@ -817,8 +767,7 @@ namespace VCardReader
         ///     An initialized vCard.
         /// </param>
         /// <param name="reader">
-        ///     A text reader pointing to the beginning of
-        ///     a standard vCard file.
+        ///     A text reader pointing to the beginning of a standard vCard file.
         /// </param>
         /// <returns>
         ///     The vCard with values updated from the file.
@@ -835,15 +784,13 @@ namespace VCardReader
                     (string.Compare("END", property.Name, StringComparison.OrdinalIgnoreCase) == 0) &&
                     (string.Compare("VCARD", property.ToString(), StringComparison.OrdinalIgnoreCase) == 0))
                 {
-
                     // This is a special type of property that marks
                     // the last property of the vCard. 
 
                     break;
                 }
                 ReadInto(card, property);
-            } 
-            while (property != null);
+            } while (property != null);
         }
         #endregion
 
@@ -859,10 +806,8 @@ namespace VCardReader
         /// </param>
         /// <remarks>
         ///     <para>
-        ///         This method examines the contents of a property
-        ///         and attempts to update an existing vCard based on
-        ///         the property name and value.  This function must
-        ///         be updated when new vCard properties are implemented.
+        ///         This method examines the contents of a property and attempts to update an existing vCard based on
+        ///         the property name and value. This function must be updated when new vCard properties are implemented.
         ///     </para>
         /// </remarks>
         public void ReadInto(VCard card, Property property)
@@ -878,7 +823,6 @@ namespace VCardReader
 
             switch (property.Name.ToUpperInvariant())
             {
-
                 case "ADR":
                     ReadIntoAdr(card, property);
                     break;
@@ -983,8 +927,8 @@ namespace VCardReader
                     ReadIntoXWabGender(card, property);
                     break;
 
-                // The property name is not recognized and
-                // will be ignored.
+                    // The property name is not recognized and
+                    // will be ignored.
             }
         }
         #endregion
@@ -995,9 +939,8 @@ namespace VCardReader
         /// </summary>
         private void ReadIntoAdr(VCard card, Property property)
         {
-            // The ADR property defines a delivery address, such
-            // as a home postal address.  The property contains
-            // the following components separated by semicolons:
+            // The ADR property defines a delivery address, such as a home postal address.  
+            // The property contains the following components separated by semicolons:
             //
             //   0. Post office box
             //   1. Extended address
@@ -1007,14 +950,12 @@ namespace VCardReader
             //   5. Postal code
             //   6. Country name
             //
-            // This version of the reader ignores any ADR properties
-            // with a lesser number of components.  If more than 7
-            // components exist, then the lower seven components are
-            // assumed to still match the specification (e.g. the
-            // additional components may be from a future specification).
+            // This version of the reader ignores any ADR properties with a lesser number of components.  
+            // If more than 7 components exist, then the lower seven components are assumed to still match 
+            // the specification (e.g. the additional components may be from a future specification).
 
             var addressParts =
-                property.Value.ToString().Split(new[] { ';' });
+                property.Value.ToString().Split(new[] {';'});
 
             var deliveryAddress = new DeliveryAddress();
 
@@ -1040,12 +981,10 @@ namespace VCardReader
                 (string.IsNullOrEmpty(deliveryAddress.Region)) &&
                 (string.IsNullOrEmpty(deliveryAddress.Street)))
             {
-
                 // No address appears to be defined.
                 // Ignore.
 
                 return;
-
             }
 
             // Handle the old 2.1 format in which the ADR type names (e.g.
@@ -1063,7 +1002,6 @@ namespace VCardReader
 
             foreach (var subproperty in property.Subproperties)
             {
-
                 // If this subproperty is a TYPE subproperty and
                 // has a non-null value, then parse it.
 
@@ -1072,7 +1010,7 @@ namespace VCardReader
                     (string.Compare("TYPE", subproperty.Name, StringComparison.OrdinalIgnoreCase) == 0))
                 {
                     deliveryAddress.AddressType |=
-                        ParseDeliveryAddressType(subproperty.Value.Split(new[] { ',' }));
+                        ParseDeliveryAddressType(subproperty.Value.Split(new[] {','}));
                 }
             }
             card.DeliveryAddresses.Add(deliveryAddress);
@@ -1090,9 +1028,7 @@ namespace VCardReader
                 card.BirthDate = bday;
             else
             {
-
-                // Microsoft Outlook writes the birthdate in YYYYMMDD, e.g. 20091015
-                // for October 15, 2009.
+                // Microsoft Outlook writes the birthdate in YYYYMMDD, e.g. 20091015 for October 15, 2009.
 
                 if (DateTime.TryParseExact(
                     property.ToString(),
@@ -1114,7 +1050,7 @@ namespace VCardReader
         private static void ReadIntoCategories(VCard card, Property property)
         {
             // The CATEGORIES value is expected to be a comma-delimited list.
-            var cats = property.ToString().Split(new[] { ',' });
+            var cats = property.ToString().Split(new[] {','});
 
             // Add each non-blank line to the categories collection.
             foreach (var cat in cats)
@@ -1161,21 +1097,17 @@ namespace VCardReader
 
             // The email address is stored as the value of the property.
             // The format of the address depends on the type of email
-            // address.  The current version of the library does not
-            // perform any validation.
+            // address. The current version of the library does not perform any validation.
 
-            // Loop through each subproperty and look for flags
-            // that indicate the type of email address.
+            // Loop through each subproperty and look for flags that indicate the type of email address.
 
             foreach (var subproperty in property.Subproperties)
             {
                 switch (subproperty.Name.ToUpperInvariant())
                 {
-
                     case "PREF":
 
-                        // The PREF subproperty indicates the email
-                        // address is the preferred email address to
+                        // The PREF subproperty indicates the email address is the preferred email address to
                         // use when contacting the person.
 
                         email.IsPreferred = true;
@@ -1183,12 +1115,11 @@ namespace VCardReader
 
                     case "TYPE":
 
-                        // The TYPE subproperty is new in vCard 3.0.
-                        // It identifies the type and can also indicate
+                        // The TYPE subproperty is new in vCard 3.0. It identifies the type and can also indicate
                         // the PREF attribute.
 
                         var typeValues =
-                            subproperty.Value.Split(new[] { ',' });
+                            subproperty.Value.Split(new[] {','});
 
                         foreach (var typeValue in typeValues)
                         {
@@ -1207,9 +1138,8 @@ namespace VCardReader
 
                     default:
 
-                        // All other subproperties are probably vCard 2.1
-                        // subproperties.  This was before the email type
-                        // was supposed to be specified with TYPE=VALUE.
+                        // All other subproperties are probably vCard 2.1 subproperties.  
+                        // This was before the email type was supposed to be specified with TYPE=VALUE.
 
                         var emailType =
                             DecodeEmailAddressType(subproperty.Name);
@@ -1230,12 +1160,9 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoFn(VCard card, Property property)
         {
-
-            // The FN property defines the formatted display name
-            // of the person.  This is used for presentation.
+            // The FN property defines the formatted display name of the person. This is used for presentation.
 
             card.FormattedName = property.Value.ToString();
-
         }
         #endregion
 
@@ -1245,11 +1172,10 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoGeo(VCard card, Property property)
         {
-            // The GEO property specifies latitude and longitude
-            // of the entity associated with the vCard.
+            // The GEO property specifies latitude and longitude of the entity associated with the vCard.
 
             var coordinates =
-                property.Value.ToString().Split(new[] { ';' });
+                property.Value.ToString().Split(new[] {';'});
 
             if (coordinates.Length == 2)
             {
@@ -1263,7 +1189,6 @@ namespace VCardReader
                     card.Latitude = geoLatitude;
                     card.Longitude = geoLongitude;
                 }
-
             }
         }
         #endregion
@@ -1287,7 +1212,6 @@ namespace VCardReader
                 certificate.KeyType = "X509";
 
             card.Certificates.Add(certificate);
-
         }
         #endregion
 
@@ -1303,29 +1227,23 @@ namespace VCardReader
                 AddressType = ParseDeliveryAddressType(property.Subproperties.GetNames(_deliveryAddressTypeNames))
             };
 
-            // Handle the old 2.1 format in which the ADR type names (e.g.
-            // DOM, HOME, etc) were written directly as subproperties.
+            // Handle the old 2.1 format in which the ADR type names (e.g. DOM, HOME, etc) were written directly as subproperties.
             // For example, "LABEL;HOME;POSTAL:...".
 
-            // Handle the new 3.0 format in which the delivery address
-            // type is a comma-delimited list, e.g. "ADR;TYPE=HOME,POSTAL:".
-            // It is possible for the TYPE subproperty to be listed multiple
-            // times (this is allowed by the RFC, although irritating that
+            // Handle the new 3.0 format in which the delivery address type is a comma-delimited list, e.g. "ADR;TYPE=HOME,POSTAL:".
+            // It is possible for the TYPE subproperty to be listed multiple times (this is allowed by the RFC, although irritating that
             // the authors allowed it).
 
             foreach (var subproperty in property.Subproperties)
             {
-                // If this subproperty is a TYPE subproperty and
-                // has a non-null value, then parse it.
+                // If this subproperty is a TYPE subproperty and has a non-null value, then parse it.
                 if (
                     (!string.IsNullOrEmpty(subproperty.Value)) &&
                     (string.Compare("TYPE", subproperty.Name, StringComparison.OrdinalIgnoreCase) == 0))
                 {
-
                     deliveryLabel.AddressType |=
-                        ParseDeliveryAddressType(subproperty.Value.Split(new[] { ',' }));
+                        ParseDeliveryAddressType(subproperty.Value.Split(new[] {','}));
                 }
-
             }
 
             card.DeliveryLabels.Add(deliveryLabel);
@@ -1338,11 +1256,9 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoMailer(VCard card, Property property)
         {
-            // The MAILER property identifies the mail software
-            // used by the person.  This can be examined by a 
-            // program to detect software-specific conventions.
-            // See section 2.4.3 of the vCard 2.1 spec.  This
-            // property is not common.
+            // The MAILER property identifies the mail software/ used by the person.  
+            // This can be examined by a  program to detect software-specific conventions.
+            // See section 2.4.3 of the vCard 2.1 spec. This property is not common.
             card.Mailer = property.Value.ToString();
         }
         #endregion
@@ -1353,17 +1269,12 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoN(VCard card, Property property)
         {
-            // The N property defines the name of the person. The
-            // propery value has several components, such as the
-            // given name, family name, and suffix.  This is a 
-            // core field found in almost all vCards.
+            // The N property defines the name of the person. The propery value has several components, such as the
+            // given name, family name, and suffix. This is a  core field found in almost all vCards.
             //
-            // Each component is supposed to be separated with
-            // a semicolon.  However, some vCard writers do not
-            // write out training semicolons.  For example, the
-            // last two components are the prefix (e.g. Mr.)
-            // and suffix (e.g. Jr) of the name.  The semicolons
-            // will be missing in some vCards if these components
+            // Each component is supposed to be separated with a semicolon.  However, some vCard writers do not
+            // write out training semicolons. For example, the last two components are the prefix (e.g. Mr.)
+            // and suffix (e.g. Jr) of the name. The semicolons will be missing in some vCards if these components
             // are blank.
 
             var names = property.ToString().Split(';');
@@ -1418,11 +1329,10 @@ namespace VCardReader
 
             // The nicknames are comma-separated values.
             var nicknames =
-                property.Value.ToString().Split(new[] { ',' });
+                property.Value.ToString().Split(new[] {','});
 
             foreach (var nickname in nicknames)
             {
-
                 var trimmedNickname = nickname.Trim();
                 if (trimmedNickname.Length > 0)
                     card.Nicknames.Add(trimmedNickname);
@@ -1519,13 +1429,11 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoRole(VCard card, Property property)
         {
-
             // The ROLE property describes the role of the
             // person at his/her organization (e.g. Programmer
             // or Executive, etc).
 
             card.Role = property.Value.ToString();
-
         }
         #endregion
 
@@ -1565,7 +1473,6 @@ namespace VCardReader
 
             foreach (var subproperty in property.Subproperties)
             {
-
                 // If this subproperty is a TYPE subproperty
                 // and it has a value, then it is expected
                 // to contain a comma-delimited list of phone types.
@@ -1578,8 +1485,7 @@ namespace VCardReader
                     // Note that the vCard specification allows for
                     // multiple TYPE subproperties (why ?!).
                     phone.PhoneType |=
-                        ParsePhoneType(subproperty.Value.Split(new[] { ',' }));
-
+                        ParsePhoneType(subproperty.Value.Split(new[] {','}));
                 }
                 else
                 {
@@ -1680,7 +1586,7 @@ namespace VCardReader
         /// </summary>
         // ReSharper disable UnusedMember.Global
         public Property ReadProperty(string text)
-        // ReSharper restore UnusedMember.Global
+            // ReSharper restore UnusedMember.Global
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentNullException("text");
@@ -1698,7 +1604,7 @@ namespace VCardReader
         /// </summary>
         // ReSharper disable MemberCanBePrivate.Global
         public Property ReadProperty(TextReader reader)
-        // ReSharper restore MemberCanBePrivate.Global
+            // ReSharper restore MemberCanBePrivate.Global
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
@@ -1721,7 +1627,8 @@ namespace VCardReader
                 firstLine = firstLine.Trim();
                 if (firstLine.Length == 0)
                 {
-                    Warnings.Add("Line {0} A blank line was encountered.  This is not allowed in the vCard specification.");
+                    Warnings.Add(
+                        "Line {0} A blank line was encountered.  This is not allowed in the vCard specification.");
                     continue;
                 }
 
@@ -1778,7 +1685,6 @@ namespace VCardReader
 
                 for (var index = 1; index < nameParts.Length; index++)
                 {
-
                     // Split the subproperty into its name and 
                     // value components.  If multiple equal signs
                     // happen to exist, they are interpreted as
@@ -1786,11 +1692,10 @@ namespace VCardReader
                     // future version of the parser.
 
                     var subNameValue =
-                        nameParts[index].Split(new[] { '=' }, 2);
+                        nameParts[index].Split(new[] {'='}, 2);
 
                     if (subNameValue.Length == 1)
                     {
-
                         // The Split function above returned a single
                         // array element.  This means no equal (=) sign
                         // was present.  The subproperty consists of
@@ -1805,7 +1710,6 @@ namespace VCardReader
                             subNameValue[0].Trim(),
                             subNameValue[1].Trim());
                     }
-
                 }
 
                 // The subproperties have been defined.  The next
@@ -1818,7 +1722,7 @@ namespace VCardReader
 
                 var encodingName =
                     property.Subproperties.GetValue("ENCODING",
-                        new[] { "B", "BASE64", "QUOTED-PRINTABLE" });
+                        new[] {"B", "BASE64", "QUOTED-PRINTABLE"});
 
                 var hasCharset = property.Subproperties.Contains("CHARSET");
                 var charsetEncoding = Encoding.Default;
@@ -1859,9 +1763,7 @@ namespace VCardReader
                     }
                     else
                         break;
-
-                } 
-                while (true);
+                } while (true);
 
                 if (encoding == VCardEncoding.QuotedPrintable && rawValue.Length > 0)
                 {
@@ -1892,7 +1794,6 @@ namespace VCardReader
                 }
 
                 return property;
-
             } while (true);
         }
 

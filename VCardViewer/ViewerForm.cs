@@ -1,19 +1,4 @@
-﻿/*
-   Copyright 2013-2014 Kees van Spelde
-
-   Licensed under The Code Project Open License (CPOL) 1.02;
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-     http://www.codeproject.com/info/cpol10.aspx
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -24,7 +9,7 @@ namespace VCardViewer
 {
     public partial class ViewerForm : Form
     {
-        readonly List<string> _tempFolders = new List<string>(); 
+        private readonly List<string> _tempFolders = new List<string>();
 
         public ViewerForm()
         {
@@ -37,7 +22,7 @@ namespace VCardViewer
             Closing += ViewerForm_Closing;
         }
 
-        void ViewerForm_Closing(object sender, EventArgs e)
+        private void ViewerForm_Closing(object sender, EventArgs e)
         {
             Settings.Default.Placement = WindowPlacement.GetPlacement(Handle);
             Settings.Default.Save();
@@ -61,12 +46,12 @@ namespace VCardViewer
 
             if (Directory.Exists(Settings.Default.InitialDirectory))
                 openFileDialog1.InitialDirectory = Settings.Default.InitialDirectory;
-            
+
             // Process input if the user clicked OK.
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Settings.Default.InitialDirectory = Path.GetDirectoryName(openFileDialog1.FileName);
-                
+
                 // Open the selected file to read.
                 string tempFolder = null;
 
@@ -74,7 +59,7 @@ namespace VCardViewer
                 {
                     tempFolder = GetTemporaryFolder();
                     _tempFolders.Add(tempFolder);
-                    
+
                     //var msgReader = new Reader();
                     ////msgReader.SetCulture("nl-NL");
                     ////msgReader.SetCulture("de-DE");

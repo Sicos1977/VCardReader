@@ -2,9 +2,8 @@ using System;
 
 namespace VCardReader.Exceptions
 {
-
     /// <summary>
-    ///     Base class for <see cref="VCard"/> specific exceptions.
+    ///     Base class for <see cref="VCard" /> specific exceptions.
     /// </summary>
     [Serializable]
     public class VCardException : Exception
@@ -12,7 +11,9 @@ namespace VCardReader.Exceptions
         /// <summary>
         ///     Initializes a new instance of the vCardException class.
         /// </summary>
-        internal VCardException() {}
+        internal VCardException()
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the vCardException
@@ -21,7 +22,9 @@ namespace VCardReader.Exceptions
         /// <param name="message">
         ///     The message that describes the error.
         /// </param>
-        internal VCardException(string message) : base(message) {}
+        internal VCardException(string message) : base(message)
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the vCardException
@@ -37,6 +40,8 @@ namespace VCardReader.Exceptions
         ///     or a null reference (Nothing in Visual Basic) if no
         ///     inner exception is specified.
         /// </param>
-        internal VCardException(string message, Exception innerException) : base(message, innerException) {}
+        internal VCardException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

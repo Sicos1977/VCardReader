@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Specialized;
 
-namespace VCardReader
+namespace VCardReader.Collections
 {
-
     /// <summary>
     ///     A collection of string values.
     /// </summary>
@@ -15,22 +14,21 @@ namespace VCardReader
         /// </summary>
         public char Separator { get; set; }
         #endregion
-        
+
         #region Constructors
         /// <summary>
-        ///     Initializes an empty <see cref="ValueCollection"/>.
+        ///     Initializes an empty <see cref="ValueCollection" />.
         /// </summary>
         public ValueCollection()
         {
             Separator = ',';
         }
-        
+
         /// <summary>
         ///     Initializes the value collection with the specified separator.
         /// </summary>
         /// <param name="separator">
-        ///     The suggested character to use as a separator when
-        ///     writing the collection as a string.
+        ///     The suggested character to use as a separator when writing the collection as a string.
         /// </param>
         public ValueCollection(char separator)
         {
@@ -52,7 +50,6 @@ namespace VCardReader
 
             foreach (var value in values)
                 Add(value);
-
         }
         #endregion
     }

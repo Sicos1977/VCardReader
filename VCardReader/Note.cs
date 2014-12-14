@@ -38,14 +38,8 @@ namespace VCardReader
         /// </summary>
         public string Language
         {
-            get
-            {
-                return _language ?? string.Empty;
-            }
-            set
-            {
-                _language = value;
-            }
+            get { return _language ?? string.Empty; }
+            set { _language = value; }
         }
         #endregion
 
@@ -55,14 +49,8 @@ namespace VCardReader
         /// </summary>
         public string Text
         {
-            get
-            {
-                return _text ?? string.Empty;
-            }
-            set
-            {
-                _text = value;
-            }
+            get { return _text ?? string.Empty; }
+            set { _text = value; }
         }
         #endregion
 

@@ -1,11 +1,12 @@
 using System;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
     /// <summary>
     ///     A postal address.
     /// </summary>
-    /// <seealso cref="DeliveryAddressCollection"/>
+    /// <seealso cref="DeliveryAddressCollection" />
     [Serializable]
     public class DeliveryAddress
     {
@@ -31,7 +32,7 @@ namespace VCardReader
         }
         #endregion
 
-        #region
+        #region AddressType
         /// <summary>
         ///     The type of postal address.
         /// </summary>
@@ -44,14 +45,8 @@ namespace VCardReader
         /// </summary>
         public string City
         {
-            get
-            {
-                return _city ?? string.Empty;
-            }
-            set
-            {
-                _city = value;
-            }
+            get { return _city ?? string.Empty; }
+            set { _city = value; }
         }
         #endregion
 
@@ -61,14 +56,8 @@ namespace VCardReader
         /// </summary>
         public string Country
         {
-            get
-            {
-                return _country ?? string.Empty;
-            }
-            set
-            {
-                _country = value;
-            }
+            get { return _country ?? string.Empty; }
+            set { _country = value; }
         }
         #endregion
 
@@ -81,11 +70,10 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Domestic) ==
-                    DeliveryAddressTypes.Domestic;
+                       DeliveryAddressTypes.Domestic;
             }
             set
             {
-
                 if (value)
                 {
                     AddressType |= DeliveryAddressTypes.Domestic;
@@ -94,7 +82,6 @@ namespace VCardReader
                 {
                     AddressType &= ~DeliveryAddressTypes.Domestic;
                 }
-
             }
         }
         #endregion
@@ -108,7 +95,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Home) ==
-                    DeliveryAddressTypes.Home;
+                       DeliveryAddressTypes.Home;
             }
             set
             {
@@ -120,7 +107,6 @@ namespace VCardReader
                 {
                     AddressType &= ~DeliveryAddressTypes.Home;
                 }
-
             }
         }
         #endregion
@@ -134,7 +120,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.International) ==
-                    DeliveryAddressTypes.International;
+                       DeliveryAddressTypes.International;
             }
             set
             {
@@ -159,7 +145,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Parcel) ==
-                    DeliveryAddressTypes.Parcel;
+                       DeliveryAddressTypes.Parcel;
             }
             set
             {
@@ -184,7 +170,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Postal) ==
-                    DeliveryAddressTypes.Postal;
+                       DeliveryAddressTypes.Postal;
             }
             set
             {
@@ -209,7 +195,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Work) ==
-                    DeliveryAddressTypes.Work;
+                       DeliveryAddressTypes.Work;
             }
             set
             {
@@ -231,14 +217,8 @@ namespace VCardReader
         /// </summary>
         public string PostalCode
         {
-            get
-            {
-                return _postalCode ?? string.Empty;
-            }
-            set
-            {
-                _postalCode = value;
-            }
+            get { return _postalCode ?? string.Empty; }
+            set { _postalCode = value; }
         }
         #endregion
 
@@ -248,14 +228,8 @@ namespace VCardReader
         /// </summary>
         public string Region
         {
-            get
-            {
-                return _region ?? string.Empty;
-            }
-            set
-            {
-                _region = value;
-            }
+            get { return _region ?? string.Empty; }
+            set { _region = value; }
         }
         #endregion
 
@@ -265,14 +239,8 @@ namespace VCardReader
         /// </summary>
         public string Street
         {
-            get
-            {
-                return _street ?? string.Empty;
-            }
-            set
-            {
-                _street = value;
-            }
+            get { return _street ?? string.Empty; }
+            set { _street = value; }
         }
         #endregion
     }

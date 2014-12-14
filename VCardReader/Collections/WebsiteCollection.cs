@@ -1,12 +1,12 @@
 using System.Collections.ObjectModel;
 
-namespace VCardReader
+namespace VCardReader.Collections
 {
     /// <summary>
-    ///     A collection of <see cref="Website"/> objects.
+    ///     A collection of <see cref="Website" /> objects.
     /// </summary>
-    /// <seealso cref="Website"/>
-    /// <seealso cref="WebsiteTypes"/>
+    /// <seealso cref="Website" />
+    /// <seealso cref="WebsiteTypes" />
     public class WebsiteCollection : Collection<Website>
     {
         #region GetFirstChoice

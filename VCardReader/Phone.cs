@@ -1,12 +1,13 @@
 using System;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
     /// <summary>
-    ///     Telephone information for a <see cref="VCard"/>.
+    ///     Telephone information for a <see cref="VCard" />.
     /// </summary>
-    /// <seealso cref="PhoneCollection"/>
-    /// <seealso cref="PhoneTypes"/>
+    /// <seealso cref="PhoneCollection" />
+    /// <seealso cref="PhoneTypes" />
     [Serializable]
     public class Phone
     {
@@ -17,14 +18,14 @@ namespace VCardReader
 
         #region Constructors
         /// <summary>
-        ///     Creates a new <see cref="Phone"/> object.
+        ///     Creates a new <see cref="Phone" /> object.
         /// </summary>
         public Phone()
         {
         }
 
         /// <summary>
-        ///     Creates a new <see cref="Phone"/> object with the specified number.
+        ///     Creates a new <see cref="Phone" /> object with the specified number.
         /// </summary>
         /// <param name="fullNumber">
         ///     The phone number.
@@ -36,7 +37,7 @@ namespace VCardReader
 
 
         /// <summary>
-        ///     Creates a new <see cref="Phone"/> with the specified number and subtype.
+        ///     Creates a new <see cref="Phone" /> with the specified number and subtype.
         /// </summary>
         /// <param name="fullNumber">The phone number.</param>
         /// <param name="phoneType">The phone subtype.</param>
@@ -53,14 +54,8 @@ namespace VCardReader
         /// </summary>
         public string FullNumber
         {
-            get
-            {
-                return _fullNumber ?? string.Empty;
-            }
-            set
-            {
-                _fullNumber = value;
-            }
+            get { return _fullNumber ?? string.Empty; }
+            set { _fullNumber = value; }
         }
         #endregion
 
@@ -68,14 +63,11 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a BBS number.
         /// </summary>
-        /// <seealso cref="IsModem"/>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="IsModem" />
+        /// <seealso cref="PhoneTypes" />
         public bool IsBbs
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Bbs) == PhoneTypes.Bbs;
-            }
+            get { return (_phoneType & PhoneTypes.Bbs) == PhoneTypes.Bbs; }
             set
             {
                 if (value)
@@ -90,13 +82,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a car number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsCar
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Car) == PhoneTypes.Car;
-            }
+            get { return (_phoneType & PhoneTypes.Car) == PhoneTypes.Car; }
             set
             {
                 if (value)
@@ -111,13 +100,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a cellular number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsCellular
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Cellular) == PhoneTypes.Cellular;
-            }
+            get { return (_phoneType & PhoneTypes.Cellular) == PhoneTypes.Cellular; }
             set
             {
                 if (value)
@@ -132,13 +118,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a fax number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsFax
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Fax) == PhoneTypes.Fax;
-            }
+            get { return (_phoneType & PhoneTypes.Fax) == PhoneTypes.Fax; }
             set
             {
                 if (value)
@@ -153,14 +136,11 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a home number.
         /// </summary>
-        /// <seealso cref="IsWork"/>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="IsWork" />
+        /// <seealso cref="PhoneTypes" />
         public bool IsHome
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Home) == PhoneTypes.Home;
-            }
+            get { return (_phoneType & PhoneTypes.Home) == PhoneTypes.Home; }
             set
             {
                 if (value)
@@ -175,13 +155,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates an ISDN number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsIsdn
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Isdn) == PhoneTypes.Isdn;
-            }
+            get { return (_phoneType & PhoneTypes.Isdn) == PhoneTypes.Isdn; }
             set
             {
                 if (value)
@@ -196,13 +173,13 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a messaging service number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsMessagingService
         {
             get
             {
                 return (_phoneType & PhoneTypes.MessagingService) ==
-                    PhoneTypes.MessagingService;
+                       PhoneTypes.MessagingService;
             }
             set
             {
@@ -218,14 +195,11 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a modem number.
         /// </summary>
-        /// <seealso cref="IsBbs"/>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="IsBbs" />
+        /// <seealso cref="PhoneTypes" />
         public bool IsModem
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Modem) == PhoneTypes.Modem;
-            }
+            get { return (_phoneType & PhoneTypes.Modem) == PhoneTypes.Modem; }
             set
             {
                 if (value)
@@ -240,13 +214,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a pager number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsPager
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Pager) == PhoneTypes.Pager;
-            }
+            get { return (_phoneType & PhoneTypes.Pager) == PhoneTypes.Pager; }
             set
             {
                 if (value)
@@ -261,13 +232,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a preferred number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsPreferred
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Preferred) == PhoneTypes.Preferred;
-            }
+            get { return (_phoneType & PhoneTypes.Preferred) == PhoneTypes.Preferred; }
             set
             {
                 if (value)
@@ -282,13 +250,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a video number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsVideo
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Video) == PhoneTypes.Video;
-            }
+            get { return (_phoneType & PhoneTypes.Video) == PhoneTypes.Video; }
             set
             {
                 if (value)
@@ -303,13 +268,10 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a voice number.
         /// </summary>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="PhoneTypes" />
         public bool IsVoice
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Voice) == PhoneTypes.Voice;
-            }
+            get { return (_phoneType & PhoneTypes.Voice) == PhoneTypes.Voice; }
             set
             {
                 if (value)
@@ -324,14 +286,11 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a work number.
         /// </summary>
-        /// <seealso cref="IsHome"/>
-        /// <seealso cref="PhoneTypes"/>
+        /// <seealso cref="IsHome" />
+        /// <seealso cref="PhoneTypes" />
         public bool IsWork
         {
-            get
-            {
-                return (_phoneType & PhoneTypes.Work) == PhoneTypes.Work;
-            }
+            get { return (_phoneType & PhoneTypes.Work) == PhoneTypes.Work; }
             set
             {
                 if (value)
@@ -346,19 +305,13 @@ namespace VCardReader
         /// <summary>
         ///     The phone subtype.
         /// </summary>
-        /// <seealso cref="IsVideo"/>
-        /// <seealso cref="IsVoice"/>
-        /// <seealso cref="IsWork"/>
+        /// <seealso cref="IsVideo" />
+        /// <seealso cref="IsVoice" />
+        /// <seealso cref="IsWork" />
         public PhoneTypes PhoneType
         {
-            get
-            {
-                return _phoneType;
-            }
-            set
-            {
-                _phoneType = value;
-            }
+            get { return _phoneType; }
+            set { _phoneType = value; }
         }
         #endregion
     }

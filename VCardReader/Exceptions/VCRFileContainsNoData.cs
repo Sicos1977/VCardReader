@@ -7,10 +7,16 @@ namespace OfficeConverter.Exceptions
     /// </summary>
     public class VCRFileContainsNoData : Exception
     {
-        internal VCRFileContainsNoData() { }
+        internal VCRFileContainsNoData()
+        {
+        }
 
-        internal VCRFileContainsNoData(string message) : base(message) { }
+        internal VCRFileContainsNoData(string message) : base(message)
+        {
+        }
 
-        internal VCRFileContainsNoData(string message, Exception inner) : base(message, inner) { }
+        internal VCRFileContainsNoData(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }

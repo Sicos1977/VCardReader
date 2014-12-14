@@ -1,6 +1,5 @@
 namespace VCardReader
 {
-    #region Enum VCardEncoding
     /// <summary>
     ///     The encoding used to store a vCard property value in text format.
     /// </summary>
@@ -17,7 +16,7 @@ namespace VCardReader
         Escaped,
 
         /// <summary>
-        ///   Binary or BASE64 encoding.
+        ///     Binary or BASE64 encoding.
         /// </summary>
         Base64,
 
@@ -26,5 +25,5 @@ namespace VCardReader
         /// </summary>
         QuotedPrintable
     }
-    #endregion
+    #endrgion
 }

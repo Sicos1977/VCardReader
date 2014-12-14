@@ -3,38 +3,36 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Text;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
     /// <summary>
     ///     Implements the standard vCard 2.1 and 3.0 text formats.
     /// </summary>
-    internal class VCardWriter
+    public class VCardWriter
     {
         #region Fields
         private readonly bool _embedInternetImages;
         private readonly bool _embedLocalImages;
 
         /// <summary>
-        ///     The characters that are escaped per the original
-        ///     vCard specification.
-        /// </summary>
-        private readonly char[] _standardEscapedCharacters = { ',', '\\', ';', '\r', '\n' };
-
-        /// <summary>
         ///     The characters that are escaped by Microsoft Outlook.
         /// </summary>
         /// <remarks>
-        ///     Microsoft Outlook does not property decode escaped
-        ///     commas in values.
+        ///     Microsoft Outlook does not property decode escaped commas in values.
         /// </remarks>
-        private readonly char[] _outlookEscapedCharacters = { '\\', ';', '\r', '\n' };
+        private readonly char[] _outlookEscapedCharacters = {'\\', ';', '\r', '\n'};
+
+        /// <summary>
+        ///     The characters that are escaped per the original vCard specification.
+        /// </summary>
+        private readonly char[] _standardEscapedCharacters = {',', '\\', ';', '\r', '\n'};
         #endregion
 
         #region Properties
         /// <summary>
-        ///     A collection of warning messages that were generated
-        ///     during the output of a vCard.
+        ///     A collection of warning messages that were generated during the output of a vCard.
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
@@ -56,9 +54,8 @@ namespace VCardReader
         ///     Creates a new instance of the standard writer.
         /// </summary>
         /// <remarks>
-        ///     The standard writer is configured to create vCard
-        ///     files in the highest supported version.  This is
-        ///     currently version 3.0.
+        ///     The standard writer is configured to create vCard files in the highest supported version. 
+        ///     This is currently version 3.0.
         /// </remarks>
         public VCardWriter(bool embedInternetImages)
         {
@@ -70,16 +67,14 @@ namespace VCardReader
 
         #region BuildProperties
         /// <summary>
-        ///     Builds a collection of standard properties based on
-        ///     the specified vCard.
+        ///     Builds a collection of standard properties based on the specified vCard.
         /// </summary>
         /// <returns>
-        ///     A <see cref="PropertyCollection"/> that contains all
-        ///     properties for the current vCard, including the header
-        ///     and footer properties.
+        ///     A <see cref="PropertyCollection" /> that contains all properties for the current vCard, 
+        ///     including the header and footer properties.
         /// </returns>
-        /// <seealso cref="VCard"/>
-        /// <seealso cref="Property"/>
+        /// <seealso cref="VCard" />
+        /// <seealso cref="Property" />
         private PropertyCollection BuildProperties(VCard card)
         {
             var properties = new PropertyCollection {new Property("BEGIN", "VCARD")};
@@ -129,7 +124,6 @@ namespace VCardReader
         {
             foreach (var deliveryAddress in card.DeliveryAddresses)
             {
-
                 // Do not generate a postal address (ADR) property
                 // if the entire address is blank.
 
@@ -137,8 +131,8 @@ namespace VCardReader
                     (string.IsNullOrEmpty(deliveryAddress.PostalCode)) && (string.IsNullOrEmpty(deliveryAddress.Region)) &&
                     (string.IsNullOrEmpty(deliveryAddress.Street))) continue;
 
-                // The ADR property contains the following
-                // subvalues in order.  All are required:
+                // The ADR property contains the following subvalues in order.  
+                // All are required:
                 //
                 //   - Post office box
                 //   - Extended address
@@ -190,7 +184,6 @@ namespace VCardReader
         /// </summary>
         private static void BuildPropertiesBDay(ICollection<Property> properties, VCard card)
         {
-
             // The BDAY property indicates the birthdate
             // of the person.  The output format here is based on
             // Microsoft Outlook, which writes the date as YYYMMDD.
@@ -244,7 +237,6 @@ namespace VCardReader
 
                 default:
                     throw new NotSupportedException();
-
             }
 
             properties.Add(property);
@@ -276,7 +268,6 @@ namespace VCardReader
 
                 switch (emailAddress.EmailType)
                 {
-
                     case EmailAddressType.Internet:
                         property.Subproperties.Add("INTERNET");
                         break;
@@ -328,7 +319,6 @@ namespace VCardReader
                     default:
                         property.Subproperties.Add("INTERNET");
                         break;
-
                 }
 
                 properties.Add(property);
@@ -363,7 +353,7 @@ namespace VCardReader
             var property = new Property
             {
                 Name = "GEO",
-                Value = card.Latitude.ToString() + ";" + card.Longitude.ToString()
+                Value = card.Latitude + ";" + card.Longitude
             };
 
             properties.Add(property);
@@ -508,7 +498,6 @@ namespace VCardReader
         /// </summary>
         private static void BuildPropertiesNote(ICollection<Property> properties, VCard card)
         {
-
             foreach (var note in card.Notes)
             {
                 if (string.IsNullOrEmpty(note.Text)) continue;
@@ -548,7 +537,6 @@ namespace VCardReader
             {
                 if (photo.Url == null)
                 {
-
                     // This photo does not have a URL associated
                     // with it.  Therefore a property can be
                     // generated only if the image data is loaded.
@@ -577,7 +565,6 @@ namespace VCardReader
                         }
                         catch
                         {
-
                             // An error was encountered.  The image can
                             // still be written as a link, however.
 
@@ -594,7 +581,6 @@ namespace VCardReader
                             new Property("PHOTO", photo.GetBytes()));
                     else
                     {
-
                         var uriPhotoProperty = new Property("PHOTO");
 
                         // Set the VALUE property to indicate that
@@ -810,7 +796,7 @@ namespace VCardReader
         // ReSharper disable once UnusedMember.Global
         public static string EncodeBase64(byte value)
         {
-            return Convert.ToBase64String(new[] { value });
+            return Convert.ToBase64String(new[] {value});
         }
         #endregion
 
@@ -833,10 +819,10 @@ namespace VCardReader
         {
             var buffer = new byte[4];
 
-            buffer[0] = (byte)(value);
-            buffer[1] = (byte)(value >> 8);
-            buffer[2] = (byte)(value >> 16);
-            buffer[3] = (byte)(value >> 24);
+            buffer[0] = (byte) (value);
+            buffer[1] = (byte) (value >> 8);
+            buffer[2] = (byte) (value >> 16);
+            buffer[3] = (byte) (value >> 24);
 
             return Convert.ToBase64String(buffer);
         }
@@ -850,7 +836,9 @@ namespace VCardReader
         public string EncodeEscaped(string value)
         {
             return EncodeEscaped(value, (Options & WriterOptions.IgnoreCommas) ==
-                                        WriterOptions.IgnoreCommas ? _outlookEscapedCharacters : _standardEscapedCharacters);
+                                        WriterOptions.IgnoreCommas
+                ? _outlookEscapedCharacters
+                : _standardEscapedCharacters);
         }
         #endregion
 
@@ -861,7 +849,6 @@ namespace VCardReader
         // ReSharper disable once MemberCanBePrivate.Global
         public static string EncodeEscaped(string value, char[] escaped)
         {
-
             if (escaped == null)
                 throw new ArgumentNullException("escaped");
 
@@ -874,7 +861,6 @@ namespace VCardReader
 
             do
             {
-
                 // Get the index of the next character
                 // to be escaped (e.g. the next semicolon).
 
@@ -893,9 +879,8 @@ namespace VCardReader
                         value.Length - startIndex);
 
                     break;
-
                 }
-                
+
                 char replacement;
                 switch (value[nextIndex])
                 {
@@ -910,7 +895,6 @@ namespace VCardReader
                     default:
                         replacement = value[nextIndex];
                         break;
-
                 }
 
                 buffer.Append(
@@ -947,7 +931,6 @@ namespace VCardReader
         // ReSharper disable once MemberCanBePrivate.Global
         public static string EncodeQuotedPrintable(string value)
         {
-
             if (string.IsNullOrEmpty(value))
                 return value;
 
@@ -955,8 +938,7 @@ namespace VCardReader
 
             foreach (var c in value)
             {
-
-                var v = (int)c;
+                var v = (int) c;
 
                 // The following are not required to be encoded:
                 //
@@ -976,7 +958,6 @@ namespace VCardReader
                     builder.Append('=');
                     builder.Append(v.ToString("X2"));
                 }
-
             }
 
             char lastChar = builder[builder.Length - 1];
@@ -984,13 +965,11 @@ namespace VCardReader
             {
                 builder.Remove(builder.Length - 1, 1);
                 builder.Append('=');
-                builder.Append(((int)lastChar).ToString("X2"));
+                builder.Append(((int) lastChar).ToString("X2"));
             }
 
             return builder.ToString();
-
         }
-
         #endregion
 
         #region EncodeProperty
@@ -1034,29 +1013,24 @@ namespace VCardReader
             {
                 var valueType = property.Value.GetType();
 
-                if (valueType == typeof(byte[]))
+                if (valueType == typeof (byte[]))
                 {
-
                     // A byte array should be encoded in BASE64 format.
 
                     builder.Append(";ENCODING=BASE64:");
-                    builder.Append(EncodeBase64((byte[])property.Value));
-
+                    builder.Append(EncodeBase64((byte[]) property.Value));
                 }
-                else if (valueType == typeof(ValueCollection))
+                else if (valueType == typeof (ValueCollection))
                 {
-
-                    var values = (ValueCollection)property.Value;
+                    var values = (ValueCollection) property.Value;
 
                     builder.Append(':');
                     for (var index = 0; index < values.Count; index++)
                     {
-
                         builder.Append(EncodeEscaped(values[index]));
                         if (index < values.Count - 1)
                             builder.Append(values.Separator);
                     }
-
                 }
                 else
                 {
@@ -1064,13 +1038,14 @@ namespace VCardReader
                     // not a string already) and encoded if necessary.
                     // The first step is to get the string value.
 
-                    var stringValue = valueType == typeof(char[]) ? new string(((char[])property.Value)) : property.Value.ToString();
+                    var stringValue = valueType == typeof (char[])
+                        ? new string(((char[]) property.Value))
+                        : property.Value.ToString();
 
                     builder.Append(':');
 
                     switch (property.Subproperties.GetValue("ENCODING"))
                     {
-
                         case "QUOTED-PRINTABLE":
                             builder.Append(EncodeQuotedPrintable(stringValue));
                             break;
@@ -1078,7 +1053,6 @@ namespace VCardReader
                         default:
                             builder.Append(EncodeEscaped(stringValue));
                             break;
-
                     }
                 }
             }

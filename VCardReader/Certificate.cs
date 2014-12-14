@@ -8,7 +8,7 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A vCard can be associated with a public key or authentication certificate.  This is typically
+    ///         A vCard can be associated with a public key or authentication certificate. This is typically
     ///         a public X509 certificate that allows people to use the key for validating messages.
     ///     </para>
     /// </remarks>
@@ -24,10 +24,8 @@ namespace VCardReader
         ///     The raw data of the certificate as a byte array.
         /// </summary>
         /// <remarks>
-        ///     Most certificates consist of 8-bit binary data
-        ///     that is encoded into a text format using BASE64
-        ///     or a similar system.  This property provides
-        ///     access to the computer-friendly, decoded data.
+        ///     Most certificates consist of 8-bit binary data that is encoded into a text format using BASE64
+        ///     or a similar system. This property provides access to the computer-friendly, decoded data.
         /// </remarks>
         public byte[] Data { get; set; }
 
@@ -39,20 +37,14 @@ namespace VCardReader
         /// </remarks>
         public string KeyType
         {
-            get
-            {
-                return _keyType ?? string.Empty;
-            }
-            set
-            {
-                _keyType = value;
-            }
+            get { return _keyType ?? string.Empty; }
+            set { _keyType = value; }
         }
         #endregion
-        
+
         #region Constructors
         /// <summary>
-        ///     Creates a new instance of the <see cref="Certificate"/> class.
+        ///     Creates a new instance of the <see cref="Certificate" /> class.
         /// </summary>
         public Certificate()
         {
@@ -60,12 +52,10 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Creates a new instance of the <see cref="Certificate"/>
-        ///     class using the specified key type and raw certificate data.
+        ///     Creates a new instance of the <see cref="Certificate" /> class using the specified key type and raw certificate data.
         /// </summary>
         /// <param name="keyType">
-        ///     A string that identifies the type of certificate,
-        ///     such as X509.
+        ///     A string that identifies the type of certificate, such as X509.
         /// </param>
         /// <param name="data">
         ///     The raw certificate data stored as a byte array.
@@ -96,7 +86,6 @@ namespace VCardReader
 
             Data = x509.RawData;
             _keyType = "X509";
-
         }
         #endregion
     }

@@ -8,12 +8,11 @@ using System.Xml.Serialization;
 namespace MsgViewer.Helpers
 {
     /// <summary>
-    /// This class is a P/INVOKE wrapper to the Window placement function.
-    /// http://msdn.microsoft.com/en-us/library/windows/desktop/ms632611%28v=vs.85%29.aspx
+    ///     This class is a P/INVOKE wrapper to the Window placement function.
+    ///     http://msdn.microsoft.com/en-us/library/windows/desktop/ms632611%28v=vs.85%29.aspx
     /// </summary>
     public static class WindowPlacement
     {
-        // ReSharper disable InconsistentNaming
         #region Fields
         private const int SW_SHOWNORMAL = 1;
         private const int SW_SHOWMINIMIZED = 2;
@@ -26,7 +25,24 @@ namespace MsgViewer.Helpers
         {
             #region Structures
             /// <summary>
-            /// RECT structure required by WINDOWPLACEMENT structure
+            ///     POINT structure required by WINDOWPLACEMENT structure
+            /// </summary>
+            [Serializable]
+            [StructLayout(LayoutKind.Sequential)]
+            public struct POINT
+            {
+                public int X;
+                public int Y;
+
+                public POINT(int x, int y)
+                {
+                    X = x;
+                    Y = y;
+                }
+            }
+
+            /// <summary>
+            ///     RECT structure required by WINDOWPLACEMENT structure
             /// </summary>
             [Serializable]
             [StructLayout(LayoutKind.Sequential)]
@@ -47,24 +63,7 @@ namespace MsgViewer.Helpers
             }
 
             /// <summary>
-            /// POINT structure required by WINDOWPLACEMENT structure
-            /// </summary>
-            [Serializable]
-            [StructLayout(LayoutKind.Sequential)]
-            public struct POINT
-            {
-                public int X;
-                public int Y;
-
-                public POINT(int x, int y)
-                {
-                    X = x;
-                    Y = y;
-                }
-            }
-
-            /// <summary>
-            /// WINDOWPLACEMENT stores the position, size, and state of a window
+            ///     WINDOWPLACEMENT stores the position, size, and state of a window
             /// </summary>
             [Serializable]
             [StructLayout(LayoutKind.Sequential)]
@@ -89,7 +88,7 @@ namespace MsgViewer.Helpers
 
         #region SetPlacement
         /// <summary>
-        /// Sets the position of the window
+        ///     Sets the position of the window
         /// </summary>
         /// <param name="windowHandle"></param>
         /// <param name="placementXml"></param>
@@ -120,7 +119,7 @@ namespace MsgViewer.Helpers
 
         #region GetPlacement
         /// <summary>
-        /// Returns the position of the window
+        ///     Returns the position of the window
         /// </summary>
         /// <param name="windowHandle"></param>
         /// <returns></returns>
@@ -140,6 +139,9 @@ namespace MsgViewer.Helpers
             }
         }
         #endregion
+
+        // ReSharper disable InconsistentNaming
+
         // ReSharper restore InconsistentNaming
     }
 }

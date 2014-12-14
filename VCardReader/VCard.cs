@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
@@ -23,8 +24,10 @@ namespace VCardReader
     public class VCard
     {
         #region Fields
+        private readonly StringCollection _nicknames;
+        [NonSerialized] private readonly NoteCollection _notes;
+        [NonSerialized] private readonly PhotoCollection _photos;
         private string _additionalNames;
-        private DateTime? _birthDate;
         private string _department;
         private string _displayName;
         private string _familyName;
@@ -35,7 +38,6 @@ namespace VCardReader
         private string _mailer;
         private string _namePrefix;
         private string _nameSuffix;
-        private readonly StringCollection _nicknames;
         private string _office;
         private string _organization;
         private string _productId;
@@ -44,10 +46,6 @@ namespace VCardReader
         private string _timeZone;
         private string _title;
         private string _uniqueId;
-        [NonSerialized]
-        private readonly NoteCollection _notes;
-        [NonSerialized]
-        private readonly PhotoCollection _photos;
         #endregion
 
         #region AccessClassification
@@ -61,20 +59,14 @@ namespace VCardReader
         /// <summary>
         ///     Any additional (e.g. middle) names of the person.
         /// </summary>
-        /// <seealso cref="FamilyName"/>
-        /// <seealso cref="FormattedName"/>
-        /// <seealso cref="GivenName"/>
-        /// <seealso cref="Nicknames"/>
+        /// <seealso cref="FamilyName" />
+        /// <seealso cref="FormattedName" />
+        /// <seealso cref="GivenName" />
+        /// <seealso cref="Nicknames" />
         public string AdditionalNames
         {
-            get
-            {
-                return _additionalNames ?? string.Empty;
-            }
-            set
-            {
-                _additionalNames = value;
-            }
+            get { return _additionalNames ?? string.Empty; }
+            set { _additionalNames = value; }
         }
         #endregion
 
@@ -82,17 +74,7 @@ namespace VCardReader
         /// <summary>
         ///     The birthdate of the person.
         /// </summary>
-        public DateTime? BirthDate
-        {
-            get
-            {
-                return _birthDate;
-            }
-            set
-            {
-                _birthDate = value;
-            }
-        }
+        public DateTime? BirthDate { get; set; }
         #endregion
 
         #region Categories
@@ -100,17 +82,16 @@ namespace VCardReader
         ///     Categories of the vCard.
         /// </summary>
         /// <remarks>
-        ///     This property is a collection of strings containing
-        ///     keywords or category names.
+        ///     This property is a collection of strings containing keywords or category names.
         /// </remarks>
         public StringCollection Categories { get; private set; }
         #endregion
-        
+
         #region Certificates
         /// <summary>
         ///     Public key certificates attached to the vCard.
         /// </summary>
-        /// <seealso cref="Certificate"/>
+        /// <seealso cref="Certificate" />
         public CertificateCollection Certificates { get; private set; }
         #endregion
 
@@ -132,18 +113,12 @@ namespace VCardReader
         /// <summary>
         ///     The department of the person in the organization.
         /// </summary>
-        /// <seealso cref="Office"/>
-        /// <seealso cref="Organization"/>
+        /// <seealso cref="Office" />
+        /// <seealso cref="Organization" />
         public string Department
         {
-            get
-            {
-                return _department ?? string.Empty;
-            }
-            set
-            {
-                _department = value;
-            }
+            get { return _department ?? string.Empty; }
+            set { _department = value; }
         }
         #endregion
 
@@ -152,27 +127,20 @@ namespace VCardReader
         ///     The display name of the vCard.
         /// </summary>
         /// <remarks>
-        ///     This property is used by vCard applications for titles,
-        ///     headers, and other visual elements.
+        ///     This property is used by vCard applications for titles, headers, and other visual elements.
         /// </remarks>
         public string DisplayName
         {
-            get
-            {
-                return _displayName ?? string.Empty;
-            }
-            set
-            {
-                _displayName = value;
-            }
+            get { return _displayName ?? string.Empty; }
+            set { _displayName = value; }
         }
         #endregion
 
         #region EmailAddresses
         /// <summary>
-        ///     A collection of <see cref="EmailAddress"/> objects for the person.
+        ///     A collection of <see cref="EmailAddress" /> objects for the person.
         /// </summary>
-        /// <seealso cref="EmailAddress"/>
+        /// <seealso cref="EmailAddress" />
         public EmailAddressCollection EmailAddresses { get; private set; }
         #endregion
 
@@ -180,20 +148,14 @@ namespace VCardReader
         /// <summary>
         ///     The family (last) name of the person.
         /// </summary>
-        /// <seealso cref="AdditionalNames"/>
-        /// <seealso cref="FormattedName"/>
-        /// <seealso cref="GivenName"/>
-        /// <seealso cref="Nicknames"/>
+        /// <seealso cref="AdditionalNames" />
+        /// <seealso cref="FormattedName" />
+        /// <seealso cref="GivenName" />
+        /// <seealso cref="Nicknames" />
         public string FamilyName
         {
-            get
-            {
-                return _familyName ?? string.Empty;
-            }
-            set
-            {
-                _familyName = value;
-            }
+            get { return _familyName ?? string.Empty; }
+            set { _familyName = value; }
         }
         #endregion
 
@@ -202,25 +164,17 @@ namespace VCardReader
         ///     The formatted name of the person.
         /// </summary>
         /// <remarks>
-        ///     This property allows the name of the person to be
-        ///     written in a manner specific to his or her culture.
-        ///     The formatted name is not required to strictly
-        ///     correspond with the family name, given name, etc.
+        ///     This property allows the name of the person to be written in a manner specific to his or her culture.
+        ///     The formatted name is not required to strictly correspond with the family name, given name, etc.
         /// </remarks>
-        /// <seealso cref="AdditionalNames"/>
-        /// <seealso cref="FamilyName"/>
-        /// <seealso cref="GivenName"/>
-        /// <seealso cref="Nicknames"/>
+        /// <seealso cref="AdditionalNames" />
+        /// <seealso cref="FamilyName" />
+        /// <seealso cref="GivenName" />
+        /// <seealso cref="Nicknames" />
         public string FormattedName
         {
-            get
-            {
-                return _formattedName ?? string.Empty;
-            }
-            set
-            {
-                _formattedName = value;
-            }
+            get { return _formattedName ?? string.Empty; }
+            set { _formattedName = value; }
         }
         #endregion
 
@@ -229,12 +183,10 @@ namespace VCardReader
         ///     The gender of the person.
         /// </summary>
         /// <remarks>
-        ///     The vCard specification does not define a property
-        ///     to indicate the gender of the contact.  Microsoft
-        ///     Outlook implements it as a custom property named
-        ///     X-WAB-GENDER.
+        ///     The vCard specification does not define a property to indicate the gender of the contact.  
+        ///     Microsoft Outlook implements it as a custom property named X-WAB-GENDER.
         /// </remarks>
-        /// <seealso cref="Gender"/>
+        /// <seealso cref="Gender" />
         public Gender Gender { get; set; }
         #endregion
 
@@ -242,20 +194,14 @@ namespace VCardReader
         /// <summary>
         ///     The given (first) name of the person.
         /// </summary>
-        /// <seealso cref="AdditionalNames"/>
-        /// <seealso cref="FamilyName"/>
-        /// <seealso cref="FormattedName"/>
-        /// <seealso cref="Nicknames"/>
+        /// <seealso cref="AdditionalNames" />
+        /// <seealso cref="FamilyName" />
+        /// <seealso cref="FormattedName" />
+        /// <seealso cref="Nicknames" />
         public string GivenName
         {
-            get
-            {
-                return _givenName ?? string.Empty;
-            }
-            set
-            {
-                _givenName = value;
-            }
+            get { return _givenName ?? string.Empty; }
+            set { _givenName = value; }
         }
         #endregion
 
@@ -263,17 +209,11 @@ namespace VCardReader
         /// <summary>
         ///     The latitude of the person in decimal degrees.
         /// </summary>
-        /// <seealso cref="Longitude"/>
+        /// <seealso cref="Longitude" />
         public float? Latitude
         {
-            get
-            {
-                return _latitude;
-            }
-            set
-            {
-                _latitude = value;
-            }
+            get { return _latitude; }
+            set { _latitude = value; }
         }
         #endregion
 
@@ -281,17 +221,11 @@ namespace VCardReader
         /// <summary>
         ///     The longitude of the person in decimal degrees.
         /// </summary>
-        /// <seealso cref="Latitude"/>
+        /// <seealso cref="Latitude" />
         public float? Longitude
         {
-            get
-            {
-                return _longitude;
-            }
-            set
-            {
-                _longitude = value;
-            }
+            get { return _longitude; }
+            set { _longitude = value; }
         }
         #endregion
 
@@ -301,14 +235,8 @@ namespace VCardReader
         /// </summary>
         public string Mailer
         {
-            get
-            {
-                return _mailer ?? string.Empty;
-            }
-            set
-            {
-                _mailer = value;
-            }
+            get { return _mailer ?? string.Empty; }
+            set { _mailer = value; }
         }
         #endregion
 
@@ -316,17 +244,11 @@ namespace VCardReader
         /// <summary>
         ///     The prefix (e.g. "Mr.") of the person.
         /// </summary>
-        /// <seealso cref="NameSuffix"/>
+        /// <seealso cref="NameSuffix" />
         public string NamePrefix
         {
-            get
-            {
-                return _namePrefix ?? string.Empty;
-            }
-            set
-            {
-                _namePrefix = value;
-            }
+            get { return _namePrefix ?? string.Empty; }
+            set { _namePrefix = value; }
         }
         #endregion
 
@@ -334,17 +256,11 @@ namespace VCardReader
         /// <summary>
         ///     The suffix (e.g. "Jr.") of the person.
         /// </summary>
-        /// <seealso cref="NamePrefix"/>
+        /// <seealso cref="NamePrefix" />
         public string NameSuffix
         {
-            get
-            {
-                return _nameSuffix ?? string.Empty;
-            }
-            set
-            {
-                _nameSuffix = value;
-            }
+            get { return _nameSuffix ?? string.Empty; }
+            set { _nameSuffix = value; }
         }
         #endregion
 
@@ -352,16 +268,13 @@ namespace VCardReader
         /// <summary>
         ///     A collection of nicknames for the person.
         /// </summary>
-        /// <seealso cref="AdditionalNames"/>
-        /// <seealso cref="FamilyName"/>
-        /// <seealso cref="FormattedName"/>
-        /// <seealso cref="GivenName"/>
+        /// <seealso cref="AdditionalNames" />
+        /// <seealso cref="FamilyName" />
+        /// <seealso cref="FormattedName" />
+        /// <seealso cref="GivenName" />
         public StringCollection Nicknames
         {
-            get
-            {
-                return _nicknames;
-            }
+            get { return _nicknames; }
         }
         #endregion
 
@@ -371,10 +284,7 @@ namespace VCardReader
         /// </summary>
         public NoteCollection Notes
         {
-            get
-            {
-                return _notes;
-            }
+            get { return _notes; }
         }
         #endregion
 
@@ -382,18 +292,12 @@ namespace VCardReader
         /// <summary>
         ///     The office of the person at the organization.
         /// </summary>
-        /// <seealso cref="Department"/>
-        /// <seealso cref="Organization"/>
+        /// <seealso cref="Department" />
+        /// <seealso cref="Organization" />
         public string Office
         {
-            get
-            {
-                return _office ?? string.Empty;
-            }
-            set
-            {
-                _office = value;
-            }
+            get { return _office ?? string.Empty; }
+            set { _office = value; }
         }
         #endregion
 
@@ -401,19 +305,13 @@ namespace VCardReader
         /// <summary>
         ///     The organization or company of the person.
         /// </summary>
-        /// <seealso cref="Office"/>
-        /// <seealso cref="Role"/>
-        /// <seealso cref="Title"/>
+        /// <seealso cref="Office" />
+        /// <seealso cref="Role" />
+        /// <seealso cref="Title" />
         public string Organization
         {
-            get
-            {
-                return _organization ?? string.Empty;
-            }
-            set
-            {
-                _organization = value;
-            }
+            get { return _organization ?? string.Empty; }
+            set { _organization = value; }
         }
         #endregion
 
@@ -426,15 +324,11 @@ namespace VCardReader
 
         #region Photos
         /// <summary>
-        ///     A collection of photographic images embedded or 
-        ///     referenced by the vCard.
+        ///     A collection of photographic images embedded or referenced by the vCard.
         /// </summary>
         public PhotoCollection Photos
         {
-            get
-            {
-                return _photos;
-            }
+            get { return _photos; }
         }
         #endregion
 
@@ -444,14 +338,8 @@ namespace VCardReader
         /// </summary>
         public string ProductId
         {
-            get
-            {
-                return _productId ?? string.Empty;
-            }
-            set
-            {
-                _productId = value;
-            }
+            get { return _productId ?? string.Empty; }
+            set { _productId = value; }
         }
         #endregion
 
@@ -461,19 +349,13 @@ namespace VCardReader
         /// </summary>
         /// <remarks>
         ///     The revision date is not automatically updated by the
-        ///     vCard when modifying properties.  It is up to the 
+        ///     vCard when modifying properties.  It is up to the
         ///     developer to change the revision date as needed.
         /// </remarks>
         public DateTime? RevisionDate
         {
-            get
-            {
-                return _revisionDate;
-            }
-            set
-            {
-                _revisionDate = value;
-            }
+            get { return _revisionDate; }
+            set { _revisionDate = value; }
         }
         #endregion
 
@@ -484,20 +366,14 @@ namespace VCardReader
         /// <remarks>
         ///     The role is shown as "Profession" in Microsoft Outlook.
         /// </remarks>
-        /// <seealso cref="Department"/>
-        /// <seealso cref="Office"/>
-        /// <seealso cref="Organization"/>
-        /// <seealso cref="Title"/>
+        /// <seealso cref="Department" />
+        /// <seealso cref="Office" />
+        /// <seealso cref="Organization" />
+        /// <seealso cref="Title" />
         public string Role
         {
-            get
-            {
-                return _role ?? string.Empty;
-            }
-            set
-            {
-                _role = value;
-            }
+            get { return _role ?? string.Empty; }
+            set { _role = value; }
         }
         #endregion
 
@@ -506,10 +382,8 @@ namespace VCardReader
         ///     Directory sources for the vCard information.
         /// </summary>
         /// <remarks>
-        ///     A vCard may contain zero or more sources.  A source
-        ///     identifies a directory that contains (or provided)
-        ///     information found in the vCard.  A program can
-        ///     hypothetically connect to the source in order to
+        ///     A vCard may contain zero or more sources. A source identifies a directory that contains (or provided)
+        ///     information found in the vCard. A program can hypothetically connect to the source in order to
         ///     obtain updated information.
         /// </remarks>
         public SourceCollection Sources { get; private set; }
@@ -522,14 +396,8 @@ namespace VCardReader
         /// </summary>
         public string TimeZone
         {
-            get
-            {
-                return _timeZone ?? string.Empty;
-            }
-            set
-            {
-                _timeZone = value;
-            }
+            get { return _timeZone ?? string.Empty; }
+            set { _timeZone = value; }
         }
         #endregion
 
@@ -537,18 +405,12 @@ namespace VCardReader
         /// <summary>
         ///     The job title of the person.
         /// </summary>
-        /// <seealso cref="Organization"/>
-        /// <seealso cref="Role"/>
+        /// <seealso cref="Organization" />
+        /// <seealso cref="Role" />
         public string Title
         {
-            get
-            {
-                return _title ?? string.Empty;
-            }
-            set
-            {
-                _title = value;
-            }
+            get { return _title; }
+            set { _title = value; }
         }
         #endregion
 
@@ -557,8 +419,7 @@ namespace VCardReader
         ///     Builds a string that represents the vCard.
         /// </summary>
         /// <returns>
-        ///     The formatted name of the contact person, if defined,
-        ///     or the default object.ToString().
+        ///     The formatted name of the contact person, if defined, or the default object.ToString().
         /// </returns>
         public override string ToString()
         {
@@ -571,23 +432,14 @@ namespace VCardReader
         ///     A value that uniquely identifies the vCard.
         /// </summary>
         /// <remarks>
-        ///     This value is optional.  The string must be any string
-        ///     that can be used to uniquely identify the vCard.  The
-        ///     usage of the field is determined by the software.  Typical
-        ///     possibilities for a unique string include a URL, a GUID,
-        ///     or an LDAP directory path.  However, there is no particular
-        ///     standard dictated by the vCard specification.
+        ///     This value is optional. The string must be any string that can be used to uniquely identify the vCard.  The
+        ///     usage of the field is determined by the software. Typical possibilities for a unique string include a URL, a GUID,
+        ///     or an LDAP directory path.  However, there is no particular standard dictated by the vCard specification.
         /// </remarks>
         public string UniqueId
         {
-            get
-            {
-                return _uniqueId ?? string.Empty;
-            }
-            set
-            {
-                _uniqueId = value;
-            }
+            get { return _uniqueId ?? string.Empty; }
+            set { _uniqueId = value; }
         }
         #endregion
 
@@ -595,14 +447,14 @@ namespace VCardReader
         /// <summary>
         ///     Web sites associated with the person.
         /// </summary>
-        /// <seealso cref="Website"/>
-        /// <seealso cref="WebsiteCollection"/>
+        /// <seealso cref="Website" />
+        /// <seealso cref="WebsiteCollection" />
         public WebsiteCollection Websites { get; private set; }
         #endregion
 
         #region Constructors
         /// <summary>
-        ///     Initializes a new instance of the <see cref="VCard"/> class.
+        ///     Initializes a new instance of the <see cref="VCard" /> class.
         /// </summary>
         public VCard()
         {
@@ -641,8 +493,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Loads a new instance of the <see cref="VCard"/> class
-        ///     from a text reader.
+        ///     Loads a new instance of the <see cref="VCard" /> class from a text reader.
         /// </summary>
         /// <param name="input">
         ///     An initialized text reader.
@@ -655,12 +506,10 @@ namespace VCardReader
 
 
         /// <summary>
-        ///     Loads a new instance of the <see cref="VCard"/> class
-        ///     from a text file.
+        ///     Loads a new instance of the <see cref="VCard" /> class from a text file.
         /// </summary>
         /// <param name="path">
-        ///     The path to a text file containing vCard data in
-        ///     any recognized vCard format.
+        ///     The path to a text file containing vCard data in any recognized vCard format.
         /// </param>
         public VCard(string path)
             : this()

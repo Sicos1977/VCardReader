@@ -19,13 +19,13 @@
 namespace VCardReader.Helpers
 {
     /// <summary>
-    /// This class contains helper methods for E-mail addresses
+    ///     This class contains helper methods for E-mail addresses
     /// </summary>
     internal static class EmailAddress
     {
         #region IsEmailAddressValid
         /// <summary>
-        /// Return true when the E-mail address is valid
+        ///     Return true when the E-mail address is valid
         /// </summary>
         /// <param name="emailAddress"></param>
         /// <returns></returns>
@@ -43,7 +43,7 @@ namespace VCardReader.Helpers
 
         #region RemoveSingleQuotes
         /// <summary>
-        /// Removes trailing en ending single quotes from an E-mail address when they exist
+        ///     Removes trailing en ending single quotes from an E-mail address when they exist
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>

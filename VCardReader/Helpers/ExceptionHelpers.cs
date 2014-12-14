@@ -22,7 +22,7 @@ namespace VCardReader.Helpers
     {
         #region GetInnerException
         /// <summary>
-        /// Get the complete inner exception tree
+        ///     Get the complete inner exception tree
         /// </summary>
         /// <param name="e">The exception object</param>
         /// <returns></returns>

@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 
-namespace VCardReader
+namespace VCardReader.Collections
 {
     /// <summary>
-    ///     A collection of <see cref="Subproperty"/> objects.
+    ///     A collection of <see cref="Subproperty" /> objects.
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         This class is a general-purpose collection of <see cref="Subproperty"/> objects.
+    ///         This class is a general-purpose collection of <see cref="Subproperty" /> objects.
     ///     </para>
     ///     <para>
     ///         A property of a vCard contains a piece of contact information, such as an email address
@@ -17,8 +17,8 @@ namespace VCardReader
     ///         type of email address or character set.
     ///     </para>
     /// </remarks>
-    /// <seealso cref="Property"/>
-    /// <seealso cref="Subproperty"/>
+    /// <seealso cref="Property" />
+    /// <seealso cref="Subproperty" />
     public class SubpropertyCollection : Collection<Subproperty>
     {
         #region Add
@@ -32,7 +32,7 @@ namespace VCardReader
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
-                Add(new Subproperty(name));
+            Add(new Subproperty(name));
         }
 
         /// <summary>
@@ -62,7 +62,6 @@ namespace VCardReader
         /// </param>
         public void AddOrUpdate(string name, string value)
         {
-
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
@@ -77,15 +76,13 @@ namespace VCardReader
 
         #region Contains
         /// <summary>
-        ///     Determines if the collection contains a subproperty
-        ///     with the specified name.
+        ///     Determines if the collection contains a subproperty with the specified name.
         /// </summary>
         /// <param name="name">
         ///     The name of the subproperty.
         /// </param>
         /// <returns>
-        ///     True if the collection contains a subproperty with the
-        ///     specified name, or False otherwise.
+        ///     True if the collection contains a subproperty with the specified name, or False otherwise.
         /// </returns>
         public bool Contains(string name)
         {
@@ -104,8 +101,7 @@ namespace VCardReader
         ///     Builds a string array containing subproperty names.
         /// </summary>
         /// <returns>
-        ///     A string array containing the unmodified name of
-        ///     each subproperty in the collection.
+        ///     A string array containing the unmodified name of each subproperty in the collection.
         /// </returns>
         public string[] GetNames()
         {
@@ -114,7 +110,7 @@ namespace VCardReader
             foreach (var subproperty in this)
                 names.Add(subproperty.Name);
 
-            return (string[])names.ToArray(typeof(string));
+            return (string[]) names.ToArray(typeof (string));
         }
 
         /// <summary>
@@ -141,7 +137,7 @@ namespace VCardReader
             // the filtered list will be constructed.
 
             var processedNames =
-                (string[])filteredNames.Clone();
+                (string[]) filteredNames.Clone();
 
             for (var index = 0; index < processedNames.Length; index++)
             {
@@ -172,24 +168,21 @@ namespace VCardReader
 
                 if (matchIndex != -1)
                     matchingNames.Add(processedNames[matchIndex]);
-
             }
 
-            return (string[])matchingNames.ToArray(typeof(string));
+            return (string[]) matchingNames.ToArray(typeof (string));
         }
         #endregion
 
         #region GetValue
         /// <summary>
-        ///     Get the value of the subproperty with
-        ///     the specified name.
+        ///     Get the value of the subproperty with the specified name.
         /// </summary>
         /// <param name="name">
         ///     The name of the subproperty.
         /// </param>
         /// <returns>
-        ///     The value of the subproperty or null if no
-        ///     such subproperty exists in the collection.
+        ///     The value of the subproperty or null if no such subproperty exists in the collection.
         /// </returns>
         public string GetValue(string name)
         {
@@ -204,16 +197,14 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Gets the value of the first subproperty with the
-        ///     specified name, or the first value specified in
+        ///     Gets the value of the first subproperty with the specified name, or the first value specified in
         ///     a list.
         /// </summary>
         /// <param name="name">
         ///     The expected name of the subproperty.
         /// </param>
         /// <param name="namelessValues">
-        ///     A list of values that are sometimes listed as
-        ///     subproperty names.  The first matching value is
+        ///     A list of values that are sometimes listed as subproperty names. The first matching value is
         ///     returned if the name parameter does not match.
         /// </param>
         public string GetValue(
@@ -256,9 +247,8 @@ namespace VCardReader
         ///     The name of the subproperty.
         /// </param>
         /// <returns>
-        ///     The collection (zero-based) index of the first
-        ///     subproperty that matches the specified name.  The
-        ///     function returns -1 if no match is found.
+        ///     The collection (zero-based) index of the first subproperty that matches the specified name. 
+        ///     The function returns -1 if no match is found.
         /// </returns>
         public int IndexOf(string name)
         {
@@ -276,31 +266,26 @@ namespace VCardReader
 
         #region IndexOfAny
         /// <summary>
-        ///     Finds the first subproperty that has any of the
-        ///     specified names.
+        ///     Finds the first subproperty that has any of the specified names.
         /// </summary>
         /// <param name="names">
         ///     An array of names to search.
         /// </param>
         /// <returns>
-        ///     The collection index of the first subproperty with
-        ///     the specified name, or -1 if no subproperty was found.
+        ///     The collection index of the first subproperty with the specified name, or -1 if no subproperty was found.
         /// </returns>
         public int IndexOfAny(string[] names)
         {
-
             if (names == null)
                 throw new ArgumentNullException("names");
 
             for (var index = 0; index < Count; index++)
             {
-
                 foreach (var name in names)
                 {
                     if (string.Compare(this[index].Name, name, StringComparison.OrdinalIgnoreCase) == 0)
                         return index;
                 }
-
             }
             return -1;
         }

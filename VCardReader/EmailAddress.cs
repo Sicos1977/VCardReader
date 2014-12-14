@@ -1,15 +1,17 @@
+using VCardReader.Collections;
+
 namespace VCardReader
 {
     /// <summary>
-    ///     An email address in a <see cref="VCard"/>.
+    ///     An email address in a <see cref="VCard" />.
     /// </summary>
     /// <remarks>
-    ///     Most vCard email addresses are Internet email addresses. However, the vCard specification allows other 
-    ///     email address formats, such as CompuServe and X400. Unless otherwise specified, an address is assumed 
+    ///     Most vCard email addresses are Internet email addresses. However, the vCard specification allows other
+    ///     email address formats, such as CompuServe and X400. Unless otherwise specified, an address is assumed
     ///     to be an Internet address.
     /// </remarks>
-    /// <seealso cref="EmailAddressCollection"/>
-    /// <seealso cref="EmailAddressType"/>
+    /// <seealso cref="EmailAddressCollection" />
+    /// <seealso cref="EmailAddressType" />
     public class EmailAddress
     {
         #region Fields
@@ -18,7 +20,7 @@ namespace VCardReader
 
         #region Constructors
         /// <summary>
-        ///     Creates a new <see cref="EmailAddress"/>.
+        ///     Creates a new <see cref="EmailAddress" />.
         /// </summary>
         public EmailAddress()
         {
@@ -27,7 +29,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Creates a new Internet <see cref="EmailAddress"/>.
+        ///     Creates a new Internet <see cref="EmailAddress" />.
         /// </summary>
         /// <param name="address">
         ///     The Internet email address.
@@ -39,7 +41,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Creates a new <see cref="EmailAddress"/> of the specified type.
+        ///     Creates a new <see cref="EmailAddress" /> of the specified type.
         /// </summary>
         /// <param name="address">
         ///     The email address.
@@ -63,14 +65,8 @@ namespace VCardReader
         /// </remarks>
         public string Address
         {
-            get
-            {
-                return _address ?? string.Empty;
-            }
-            set
-            {
-                _address = value;
-            }
+            get { return _address ?? string.Empty; }
+            set { _address = value; }
         }
         #endregion
 

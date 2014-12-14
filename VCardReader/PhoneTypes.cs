@@ -1,16 +1,16 @@
 using System;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
     /// <summary>
     ///     Identifies different phone types (e.g. Fax, BBS, etc).
     /// </summary>
-    /// <seealso cref="Phone"/>
-    /// <seealso cref="PhoneCollection"/>
+    /// <seealso cref="Phone" />
+    /// <seealso cref="PhoneCollection" />
     [Flags]
     public enum PhoneTypes
     {
-
         /// <summary>
         ///     Indicates default properties.
         /// </summary>

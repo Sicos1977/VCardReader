@@ -1,10 +1,12 @@
+using VCardReader.Collections;
+
 namespace VCardReader
 {
     /// <summary>
     ///     A formatted delivery label.
     /// </summary>
-    /// <seealso cref="DeliveryAddress"/>
-    /// <seealso cref="DeliveryLabelCollection"/>
+    /// <seealso cref="DeliveryAddress" />
+    /// <seealso cref="DeliveryLabelCollection" />
     public class DeliveryLabel
     {
         #region Fields
@@ -13,19 +15,17 @@ namespace VCardReader
 
         #region Constructors
         /// <summary>
-        ///     Initializes a new <see cref="DeliveryLabel"/>.
+        ///     Initializes a new <see cref="DeliveryLabel" />.
         /// </summary>
         public DeliveryLabel()
         {
         }
 
         /// <summary>
-        ///     Initializes a new <see cref="DeliveryLabel"/> to
-        ///     the specified text.
+        ///     Initializes a new <see cref="DeliveryLabel" /> to the specified text.
         /// </summary>
         /// <param name="text">
-        ///     The formatted text of a delivery label.  The label 
-        ///     may contain carriage returns, line feeds, and other
+        ///     The formatted text of a delivery label. The label may contain carriage returns, line feeds, and other
         ///     control characters.
         /// </param>
         public DeliveryLabel(string text)
@@ -50,11 +50,10 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Domestic) ==
-                    DeliveryAddressTypes.Domestic;
+                       DeliveryAddressTypes.Domestic;
             }
             set
             {
-
                 if (value)
                 {
                     AddressType |= DeliveryAddressTypes.Domestic;
@@ -63,7 +62,6 @@ namespace VCardReader
                 {
                     AddressType &= ~DeliveryAddressTypes.Domestic;
                 }
-
             }
         }
         #endregion
@@ -77,7 +75,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Home) ==
-                    DeliveryAddressTypes.Home;
+                       DeliveryAddressTypes.Home;
             }
             set
             {
@@ -89,7 +87,6 @@ namespace VCardReader
                 {
                     AddressType &= ~DeliveryAddressTypes.Home;
                 }
-
             }
         }
         #endregion
@@ -103,7 +100,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.International) ==
-                    DeliveryAddressTypes.International;
+                       DeliveryAddressTypes.International;
             }
             set
             {
@@ -128,7 +125,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Parcel) ==
-                    DeliveryAddressTypes.Parcel;
+                       DeliveryAddressTypes.Parcel;
             }
             set
             {
@@ -153,7 +150,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Postal) ==
-                    DeliveryAddressTypes.Postal;
+                       DeliveryAddressTypes.Postal;
             }
             set
             {
@@ -178,7 +175,7 @@ namespace VCardReader
             get
             {
                 return (AddressType & DeliveryAddressTypes.Work) ==
-                    DeliveryAddressTypes.Work;
+                       DeliveryAddressTypes.Work;
             }
             set
             {
@@ -200,14 +197,8 @@ namespace VCardReader
         /// </summary>
         public string Text
         {
-            get
-            {
-                return _text ?? string.Empty;
-            }
-            set
-            {
-                _text = value;
-            }
+            get { return _text ?? string.Empty; }
+            set { _text = value; }
         }
         #endregion
     }

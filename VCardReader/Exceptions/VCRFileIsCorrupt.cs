@@ -7,10 +7,16 @@ namespace OfficeConverter.Exceptions
     /// </summary>
     public class VCRFileIsCorrupt : Exception
     {
-        internal VCRFileIsCorrupt() {}
+        internal VCRFileIsCorrupt()
+        {
+        }
 
-        internal VCRFileIsCorrupt(string message) : base(message) {}
+        internal VCRFileIsCorrupt(string message) : base(message)
+        {
+        }
 
-        internal VCRFileIsCorrupt(string message, Exception inner) : base(message, inner) {}
+        internal VCRFileIsCorrupt(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }

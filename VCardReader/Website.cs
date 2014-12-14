@@ -1,11 +1,12 @@
+using VCardReader.Collections;
+
 namespace VCardReader
 {
-
     /// <summary>
     ///     A web site defined in a vCard.
     /// </summary>
-    /// <seealso cref="WebsiteCollection"/>
-    /// <seealso cref="WebsiteTypes"/>
+    /// <seealso cref="WebsiteCollection" />
+    /// <seealso cref="WebsiteTypes" />
     public class Website
     {
         #region Fields
@@ -21,11 +22,10 @@ namespace VCardReader
             get
             {
                 return (WebsiteType & WebsiteTypes.Personal) ==
-                    WebsiteTypes.Personal;
+                       WebsiteTypes.Personal;
             }
             set
             {
-
                 if (value)
                     WebsiteType |= WebsiteTypes.Personal;
                 else
@@ -43,11 +43,10 @@ namespace VCardReader
             get
             {
                 return (WebsiteType & WebsiteTypes.Work) ==
-                    WebsiteTypes.Work;
+                       WebsiteTypes.Work;
             }
             set
             {
-
                 if (value)
                     WebsiteType |= WebsiteTypes.Work;
                 else
@@ -65,14 +64,8 @@ namespace VCardReader
         /// </remarks>
         public string Url
         {
-            get
-            {
-                return _url;
-            }
-            set 
-            {
-                _url = value ?? string.Empty;
-            }
+            get { return _url; }
+            set { _url = value ?? string.Empty; }
         }
         #endregion
 

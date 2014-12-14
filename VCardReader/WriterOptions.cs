@@ -4,7 +4,7 @@ namespace VCardReader
 {
     #region Enum StandardWriterOptions
     /// <summary>
-    ///     Extended options for the <see cref="VCardWriter"/> class.
+    ///     Extended options for the <see cref="VCardWriter" /> class.
     /// </summary>
     [Flags]
     public enum WriterOptions

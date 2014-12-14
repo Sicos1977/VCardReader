@@ -1,47 +1,37 @@
 using System;
+using VCardReader.Collections;
 
 namespace VCardReader
 {
     /// <summary>
-    ///     A property of a <see cref="VCard"/>.
+    ///     A property of a <see cref="VCard" />.
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A vCard property specifies a single piece of information, such as an email address or telephone number. 
-    ///         A property can also specify meta-data like a revision number. A full vCards is basically a collection 
+    ///         A vCard property specifies a single piece of information, such as an email address or telephone number.
+    ///         A property can also specify meta-data like a revision number. A full vCards is basically a collection
     ///         of properties structured into a computer-friendly text format.
     ///     </para>
     ///     <para>
     ///         A property has a name, a value, and optionally one or more subproperties. A subproperty provides additional
-    ///         information about the property (such as the encoding used to store the value).  The format of a value 
+    ///         information about the property (such as the encoding used to store the value).  The format of a value
     ///         depends on the property and in some cases may be broken into multiple values.
     ///     </para>
     /// </remarks>
-    /// <seealso cref="PropertyCollection"/>
+    /// <seealso cref="PropertyCollection" />
     public class Property
     {
         #region Fields
         private string _group;
         private string _language;
         private string _name;
-        private object _value;
         #endregion
-        
+
         #region Value
         /// <summary>
         ///     The value of the property.
         /// </summary>
-        public object Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                _value = value;
-            }
-        }
+        public object Value { get; set; }
         #endregion
 
         #region Group
@@ -50,14 +40,8 @@ namespace VCardReader
         /// </summary>
         public string Group
         {
-            get
-            {
-                return _group ?? string.Empty;
-            }
-            set
-            {
-                _group = value;
-            }
+            get { return _group ?? string.Empty; }
+            set { _group = value; }
         }
         #endregion
 
@@ -67,14 +51,8 @@ namespace VCardReader
         /// </summary>
         public string Language
         {
-            get
-            {
-                return _language ?? string.Empty;
-            }
-            set
-            {
-                _language = value;
-            }
+            get { return _language ?? string.Empty; }
+            set { _language = value; }
         }
         #endregion
 
@@ -84,28 +62,21 @@ namespace VCardReader
         /// </summary>
         public string Name
         {
-            get
-            {
-                return _name ?? string.Empty;
-            }
-            set
-            {
-                _name = value;
-            }
+            get { return _name ?? string.Empty; }
+            set { _name = value; }
         }
         #endregion
 
         #region Subproperties
         /// <summary>
-        ///     Subproperties of the vCard property, not including
-        ///     the name, encoding, and character set.
+        ///     Subproperties of the vCard property, not including the name, encoding, and character set.
         /// </summary>
         public SubpropertyCollection Subproperties { get; private set; }
         #endregion
 
         #region Constructors
         /// <summary>
-        ///     Creates a blank <see cref="Property"/> object.
+        ///     Creates a blank <see cref="Property" /> object.
         /// </summary>
         public Property()
         {
@@ -113,7 +84,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Creates a <see cref="Property"/> object
+        ///     Creates a <see cref="Property" /> object
         ///     with the specified name and a null value.
         /// </summary>
         /// <param name="name">
@@ -126,7 +97,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Creates a <see cref="Property"/> object with the
+        ///     Creates a <see cref="Property" /> object with the
         ///     specified name and value.
         /// </summary>
         /// <remarks>
@@ -138,7 +109,7 @@ namespace VCardReader
         {
             _name = name;
             Subproperties = new SubpropertyCollection();
-            _value = value;
+            Value = value;
         }
 
         /// <summary>
@@ -159,11 +130,11 @@ namespace VCardReader
             _group = group;
             _name = name;
             Subproperties = new SubpropertyCollection();
-            _value = value;
+            Value = value;
         }
 
         /// <summary>
-        ///     Creates a <see cref="Property"/> with the
+        ///     Creates a <see cref="Property" /> with the
         ///     specified name and a byte array as a value.
         /// </summary>
         /// <param name="name">The name of the property.</param>
@@ -175,24 +146,23 @@ namespace VCardReader
 
             _name = name;
             Subproperties = new SubpropertyCollection();
-            _value = value;
+            Value = value;
         }
 
         /// <summary>
-        ///     Creates a <see cref="Property"/> with
+        ///     Creates a <see cref="Property" /> with
         ///     the specified name and date/time as a value.
         /// </summary>
         /// <param name="name">The name of the property.</param>
         /// <param name="value">The date/time value.</param>
         public Property(string name, DateTime value)
         {
-
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
             _name = name;
             Subproperties = new SubpropertyCollection();
-            _value = value;
+            Value = value;
         }
 
         /// <summary>
@@ -202,7 +172,6 @@ namespace VCardReader
         public Property(string name, ValueCollection values)
             : this()
         {
-
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
 
@@ -211,7 +180,7 @@ namespace VCardReader
 
             Subproperties = new SubpropertyCollection();
             _name = name;
-            _value = values;
+            Value = values;
         }
         #endregion
 
@@ -221,7 +190,7 @@ namespace VCardReader
         /// </summary>
         public override string ToString()
         {
-            return _value == null ? string.Empty : _value.ToString();
+            return Value == null ? string.Empty : Value.ToString();
         }
         #endregion
     }

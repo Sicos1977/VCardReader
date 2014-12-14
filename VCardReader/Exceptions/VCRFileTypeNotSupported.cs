@@ -7,10 +7,16 @@ namespace OfficeConverter.Exceptions
     /// </summary>
     public class VCRFileTypeNotSupported : Exception
     {
-        internal VCRFileTypeNotSupported() {}
+        internal VCRFileTypeNotSupported()
+        {
+        }
 
-        internal VCRFileTypeNotSupported(string message) : base(message) {}
+        internal VCRFileTypeNotSupported(string message) : base(message)
+        {
+        }
 
-        internal VCRFileTypeNotSupported(string message, Exception inner) : base(message, inner) {}
+        internal VCRFileTypeNotSupported(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 }

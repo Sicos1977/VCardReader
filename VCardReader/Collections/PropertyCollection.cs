@@ -1,12 +1,11 @@
 using System.Collections.ObjectModel;
 
-namespace VCardReader
+namespace VCardReader.Collections
 {
-
     /// <summary>
-    ///     A generic collection of <see cref="Property"/> objects.
+    ///     A generic collection of <see cref="Property" /> objects.
     /// </summary>
-    /// <seealso cref="Property"/>
+    /// <seealso cref="Property" />
     public class PropertyCollection : Collection<Property>
     {
     }

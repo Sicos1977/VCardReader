@@ -11,8 +11,8 @@ namespace VCardReader
     /// <remarks>
     ///     <para>
     ///         You must specify the photo using a path, a byte array, or a System.Drawing.Bitmap instance. The class will
-    ///         extract the underlying raw bytes for storage into the vCard. You can call the <see cref="GetBitmap"/> function
-    ///         to create a new Windows bitmap object (e.g. for display on a form) or <see cref="GetBytes"/> to extract the raw
+    ///         extract the underlying raw bytes for storage into the vCard. You can call the <see cref="GetBitmap" /> function
+    ///         to create a new Windows bitmap object (e.g. for display on a form) or <see cref="GetBytes" /> to extract the raw
     ///         bytes (e.g. for transmission from a web page).
     ///     </para>
     /// </remarks>
@@ -24,13 +24,11 @@ namespace VCardReader
         ///     The raw bytes of the image data.
         /// </summary>
         /// <remarks>
-        ///     The raw bytes can be passed directly to the photo object
-        ///     or fetched from a file or remote URL.  A .NET bitmap object
-        ///     can also be specified, in which case the constructor
-        ///     will load the raw bytes from the bitmap.
+        ///     The raw bytes can be passed directly to the photo object  or fetched from a file or remote URL.  
+        ///     A .NET bitmap object can also be specified, in which case the constructor will load the raw bytes from the bitmap.
         /// </remarks>
         private byte[] _data;
-        
+
         /// <summary>
         ///     The url of the image.
         /// </summary>
@@ -50,22 +48,18 @@ namespace VCardReader
         /// </remarks>
         public byte[] GetBytes()
         {
-            return (byte[])_data.Clone();
+            return (byte[]) _data.Clone();
         }
         #endregion
 
         #region IsLoaded
         /// <summary>
-        ///     Indicates the bytes of the raw image have
-        ///     been loaded by the object.
+        ///     Indicates the bytes of the raw image have been loaded by the object.
         /// </summary>
-        /// <seealso cref="Fetch"/>
+        /// <seealso cref="Fetch" />
         public bool IsLoaded
         {
-            get
-            {
-                return _data != null;
-            }
+            get { return _data != null; }
         }
         #endregion
 
@@ -74,16 +68,12 @@ namespace VCardReader
         ///     The URL of the image.
         /// </summary>
         /// <remarks>
-        ///     Changing the URL will automatically invalidate the internal
-        ///     image data if previously fetched.
+        ///     Changing the URL will automatically invalidate the internal image data if previously fetched.
         /// </remarks>
-        /// <seealso cref="Fetch"/>
+        /// <seealso cref="Fetch" />
         public Uri Url
         {
-            get
-            {
-                return _url;
-            }
+            get { return _url; }
             set
             {
                 // This class maintains a byte array containing the raw
@@ -119,9 +109,9 @@ namespace VCardReader
             if (buffer == null)
                 throw new ArgumentNullException("buffer");
 
-            _data = (byte[])buffer.Clone();
+            _data = (byte[]) buffer.Clone();
         }
-        
+
         /// <summary>
         ///     The URL of the image.
         /// </summary>
@@ -130,13 +120,12 @@ namespace VCardReader
         /// </param>
         public Photo(Uri url)
         {
-
             if (url == null)
                 throw new ArgumentNullException("url");
 
             _url = url;
         }
-        
+
         /// <summary>
         ///     Creates a new vCard photo from an image file.
         /// </summary>
@@ -145,13 +134,12 @@ namespace VCardReader
         /// </param>
         public Photo(string path)
         {
-
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException("path");
 
             _url = new Uri(path);
         }
-        
+
         /// <summary>
         ///     Creates a new vCard photo from an existing Bitmap object.
         /// </summary>
@@ -172,7 +160,7 @@ namespace VCardReader
             // Extract the bytes of the stream to the array.
 
             bytes.Seek(0, SeekOrigin.Begin);
-            bytes.Read(_data, 0, (int)bytes.Length);
+            bytes.Read(_data, 0, (int) bytes.Length);
         }
         #endregion
 
@@ -181,18 +169,15 @@ namespace VCardReader
         ///     Fetches a linked image asynchronously.
         /// </summary>
         /// <remarks>
-        ///     This is a simple utility method for accessing the image
-        ///     referenced by the URL.  For asynchronous or advanced
-        ///     loading you will need to download the image yourself
-        ///     and load the bytes directly into the class.
+        ///     This is a simple utility method for accessing the image referenced by the URL. For asynchronous or advanced
+        ///     loading you will need to download the image yourself and load the bytes directly into the class.
         /// </remarks>
-        /// <seealso cref="IsLoaded"/>
-        /// <seealso cref="Url"/>
+        /// <seealso cref="IsLoaded" />
+        /// <seealso cref="Url" />
         public void Fetch()
         {
-            // An image can be fetched only if the URL
-            // of the image is known.  Otherwise the
-            // fetch operation makes no sense.
+            // An image can be fetched only if the URL of the image is known.  
+            // Otherwise the fetch operation makes no sense.
 
             if (_url == null)
                 throw new InvalidOperationException();
@@ -242,7 +227,7 @@ namespace VCardReader
         ///     Creates a Bitmap object from the photo data.
         /// </summary>
         /// <remarks>
-        ///     An initialized Bitmap object.  An exception is 
+        ///     An initialized Bitmap object.  An exception is
         ///     raised if the .NET framework is unable to identify
         ///     the format of the image data, or if the format
         ///     is not supported.
@@ -252,6 +237,6 @@ namespace VCardReader
             var stream = new MemoryStream(_data);
             return new Bitmap(stream);
         }
-        #endregion    
+        #endregion
     }
 }
