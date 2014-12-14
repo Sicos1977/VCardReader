@@ -84,7 +84,6 @@
     <Compile Include="Collections\SubpropertyCollection.cs" />
     <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="VCard.cs" />
-    <Compile Include="VCardEncoding.cs" />
     <Compile Include="VCardReader.cs" />
     <Compile Include="VCardWriter.cs" />
     <Compile Include="Website.cs" />

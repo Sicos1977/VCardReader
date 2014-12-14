@@ -612,7 +612,7 @@ namespace VCardReader
         }
         #endregion
 
-        #region ParsePhoneType(string)
+        #region ParsePhoneType
         /// <summary>
         ///     Parses the name of a phone type and returns the corresponding <see cref="PhoneTypes" /> value.
         /// </summary>
@@ -672,9 +672,7 @@ namespace VCardReader
                     return PhoneTypes.Default;
             }
         }
-        #endregion
 
-        #region ParsePhoneType(string[])
         /// <summary>
         ///     Decodes the bitmapped phone type given an array of phone type names.
         /// </summary>
@@ -1378,9 +1376,8 @@ namespace VCardReader
         /// </summary>
         private static void ReadIntoPhoto(VCard card, Property property)
         {
-            // The PHOTO property contains an embedded (encoded) image
-            // or a link to an image.  A URL (linked) image is supposed
-            // to be indicated with the VALUE=URI subproperty.
+            // The PHOTO property contains an embedded (encoded) image or a link to an image.  
+            // A URL (linked) image is supposed to be indicated with the VALUE=URI subproperty.
 
             var valueType = property.Subproperties.GetValue("VALUE");
 

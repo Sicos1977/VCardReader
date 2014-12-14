@@ -171,16 +171,9 @@ namespace VCardReader
         ///     Writes the start of the header
         /// </summary>
         /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        /// <param name="htmlBody">When true then html will be written into the
-        ///     <param ref="header" />
-        ///     otherwise text will be written</param>
-        private static void WriteHeaderStart(StringBuilder header, bool htmlBody)
+        private static void WriteHeaderStart(StringBuilder header)
         {
-            if (!htmlBody)
-                return;
-
             header.AppendLine("<table style=\"font-family: Times New Roman; font-size: 12pt;\">");
-
             _emptyLineWritten = false;
         }
 
@@ -188,33 +181,21 @@ namespace VCardReader
         ///     Writes a line into the header
         /// </summary>
         /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        /// <param name="htmlBody">When true then html will be written into the <paramref name="header" /> otherwise text will be written</param>
-        /// <param name="labelPadRightWidth">Used to pad the label size, ignored when <paramref name="htmlBody" /> is true</param>
         /// <param name="label">The label text that needs to be written</param>
         /// <param name="text">The text that needs to be written after the <paramref name="label" /></param>
-        private static void WriteHeaderLine(StringBuilder header,
-            bool htmlBody,
-            int labelPadRightWidth,
-            string label,
-            string text)
+        private static void WriteHeaderLine(StringBuilder header, 
+                                            string label,
+                                            string text)
         {
-            if (htmlBody)
-            {
-                var lines = text.Split('\n');
-                var newText = string.Empty;
+            var lines = text.Split('\n');
+            var newText = string.Empty;
 
-                foreach (var line in lines)
-                    newText += HttpUtility.HtmlEncode(line) + "<br/>";
+            foreach (var line in lines)
+                newText += HttpUtility.HtmlEncode(line) + "<br/>";
 
-                header.AppendLine(
-                    "<tr style=\"height: 18px; vertical-align: top; \"><td style=\"font-weight: bold; white-space:nowrap;\">" +
-                    HttpUtility.HtmlEncode(label) + ":</td><td>" + newText + "</td></tr>");
-            }
-            else
-            {
-                text = text.Replace("\n", "".PadRight(labelPadRightWidth));
-                header.AppendLine((label + ":").PadRight(labelPadRightWidth) + text);
-            }
+            header.AppendLine(
+                "<tr style=\"height: 18px; vertical-align: top; \"><td style=\"font-weight: bold; white-space:nowrap;\">" +
+                HttpUtility.HtmlEncode(label) + ":</td><td>" + newText + "</td></tr>");
 
             _emptyLineWritten = false;
         }
@@ -282,7 +263,7 @@ namespace VCardReader
         }
         #endregion
 
-        #region WriteMsgContact
+        #region WriteVCard
         /// <summary>
         ///     Writes the body of the MSG Contact to html or text and extracts all the attachments. The
         ///     result is return as a List of strings
@@ -293,33 +274,32 @@ namespace VCardReader
         /// <param name="outputFolder">The folder where we need to write the output</param>
         /// <param name="hyperlinks">When true then hyperlinks are generated for the To, CC, BCC and attachments</param>
         /// <returns></returns>
-        private List<string> WriteMsgContact(VCard vcard, string outputFolder, bool hyperlinks)
+        private List<string> WriteVCard(VCard vcard, string outputFolder, bool hyperlinks)
         {
             var fileName = "contact";
             string body;
             string contactPhotoFileName;
             List<string> attachmentList;
             List<string> files;
-            var htmlBody = true;
 
             var contactHeader = new StringBuilder();
 
             // Start of table
-            WriteHeaderStart(contactHeader, htmlBody);
+            WriteHeaderStart(contactHeader);
 
-            if (htmlBody && !string.IsNullOrEmpty(vcard.Photos))
-                contactHeader.Append(
-                    "<div style=\"height: 250px; position: absolute; top: 20px; right: 20px;\"><img alt=\"\" src=\"" +
-                    contactPhotoFileName + "\" height=\"100%\"></div>");
+            // TODO: Foto verwerking uitprogrammeren
+            //if (!string.IsNullOrEmpty(vcard.Photos[0]))
+            //    contactHeader.Append(
+            //        "<div style=\"height: 250px; position: absolute; top: 20px; right: 20px;\"><img alt=\"\" src=\"" +
+            //        contactPhotoFileName + "\" height=\"100%\"></div>");
 
             // Full name
-            if (!string.IsNullOrEmpty(message.Contact.DisplayName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.DisplayNameLabel,
-                    message.Contact.DisplayName);
+            if (!string.IsNullOrEmpty(vcard.DisplayName))
+                WriteHeaderLine(contactHeader, LanguageConsts.DisplayNameLabel, vcard.DisplayName);
 
             // Last name
-            if (!string.IsNullOrEmpty(message.Contact.SurName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.SurNameLabel, message.Contact.SurName);
+            if (!string.IsNullOrEmpty(vcard.FamilyName))
+                WriteHeaderLine(contactHeader, LanguageConsts.SurNameLabel, vcard.FamilyName);
 
             // First name
             if (!string.IsNullOrEmpty(message.Contact.GivenName))
