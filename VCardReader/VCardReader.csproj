@@ -42,12 +42,10 @@
     <Compile Include="Collections\CertificateCollection.cs" />
     <Compile Include="DeliveryAddress.cs" />
     <Compile Include="Collections\DeliveryAddressCollection.cs" />
-    <Compile Include="DeliveryAddressTypes.cs" />
     <Compile Include="DeliveryLabel.cs" />
     <Compile Include="Collections\DeliveryLabelCollection.cs" />
     <Compile Include="EmailAddress.cs" />
     <Compile Include="Collections\EmailAddressCollection.cs" />
-    <Compile Include="EmailAddressType.cs" />
     <Compile Include="Exceptions\VCardException.cs" />
     <Compile Include="Exceptions\VCRFileContainsNoData.cs" />
     <Compile Include="Exceptions\VCRFileIsCorrupt.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="Collections\NoteCollection.cs" />
     <Compile Include="Phone.cs" />
     <Compile Include="Collections\PhoneCollection.cs" />
-    <Compile Include="PhoneTypes.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="Collections\PhotoCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,8 +89,6 @@
     <Compile Include="VCardWriter.cs" />
     <Compile Include="Website.cs" />
     <Compile Include="Collections\WebsiteCollection.cs" />
-    <Compile Include="WebsiteTypes.cs" />
-    <Compile Include="WriterOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\LanguageConsts.de.resx">
