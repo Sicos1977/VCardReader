@@ -9,7 +9,7 @@ namespace VCardReader
     /// <summary>
     ///     Implements the standard vCard 2.1 and 3.0 text formats.
     /// </summary>
-    public class VCardWriter
+    internal class VCardWriter
     {
         #region Fields
         private readonly bool _embedInternetImages;

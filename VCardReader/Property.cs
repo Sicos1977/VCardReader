@@ -7,19 +7,14 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A vCard property specifies a single piece of information,
-    ///         such as an email address or telephone number.  A property
-    ///         can also specify meta-data like a revision number.  A full
-    ///         vCards is basically a collection of properties structured
-    ///         into a computer-friendly text format.
+    ///         A vCard property specifies a single piece of information, such as an email address or telephone number. 
+    ///         A property can also specify meta-data like a revision number. A full vCards is basically a collection 
+    ///         of properties structured into a computer-friendly text format.
     ///     </para>
     ///     <para>
-    ///         A property has a name, a value, and optionally one or
-    ///         more subproperties.  A subproperty provides additional
-    ///         information about the property (such as the encoding 
-    ///         used to store the value).  The format of a value 
-    ///         depends on the property and in some cases may be broken
-    ///         into multiple values.
+    ///         A property has a name, a value, and optionally one or more subproperties. A subproperty provides additional
+    ///         information about the property (such as the encoding used to store the value).  The format of a value 
+    ///         depends on the property and in some cases may be broken into multiple values.
     ///     </para>
     /// </remarks>
     /// <seealso cref="PropertyCollection"/>

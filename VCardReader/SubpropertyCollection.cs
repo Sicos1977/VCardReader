@@ -9,14 +9,11 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         This class is a general-purpose collection of
-    ///         <see cref="Subproperty"/> objects.
+    ///         This class is a general-purpose collection of <see cref="Subproperty"/> objects.
     ///     </para>
     ///     <para>
-    ///         A property of a vCard contains a piece of
-    ///         contact information, such as an email address
-    ///         or web site.  A subproperty indicates options
-    ///         or attributes of the property, such as the
+    ///         A property of a vCard contains a piece of contact information, such as an email address
+    ///         or web site.  A subproperty indicates options or attributes of the property, such as the
     ///         type of email address or character set.
     ///     </para>
     /// </remarks>

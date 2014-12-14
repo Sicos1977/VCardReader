@@ -9,20 +9,14 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A vCard contains personal information, such as postal
-    ///         addresses, public security certificates, email addresses, and
-    ///         web sites.  The vCard specification makes it possible for
-    ///         different computer programs to exchange personal contact
-    ///         information; for example, a vCard can be attached to an email or
-    ///         sent over a wireless connection.
+    ///         A vCard contains personal information, such as postal addresses, public security certificates, email addresses, and
+    ///         web sites.  The vCard specification makes it possible for different computer programs to exchange personal contact
+    ///         information; for example, a vCard can be attached to an email or sent over a wireless connection.
     ///     </para>
     ///     <para>
-    ///         The standard vCard format is a text file with properties in
-    ///         name:value format.  However, there are multiple versions of
-    ///         this format as well as compatible alternatives in XML and
-    ///         HTML formats.  This class library aims to accomodate these
-    ///         variations but be aware some some formats do not support
-    ///         all possible properties.
+    ///         The standard vCard format is a text file with properties in name:value format.  However, there are multiple versions of
+    ///         this format as well as compatible alternatives in XML and HTML formats.  This class library aims to accomodate these
+    ///         variations but be aware some some formats do not support all possible properties.
     ///     </para>
     /// </remarks>
     [Serializable]

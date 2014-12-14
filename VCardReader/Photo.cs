@@ -10,12 +10,9 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         You must specify the photo using a path, a byte array,
-    ///         or a System.Drawing.Bitmap instance. The class will
-    ///         extract the underlying raw bytes for storage into the
-    ///         vCard. You can call the <see cref="GetBitmap"/> function
-    ///         to create a new Windows bitmap object (e.g. for display
-    ///         on a form) or <see cref="GetBytes"/> to extract the raw
+    ///         You must specify the photo using a path, a byte array, or a System.Drawing.Bitmap instance. The class will
+    ///         extract the underlying raw bytes for storage into the vCard. You can call the <see cref="GetBitmap"/> function
+    ///         to create a new Windows bitmap object (e.g. for display on a form) or <see cref="GetBytes"/> to extract the raw
     ///         bytes (e.g. for transmission from a web page).
     ///     </para>
     /// </remarks>

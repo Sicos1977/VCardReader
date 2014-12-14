@@ -7,10 +7,8 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         The Microsoft Outlook contact editor has a field for
-    ///         entering a web site.  The default classification of
-    ///         this web site is work-related.  A personal web site
-    ///         can be viewed or entered through the All Fields tab.
+    ///         The Microsoft Outlook contact editor has a field for entering a web site. The default classification of
+    ///         this web site is work-related. A personal web site can be viewed or entered through the All Fields tab.
     ///     </para>
     /// </remarks>
     [Flags]

@@ -8,10 +8,8 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A vCard can be associated with a public key or
-    ///         authentication certificate.  This is typically
-    ///         a public X509 certificate that allows people to
-    ///         use the key for validating messages.
+    ///         A vCard can be associated with a public key or authentication certificate.  This is typically
+    ///         a public X509 certificate that allows people to use the key for validating messages.
     ///     </para>
     /// </remarks>
     [Serializable]

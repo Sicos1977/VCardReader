@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 
 namespace VCardReader
 {
-
     /// <summary>
     ///     A collection of <see cref="EmailAddress"/> objects.
     /// </summary>

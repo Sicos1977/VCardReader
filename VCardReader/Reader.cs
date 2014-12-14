@@ -273,24 +273,25 @@ namespace VCardReader
         /// Writes the body of the MSG Contact to html or text and extracts all the attachments. The
         /// result is return as a List of strings
         /// </summary>
-        /// <param name="message"><see cref="Storage.Message"/></param>
+        /// <param name="vcard"><see cref="VCard"/></param>
         /// <param name="outputFolder">The folder where we need to write the output</param>
         /// <param name="hyperlinks">When true then hyperlinks are generated for the To, CC, BCC and attachments</param>
         /// <returns></returns>
-        private List<string> WriteMsgContact(Storage.Message message, string outputFolder, bool hyperlinks)
+        private List<string> WriteMsgContact(VCard vcard, string outputFolder, bool hyperlinks)
         {
             var fileName = "contact";
             string body;
             string contactPhotoFileName;
             List<string> attachmentList;
             List<string> files;
-            
+            var htmlBody = true;
+
             var contactHeader = new StringBuilder();
 
             // Start of table
             WriteHeaderStart(contactHeader, htmlBody);
 
-            if (htmlBody && !string.IsNullOrEmpty(contactPhotoFileName))
+            if (htmlBody && !string.IsNullOrEmpty(vcard.))
                 contactHeader.Append(
                     "<div style=\"height: 250px; position: absolute; top: 20px; right: 20px;\"><img alt=\"\" src=\"" +
                     contactPhotoFileName + "\" height=\"100%\"></div>");

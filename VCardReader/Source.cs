@@ -7,11 +7,9 @@ namespace VCardReader
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         A source identifies a directory that contains or provided
-    ///         information for the vCard.  A source consists of a URI
-    ///         and a context.  The URI is generally a URL; the
-    ///         context identifies the protocol and type of URI.  For
-    ///         example, a vCard associated with an LDAP directory entry
+    ///         A source identifies a directory that contains or provided information for the vCard. 
+    ///         A source consists of a URI and a context. The URI is generally a URL; the context identifies 
+    ///         the protocol and type of URI. For example, a vCard associated with an LDAP directory entry
     ///         will have an ldap:// URL and a context of "LDAP".
     ///     </para>
     /// </remarks>

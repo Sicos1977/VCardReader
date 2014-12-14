@@ -4,10 +4,9 @@ namespace VCardReader
     ///     An email address in a <see cref="VCard"/>.
     /// </summary>
     /// <remarks>
-    ///     Most vCard email addresses are Internet email addresses.  However,
-    ///     the vCard specification allows other email address formats,
-    ///     such as CompuServe and X400.  Unless otherwise specified, an
-    ///     address is assumed to be an Internet address.
+    ///     Most vCard email addresses are Internet email addresses. However, the vCard specification allows other 
+    ///     email address formats, such as CompuServe and X400. Unless otherwise specified, an address is assumed 
+    ///     to be an Internet address.
     /// </remarks>
     /// <seealso cref="EmailAddressCollection"/>
     /// <seealso cref="EmailAddressType"/>
