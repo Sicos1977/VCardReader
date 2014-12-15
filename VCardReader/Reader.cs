@@ -204,29 +204,17 @@ namespace VCardReader
         ///     Writes a line into the header without Html encoding the <paramref name="text" />
         /// </summary>
         /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        /// <param name="htmlBody">When true then html will be written into the <paramref name="header" /> otherwise text will be written</param>
-        /// <param name="labelPadRightWidth">Used to pad the label size, ignored when <paramref name="htmlBody" /> is true</param>
         /// <param name="label">The label text that needs to be written</param>
         /// <param name="text">The text that needs to be written after the <paramref name="label" /></param>
         private static void WriteHeaderLineNoEncoding(StringBuilder header,
-            bool htmlBody,
-            int labelPadRightWidth,
-            string label,
-            string text)
+                                                      string label,
+                                                      string text)
         {
-            if (htmlBody)
-            {
-                text = text.Replace("\n", "<br/>");
+            text = text.Replace("\n", "<br/>");
 
-                header.AppendLine(
-                    "<tr style=\"height: 18px; vertical-align: top; \"><td style=\"font-weight: bold; white-space:nowrap; \">" +
-                    HttpUtility.HtmlEncode(label) + ":</td><td>" + text + "</td></tr>");
-            }
-            else
-            {
-                text = text.Replace("\n", "".PadRight(labelPadRightWidth));
-                header.AppendLine((label + ":").PadRight(labelPadRightWidth) + text);
-            }
+            header.AppendLine(
+                "<tr style=\"height: 18px; vertical-align: top; \"><td style=\"font-weight: bold; white-space:nowrap; \">" +
+                HttpUtility.HtmlEncode(label) + ":</td><td>" + text + "</td></tr>");
 
             _emptyLineWritten = false;
         }
@@ -235,18 +223,13 @@ namespace VCardReader
         ///     Writes
         /// </summary>
         /// <param name="header"></param>
-        /// <param name="htmlBody"></param>
-        private static void WriteHeaderEmptyLine(StringBuilder header, bool htmlBody)
+        private static void WriteHeaderEmptyLine(StringBuilder header)
         {
             // Prevent that we write 2 empty lines in a row
             if (_emptyLineWritten)
                 return;
 
-            header.AppendLine(
-                htmlBody
-                    ? "<tr style=\"height: 18px; vertical-align: top; \"><td>&nbsp;</td><td>&nbsp;</td></tr>"
-                    : string.Empty);
-
+            header.AppendLine("<tr style=\"height: 18px; vertical-align: top; \"><td>&nbsp;</td><td>&nbsp;</td></tr>");
             _emptyLineWritten = true;
         }
 
@@ -254,12 +237,9 @@ namespace VCardReader
         ///     Writes the end of the header
         /// </summary>
         /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        /// <param name="htmlBody">When true then html will be written into the
-        ///     <param ref="header" />
-        ///     otherwise text will be written</param>
-        private static void WriteHeaderEnd(StringBuilder header, bool htmlBody)
+        private static void WriteHeaderEnd(StringBuilder header)
         {
-            header.AppendLine(!htmlBody ? string.Empty : "</table><br/>");
+            header.AppendLine("</table><br/>");
         }
         #endregion
 
@@ -299,226 +279,243 @@ namespace VCardReader
 
             // Last name
             if (!string.IsNullOrEmpty(vcard.FamilyName))
-                WriteHeaderLine(contactHeader, LanguageConsts.SurNameLabel, vcard.FamilyName);
+                WriteHeaderLine(contactHeader, LanguageConsts.FamilyName, vcard.FamilyName);
 
             // First name
-            if (!string.IsNullOrEmpty(message.Contact.GivenName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.GivenNameLabel,
-                    message.Contact.GivenName);
+            if (!string.IsNullOrEmpty(vcard.GivenName))
+                WriteHeaderLine(contactHeader, LanguageConsts.GivenNameLabel,
+                    vcard.GivenName);
 
             // Job title
-            if (!string.IsNullOrEmpty(message.Contact.Function))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.FunctionLabel,
-                    message.Contact.Function);
+            if (!string.IsNullOrEmpty(vcard.Title))
+                WriteHeaderLine(contactHeader, LanguageConsts.TitleLabel,
+                    vcard.Title);
 
             // Department
-            if (!string.IsNullOrEmpty(message.Contact.Department))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.DepartmentLabel,
-                    message.Contact.Department);
+            if (!string.IsNullOrEmpty(vcard.Department))
+                WriteHeaderLine(contactHeader, LanguageConsts.DepartmentLabel,
+                    vcard.Department);
 
             // Company
-            if (!string.IsNullOrEmpty(message.Contact.Company))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.CompanyLabel, message.Contact.Company);
+            if (!string.IsNullOrEmpty(vcard.Organization))
+                WriteHeaderLine(contactHeader, LanguageConsts.OrganizationLabel, vcard.Organization);
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader, htmlBody);
+            WriteHeaderEmptyLine(contactHeader);
 
             // Business address
-            if (!string.IsNullOrEmpty(message.Contact.WorkAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.WorkAddressLabel,
-                    message.Contact.WorkAddress);
+            if (!string.IsNullOrEmpty(vcard.WorkAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.WorkAddressLabel,
+                    vcard.WorkAddress);
 
             // Home address
-            if (!string.IsNullOrEmpty(message.Contact.HomeAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.HomeAddressLabel,
-                    message.Contact.HomeAddress);
+            if (!string.IsNullOrEmpty(vcard.HomeAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.HomeAddressLabel,
+                    vcard.HomeAddress);
 
             // Other address
-            if (!string.IsNullOrEmpty(message.Contact.OtherAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.OtherAddressLabel,
-                    message.Contact.OtherAddress);
+            if (!string.IsNullOrEmpty(vcard.OtherAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.OtherAddressLabel,
+                    vcard.OtherAddress);
 
             // Instant messaging
-            if (!string.IsNullOrEmpty(message.Contact.InstantMessagingAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.InstantMessagingAddressLabel,
-                    message.Contact.InstantMessagingAddress);
+            if (!string.IsNullOrEmpty(vcard.InstantMessagingAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.InstantMessagingAddressLabel,
+                    vcard.InstantMessagingAddress);
 
             // Empty line
             WriteHeaderEmptyLine(contactHeader, htmlBody);
 
             // Business telephone number
-            if (!string.IsNullOrEmpty(message.Contact.BusinessTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.BusinessTelephoneNumberLabel,
-                    message.Contact.BusinessTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.BusinessTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.BusinessTelephoneNumberLabel,
+                    vcard.BusinessTelephoneNumber);
 
             // Business telephone number 2
-            if (!string.IsNullOrEmpty(message.Contact.BusinessTelephoneNumber2))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.BusinessTelephoneNumber2Label,
-                    message.Contact.BusinessTelephoneNumber2);
+            if (!string.IsNullOrEmpty(vcard.BusinessTelephoneNumber2))
+                WriteHeaderLine(contactHeader, LanguageConsts.BusinessTelephoneNumber2Label,
+                    vcard.BusinessTelephoneNumber2);
 
             // Assistant's telephone number
-            if (!string.IsNullOrEmpty(message.Contact.AssistantTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.AssistantTelephoneNumberLabel,
-                    message.Contact.AssistantTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.AssistantTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.AssistantTelephoneNumberLabel,
+                    vcard.AssistantTelephoneNumber);
 
             // Company main phone
-            if (!string.IsNullOrEmpty(message.Contact.CompanyMainTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.CompanyMainTelephoneNumberLabel,
-                    message.Contact.CompanyMainTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.CompanyMainTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.OrganizationMainTelephoneNumberLabel,
+                    vcard.CompanyMainTelephoneNumber);
 
             // Home telephone number
-            if (!string.IsNullOrEmpty(message.Contact.HomeTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.HomeTelephoneNumberLabel,
-                    message.Contact.HomeTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.HomeTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.HomeTelephoneNumberLabel,
+                    vcard.HomeTelephoneNumber);
 
             // Home telephone number 2
-            if (!string.IsNullOrEmpty(message.Contact.HomeTelephoneNumber2))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.HomeTelephoneNumber2Label,
-                    message.Contact.HomeTelephoneNumber2);
+            if (!string.IsNullOrEmpty(vcard.HomeTelephoneNumber2))
+                WriteHeaderLine(contactHeader, LanguageConsts.HomeTelephoneNumber2Label,
+                    vcard.HomeTelephoneNumber2);
 
             // Mobile phone
-            if (!string.IsNullOrEmpty(message.Contact.CellularTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.CellularTelephoneNumberLabel,
-                    message.Contact.CellularTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.CellularTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.CellularTelephoneNumberLabel,
+                    vcard.CellularTelephoneNumber);
 
             // Car phone
-            if (!string.IsNullOrEmpty(message.Contact.CarTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.CarTelephoneNumberLabel,
-                    message.Contact.CarTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.CarTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.CarTelephoneNumberLabel,
+                    vcard.CarTelephoneNumber);
 
             // Radio
-            if (!string.IsNullOrEmpty(message.Contact.RadioTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.RadioTelephoneNumberLabel,
-                    message.Contact.RadioTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.RadioTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.RadioTelephoneNumberLabel,
+                    vcard.RadioTelephoneNumber);
 
             // Beeper
-            if (!string.IsNullOrEmpty(message.Contact.BeeperTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.BeeperTelephoneNumberLabel,
-                    message.Contact.BeeperTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.BeeperTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.BeeperTelephoneNumberLabel,
+                    vcard.BeeperTelephoneNumber);
 
             // Callback
-            if (!string.IsNullOrEmpty(message.Contact.CallbackTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.CallbackTelephoneNumberLabel,
-                    message.Contact.CallbackTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.CallbackTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.CallbackTelephoneNumberLabel,
+                    vcard.CallbackTelephoneNumber);
 
             // Other
-            if (!string.IsNullOrEmpty(message.Contact.OtherTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.OtherTelephoneNumberLabel,
-                    message.Contact.OtherTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.OtherTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.OtherTelephoneNumberLabel,
+                    vcard.OtherTelephoneNumber);
 
             // Primary telephone number
-            if (!string.IsNullOrEmpty(message.Contact.PrimaryTelephoneNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.PrimaryTelephoneNumberLabel,
-                    message.Contact.PrimaryTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.PrimaryTelephoneNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.PrimaryTelephoneNumberLabel,
+                    vcard.PrimaryTelephoneNumber);
 
             // Telex
-            if (!string.IsNullOrEmpty(message.Contact.TelexNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.TelexNumberLabel,
-                    message.Contact.TelexNumber);
+            if (!string.IsNullOrEmpty(vcard.TelexNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.TelexNumberLabel,
+                    vcard.TelexNumber);
 
             // TTY/TDD phone
-            if (!string.IsNullOrEmpty(message.Contact.TextTelephone))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.TextTelephoneLabel,
-                    message.Contact.TextTelephone);
+            if (!string.IsNullOrEmpty(vcard.TextTelephone))
+                WriteHeaderLine(contactHeader, LanguageConsts.TextTelephoneLabel,
+                    vcard.TextTelephone);
 
             // ISDN
-            if (!string.IsNullOrEmpty(message.Contact.ISDNNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.ISDNNumberLabel,
-                    message.Contact.ISDNNumber);
+            if (!string.IsNullOrEmpty(vcard.ISDNNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.ISDNNumberLabel,
+                    vcard.ISDNNumber);
 
             // Other fax (primary fax, weird that they call it like this in Outlook)
-            if (!string.IsNullOrEmpty(message.Contact.PrimaryFaxNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.PrimaryFaxNumberLabel,
-                    message.Contact.OtherTelephoneNumber);
+            if (!string.IsNullOrEmpty(vcard.PrimaryFaxNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.PrimaryFaxNumberLabel,
+                    vcard.OtherTelephoneNumber);
 
             // Business fax
-            if (!string.IsNullOrEmpty(message.Contact.BusinessFaxNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.BusinessFaxNumberLabel,
-                    message.Contact.BusinessFaxNumber);
+            if (!string.IsNullOrEmpty(vcard.BusinessFaxNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.BusinessFaxNumberLabel,
+                    vcard.BusinessFaxNumber);
 
             // Home fax
-            if (!string.IsNullOrEmpty(message.Contact.HomeFaxNumber))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.HomeFaxNumberLabel,
-                    message.Contact.HomeFaxNumber);
+            if (!string.IsNullOrEmpty(vcard.HomeFaxNumber))
+                WriteHeaderLine(contactHeader, LanguageConsts.HomeFaxNumberLabel,
+                    vcard.HomeFaxNumber);
 
             // Empty line
             WriteHeaderEmptyLine(contactHeader, htmlBody);
 
             // E-mail
-            if (!string.IsNullOrEmpty(message.Contact.Email1EmailAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email1EmailAddressLabel,
-                    message.Contact.Email1EmailAddress);
+            if (!string.IsNullOrEmpty(vcard.Email1EmailAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email1EmailAddressLabel,
+                    vcard.Email1EmailAddress);
 
             // E-mail display as
-            if (!string.IsNullOrEmpty(message.Contact.Email1DisplayName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email1DisplayNameLabel,
-                    message.Contact.Email1DisplayName);
+            if (!string.IsNullOrEmpty(vcard.Email1DisplayName))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email1DisplayNameLabel,
+                    vcard.Email1DisplayName);
 
             // E-mail 2
-            if (!string.IsNullOrEmpty(message.Contact.Email2EmailAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email2EmailAddressLabel,
-                    message.Contact.Email2EmailAddress);
+            if (!string.IsNullOrEmpty(vcard.Email2EmailAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email2EmailAddressLabel,
+                    vcard.Email2EmailAddress);
 
             // E-mail display as 2
-            if (!string.IsNullOrEmpty(message.Contact.Email2DisplayName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email2DisplayNameLabel,
-                    message.Contact.Email2DisplayName);
+            if (!string.IsNullOrEmpty(vcard.Email2DisplayName))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email2DisplayNameLabel,
+                    vcard.Email2DisplayName);
 
             // E-mail 3
-            if (!string.IsNullOrEmpty(message.Contact.Email3EmailAddress))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email3EmailAddressLabel,
-                    message.Contact.Email3EmailAddress);
+            if (!string.IsNullOrEmpty(vcard.Email3EmailAddress))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email3EmailAddressLabel,
+                    vcard.Email3EmailAddress);
 
             // E-mail display as 3
-            if (!string.IsNullOrEmpty(message.Contact.Email3DisplayName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.Email3DisplayNameLabel,
-                    message.Contact.Email3DisplayName);
+            if (!string.IsNullOrEmpty(vcard.Email3DisplayName))
+                WriteHeaderLine(contactHeader, LanguageConsts.Email3DisplayNameLabel,
+                    vcard.Email3DisplayName);
 
             // Empty line
             WriteHeaderEmptyLine(contactHeader, htmlBody);
 
             // Birthday
-            if (message.Contact.Birthday != null)
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.BirthdayLabel,
-                    ((DateTime) message.Contact.Birthday).ToString(LanguageConsts.DataFormat));
+            if (vcard.Birthday != null)
+                WriteHeaderLine(contactHeader, LanguageConsts.BirthdayLabel,
+                    ((DateTime) vcard.Birthday).ToString(LanguageConsts.DataFormat));
 
             // Anniversary
-            if (message.Contact.WeddingAnniversary != null)
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.WeddingAnniversaryLabel,
-                    ((DateTime) message.Contact.WeddingAnniversary).ToString(LanguageConsts.DataFormat));
+            if (vcard.WeddingAnniversary != null)
+                WriteHeaderLine(contactHeader, LanguageConsts.WeddingAnniversaryLabel,
+                    ((DateTime) vcard.WeddingAnniversary).ToString(LanguageConsts.DataFormat));
 
             // Spouse/Partner
-            if (!string.IsNullOrEmpty(message.Contact.SpouseName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.SpouseNameLabel,
-                    message.Contact.SpouseName);
+            if (!string.IsNullOrEmpty(vcard.SpouseName))
+                WriteHeaderLine(contactHeader, LanguageConsts.SpouseNameLabel,
+                    vcard.SpouseName);
 
             // Profession
-            if (!string.IsNullOrEmpty(message.Contact.Profession))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.ProfessionLabel,
-                    message.Contact.Profession);
+            if (!string.IsNullOrEmpty(vcard.Role))
+                WriteHeaderLine(contactHeader, LanguageConsts.RoleLabel,
+                    vcard.Role);
 
             // Assistant
-            if (!string.IsNullOrEmpty(message.Contact.AssistantName))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.AssistantTelephoneNumberLabel,
-                    message.Contact.AssistantName);
+            if (!string.IsNullOrEmpty(vcard.AssistantName))
+                WriteHeaderLine(contactHeader, LanguageConsts.AssistantTelephoneNumberLabel,
+                    vcard.AssistantName);
 
             // Web page
-            if (!string.IsNullOrEmpty(message.Contact.Html))
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.HtmlLabel, message.Contact.Html);
+            foreach (var webpage in vcard.Websites)
+            {
+                if (!string.IsNullOrEmpty(webpage.Url))
+                {
+                    switch (webpage.WebsiteType)
+                    {
+                        case WebsiteTypes.Default:
+                            break;
+
+                        case WebsiteTypes.Personal:
+                            break;
+
+                        case WebsiteTypes.Work:
+                            break;
+                    }
+
+                    WriteHeaderLine(contactHeader, LanguageConsts.HtmlLabel, vcard.Html);
+                }
+            }
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader, htmlBody);
+            WriteHeaderEmptyLine(contactHeader);
 
             // Categories
-            var categories = message.Categories;
-            if (categories != null)
-                WriteHeaderLine(contactHeader, htmlBody, maxLength, LanguageConsts.EmailCategoriesLabel,
-                    String.Join("; ", categories));
+            //var categories = message.Categories;
+            //if (categories != null)
+            //    WriteHeaderLine(contactHeader, LanguageConsts.EmailCategoriesLabel,
+            //        String.Join("; ", categories));
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader, htmlBody);
+            WriteHeaderEmptyLine(contactHeader);
 
-            WriteHeaderEnd(contactHeader, htmlBody);
+            WriteHeaderEnd(contactHeader);
 
             body = InjectHeader(body, contactHeader.ToString());
 

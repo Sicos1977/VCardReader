@@ -147,10 +147,10 @@
   <data name="CellularTelephoneNumberLabel" xml:space="preserve">
     <value>Mobiel</value>
   </data>
-  <data name="CompanyLabel" xml:space="preserve">
+  <data name="OrganizationLabel" xml:space="preserve">
     <value>Bedrijf</value>
   </data>
-  <data name="CompanyMainTelephoneNumberLabel" xml:space="preserve">
+  <data name="OrganizationMainTelephoneNumberLabel" xml:space="preserve">
     <value>Hoofdtelefoon bedrijf</value>
   </data>
   <data name="DataFormatDataFormat" xml:space="preserve">
@@ -160,48 +160,6 @@
   <data name="DataFormatWithTime" xml:space="preserve">
     <value>F</value>
     <comment>The culture format to use for a date</comment>
-  </data>
-  <data name="DateDifferenceDaysText" xml:space="preserve">
-    <value>dagen</value>
-  </data>
-  <data name="DateDifferenceDayText" xml:space="preserve">
-    <value>dag</value>
-  </data>
-  <data name="DateDifferenceHoursText" xml:space="preserve">
-    <value>uren</value>
-  </data>
-  <data name="DateDifferenceHourText" xml:space="preserve">
-    <value>uur</value>
-  </data>
-  <data name="DateDifferenceMinutesText" xml:space="preserve">
-    <value>minuten</value>
-  </data>
-  <data name="DateDifferenceMinuteText" xml:space="preserve">
-    <value>minuut</value>
-  </data>
-  <data name="DateDifferenceMonthsText" xml:space="preserve">
-    <value>maanden</value>
-  </data>
-  <data name="DateDifferenceMonthText" xml:space="preserve">
-    <value>maand</value>
-  </data>
-  <data name="DateDifferenceSecondsText" xml:space="preserve">
-    <value>seconden</value>
-  </data>
-  <data name="DateDifferenceSecondText" xml:space="preserve">
-    <value>seconde</value>
-  </data>
-  <data name="DateDifferenceWeeksText" xml:space="preserve">
-    <value>weken</value>
-  </data>
-  <data name="DateDifferenceWeekText" xml:space="preserve">
-    <value>week</value>
-  </data>
-  <data name="DateDifferenceYearsText" xml:space="preserve">
-    <value>jaren</value>
-  </data>
-  <data name="DateDifferenceYearText" xml:space="preserve">
-    <value>jaar</value>
   </data>
   <data name="DepartmentLabel" xml:space="preserve">
     <value>Afdeling</value>
@@ -227,10 +185,7 @@
   <data name="Email3EmailAddressLabel" xml:space="preserve">
     <value>E-mail 3</value>
   </data>
-  <data name="EmailAttachmentsLabel" xml:space="preserve">
-    <value>Bijlagen</value>
-  </data>
-  <data name="FunctionLabel" xml:space="preserve">
+  <data name="TitleLabel" xml:space="preserve">
     <value>Functie</value>
   </data>
   <data name="GivenNameLabel" xml:space="preserve">
@@ -284,7 +239,7 @@
   <data name="PrimaryTelephoneNumberLabel" xml:space="preserve">
     <value>Hoofdtelefoon</value>
   </data>
-  <data name="ProfessionLabel" xml:space="preserve">
+  <data name="RoleLabel" xml:space="preserve">
     <value>Beroep</value>
   </data>
   <data name="RadioTelephoneNumberLabel" xml:space="preserve">
@@ -293,7 +248,7 @@
   <data name="SpouseNameLabel" xml:space="preserve">
     <value>Partner</value>
   </data>
-  <data name="SurNameLabel" xml:space="preserve">
+  <data name="FamilyName" xml:space="preserve">
     <value>Achternaam</value>
   </data>
   <data name="TelexNumberLabel" xml:space="preserve">

@@ -147,10 +147,10 @@
   <data name="CellularTelephoneNumberLabel" xml:space="preserve">
     <value>Mobile</value>
   </data>
-  <data name="CompanyLabel" xml:space="preserve">
+  <data name="OrganizationLabel" xml:space="preserve">
     <value>Company</value>
   </data>
-  <data name="CompanyMainTelephoneNumberLabel" xml:space="preserve">
+  <data name="OrganizationMainTelephoneNumberLabel" xml:space="preserve">
     <value>Company main phone</value>
   </data>
   <data name="DataFormat" xml:space="preserve">
@@ -160,48 +160,6 @@
   <data name="DataFormatWithTime" xml:space="preserve">
     <value>F</value>
     <comment>The format used for all date/time related items</comment>
-  </data>
-  <data name="DateDifferenceDaysText" xml:space="preserve">
-    <value>days</value>
-  </data>
-  <data name="DateDifferenceDayText" xml:space="preserve">
-    <value>day</value>
-  </data>
-  <data name="DateDifferenceHoursText" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="DateDifferenceHourText" xml:space="preserve">
-    <value>hour</value>
-  </data>
-  <data name="DateDifferenceMinutesText" xml:space="preserve">
-    <value>minutes</value>
-  </data>
-  <data name="DateDifferenceMinuteText" xml:space="preserve">
-    <value>minute</value>
-  </data>
-  <data name="DateDifferenceMonthsText" xml:space="preserve">
-    <value>months</value>
-  </data>
-  <data name="DateDifferenceMonthText" xml:space="preserve">
-    <value>month</value>
-  </data>
-  <data name="DateDifferenceSecondsText" xml:space="preserve">
-    <value>seconds</value>
-  </data>
-  <data name="DateDifferenceSecondText" xml:space="preserve">
-    <value>second</value>
-  </data>
-  <data name="DateDifferenceWeeksText" xml:space="preserve">
-    <value>weeks</value>
-  </data>
-  <data name="DateDifferenceWeekText" xml:space="preserve">
-    <value>week</value>
-  </data>
-  <data name="DateDifferenceYearsText" xml:space="preserve">
-    <value>years</value>
-  </data>
-  <data name="DateDifferenceYearText" xml:space="preserve">
-    <value>year</value>
   </data>
   <data name="DepartmentLabel" xml:space="preserve">
     <value>Department</value>
@@ -227,7 +185,7 @@
   <data name="Email3EmailAddressLabel" xml:space="preserve">
     <value>E-mail 3</value>
   </data>
-  <data name="FunctionLabel" xml:space="preserve">
+  <data name="TitleLabel" xml:space="preserve">
     <value>Job title</value>
   </data>
   <data name="GivenNameLabel" xml:space="preserve">
@@ -281,7 +239,7 @@
   <data name="PrimaryTelephoneNumberLabel" xml:space="preserve">
     <value>Primary phone</value>
   </data>
-  <data name="ProfessionLabel" xml:space="preserve">
+  <data name="RoleLabel" xml:space="preserve">
     <value>Profession</value>
   </data>
   <data name="RadioTelephoneNumberLabel" xml:space="preserve">
@@ -290,7 +248,7 @@
   <data name="SpouseNameLabel" xml:space="preserve">
     <value>Spouse/Partner</value>
   </data>
-  <data name="SurNameLabel" xml:space="preserve">
+  <data name="FamilyName" xml:space="preserve">
     <value>Last name</value>
   </data>
   <data name="TelexNumberLabel" xml:space="preserve">
