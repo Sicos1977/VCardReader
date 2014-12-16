@@ -324,7 +324,7 @@ namespace VCardReader
                     vcard.InstantMessagingAddress);
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader, htmlBody);
+            WriteHeaderEmptyLine(contactHeader);
 
             // Business telephone number
             if (!string.IsNullOrEmpty(vcard.BusinessTelephoneNumber))
@@ -455,12 +455,12 @@ namespace VCardReader
                     vcard.Email3DisplayName);
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader, htmlBody);
+            WriteHeaderEmptyLine(contactHeader);
 
             // Birthday
-            if (vcard.Birthday != null)
+            if (vcard.BirthDate != null)
                 WriteHeaderLine(contactHeader, LanguageConsts.BirthdayLabel,
-                    ((DateTime) vcard.Birthday).ToString(LanguageConsts.DataFormat));
+                    ((DateTime) vcard.BirthDate).ToString(LanguageConsts.DataFormat));
 
             // Anniversary
             if (vcard.WeddingAnniversary != null)
@@ -490,16 +490,19 @@ namespace VCardReader
                     switch (webpage.WebsiteType)
                     {
                         case WebsiteTypes.Default:
+                            WriteHeaderLine(contactHeader, LanguageConsts.WebpageDefaultLabel, webpage.Url);
                             break;
 
                         case WebsiteTypes.Personal:
+                            WriteHeaderLine(contactHeader, LanguageConsts.WebpagePersonalLabel, webpage.Url);
                             break;
 
                         case WebsiteTypes.Work:
+                            WriteHeaderLine(contactHeader, LanguageConsts.WebPageWorkLabel, webpage.Url);
                             break;
                     }
 
-                    WriteHeaderLine(contactHeader, LanguageConsts.HtmlLabel, vcard.Html);
+                    WriteHeaderLine(contactHeader, LanguageConsts.WebpageDefaultLabel, vcard.Html);
                 }
             }
 
@@ -507,10 +510,10 @@ namespace VCardReader
             WriteHeaderEmptyLine(contactHeader);
 
             // Categories
-            //var categories = message.Categories;
-            //if (categories != null)
-            //    WriteHeaderLine(contactHeader, LanguageConsts.EmailCategoriesLabel,
-            //        String.Join("; ", categories));
+            var categories = vcard.Categories;
+            if (categories != null)
+                WriteHeaderLine(contactHeader, LanguageConsts.CategoriesLabel,
+                    String.Join("; ", categories));
 
             // Empty line
             WriteHeaderEmptyLine(contactHeader);
@@ -523,6 +526,29 @@ namespace VCardReader
             File.WriteAllText(fileName, body, Encoding.UTF8);
 
             return files;
+        }
+        #endregion
+
+        #region InjectHeader
+        /// <summary>
+        /// Inject an outlook style header into the top of the html
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
+        private static string InjectHeader(string body, string header)
+        {
+            var temp = body.ToUpperInvariant();
+
+            var begin = temp.IndexOf("<BODY", StringComparison.Ordinal);
+
+            if (begin > 0)
+            {
+                begin = temp.IndexOf(">", begin, StringComparison.Ordinal);
+                return body.Insert(begin + 1, header);
+            }
+
+            return header + body;
         }
         #endregion
     }

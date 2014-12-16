@@ -203,8 +203,8 @@
   <data name="HomeTelephoneNumberLabel" xml:space="preserve">
     <value>Thuis</value>
   </data>
-  <data name="HtmlLabel" xml:space="preserve">
-    <value>Web pagina</value>
+  <data name="WebpageDefaultLabel" xml:space="preserve">
+    <value>Standaard web pagina</value>
   </data>
   <data name="ImportanceHighText" xml:space="preserve">
     <value>Hoog</value>
@@ -262,5 +262,14 @@
   </data>
   <data name="WorkAddressLabel" xml:space="preserve">
     <value>Werkadres</value>
+  </data>
+  <data name="CategoriesLabel" xml:space="preserve">
+    <value>Categoriëen</value>
+  </data>
+  <data name="WebpagePersonalLabel" xml:space="preserve">
+    <value>Persoonlijke web pagina</value>
+  </data>
+  <data name="WebPageWorkLabel" xml:space="preserve">
+    <value>Werk web pagina</value>
   </data>
 </root>

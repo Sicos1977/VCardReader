@@ -203,7 +203,7 @@
   <data name="HomeTelephoneNumberLabel" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="HtmlLabel" xml:space="preserve">
+  <data name="WebpageDefaultLabel" xml:space="preserve">
     <value>Web page</value>
   </data>
   <data name="ImportanceHighText" xml:space="preserve">
@@ -262,5 +262,14 @@
   </data>
   <data name="WorkAddressLabel" xml:space="preserve">
     <value>Business address</value>
+  </data>
+  <data name="CategoriesLabel" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="WebpagePersonalLabel" xml:space="preserve">
+    <value>Personal webpage</value>
+  </data>
+  <data name="WebPageWorkLabel" xml:space="preserve">
+    <value>Work webpage</value>
   </data>
 </root>

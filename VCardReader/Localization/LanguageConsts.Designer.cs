@@ -142,6 +142,15 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string CategoriesLabel {
+            get {
+                return ResourceManager.GetString("CategoriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mobile.
         /// </summary>
         internal static string CellularTelephoneNumberLabel {
@@ -291,15 +300,6 @@ namespace VCardReader.Localization {
         internal static string HomeTelephoneNumberLabel {
             get {
                 return ResourceManager.GetString("HomeTelephoneNumberLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Web page.
-        /// </summary>
-        internal static string HtmlLabel {
-            get {
-                return ResourceManager.GetString("HtmlLabel", resourceCulture);
             }
         }
         
@@ -471,6 +471,33 @@ namespace VCardReader.Localization {
         internal static string TitleLabel {
             get {
                 return ResourceManager.GetString("TitleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web page.
+        /// </summary>
+        internal static string WebpageDefaultLabel {
+            get {
+                return ResourceManager.GetString("WebpageDefaultLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal webpage.
+        /// </summary>
+        internal static string WebpagePersonalLabel {
+            get {
+                return ResourceManager.GetString("WebpagePersonalLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Work webpage.
+        /// </summary>
+        internal static string WebPageWorkLabel {
+            get {
+                return ResourceManager.GetString("WebPageWorkLabel", resourceCulture);
             }
         }
         
