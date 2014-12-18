@@ -270,9 +270,9 @@ namespace VCardReader.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Home address.
         /// </summary>
-        internal static string HomeAddressLabel {
+        internal static string HomeDeliveryAddressLabel {
             get {
-                return ResourceManager.GetString("HomeAddressLabel", resourceCulture);
+                return ResourceManager.GetString("HomeDeliveryAddressLabel", resourceCulture);
             }
         }
         

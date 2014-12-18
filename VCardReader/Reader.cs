@@ -304,152 +304,146 @@ namespace VCardReader
             WriteHeaderEmptyLine(contactHeader);
 
             // Business address
-            foreach (var deliveryAddress in vcard.DeliveryAddresses)
+            foreach (var deliveryLabel in vcard.DeliveryLabels)
             {
-                switch (deliveryAddress.AddressType)
+                switch (deliveryLabel.AddressType)
                 {
                     case DeliveryAddressTypes.Domestic:
+                        //WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Home:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.International:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Parcel:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Postal:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Work:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Default:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
                 }
             }
 
-            //if (!string.IsNullOrEmpty(vcard.WorkAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.WorkAddressLabel,
-            //        vcard.WorkAddress);
+            //// Empty line
+            WriteHeaderEmptyLine(contactHeader);
 
-            //// Home address
-            //if (!string.IsNullOrEmpty(vcard.HomeAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.HomeAddressLabel,
-            //        vcard.HomeAddress);
+            foreach (var phone in vcard.Phones)
+            {
+                switch (phone.PhoneType)
+                {
+                    case PhoneTypes.Bbs:
+                        //WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        break;
 
-            //// Other address
-            //if (!string.IsNullOrEmpty(vcard.OtherAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.OtherAddressLabel,
-            //        vcard.OtherAddress);
+                    case PhoneTypes.Car:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
 
-            //// Instant messaging
-            //if (!string.IsNullOrEmpty(vcard.InstantMessagingAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.InstantMessagingAddressLabel,
-            //        vcard.InstantMessagingAddress);
+                    case PhoneTypes.Cellular:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.CellularVoice:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Fax:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Home:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Isdn:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.MessagingService:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Modem:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Preferred:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Video:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Voice:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Work:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.WorkFax:
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        break;
+                }
+            }
 
             //// Empty line
-            //WriteHeaderEmptyLine(contactHeader);
+            WriteHeaderEmptyLine(contactHeader);
 
-            //// Business telephone number
-            //if (!string.IsNullOrEmpty(vcard.BusinessTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.BusinessTelephoneNumberLabel,
-            //        vcard.BusinessTelephoneNumber);
+            foreach (var email in vcard.EmailAddresses)
+            {
+                switch (email.EmailType)
+                {
+                    case EmailAddressType.AOl:
+                        break;
 
-            //// Business telephone number 2
-            //if (!string.IsNullOrEmpty(vcard.BusinessTelephoneNumber2))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.BusinessTelephoneNumber2Label,
-            //        vcard.BusinessTelephoneNumber2);
+                    case EmailAddressType.AppleLink:
+                        break;
 
-            //// Assistant's telephone number
-            //if (!string.IsNullOrEmpty(vcard.AssistantTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.AssistantTelephoneNumberLabel,
-            //        vcard.AssistantTelephoneNumber);
+                    case EmailAddressType.AttMail:
+                        break;
 
-            //// Company main phone
-            //if (!string.IsNullOrEmpty(vcard.CompanyMainTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.OrganizationMainTelephoneNumberLabel,
-            //        vcard.CompanyMainTelephoneNumber);
+                    case EmailAddressType.CompuServe:
+                        break;
 
-            //// Home telephone number
-            //if (!string.IsNullOrEmpty(vcard.HomeTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.HomeTelephoneNumberLabel,
-            //        vcard.HomeTelephoneNumber);
+                    case EmailAddressType.EWorld:
+                        break;
 
-            //// Home telephone number 2
-            //if (!string.IsNullOrEmpty(vcard.HomeTelephoneNumber2))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.HomeTelephoneNumber2Label,
-            //        vcard.HomeTelephoneNumber2);
+                    case EmailAddressType.IBMMail:
+                        break;
 
-            //// Mobile phone
-            //if (!string.IsNullOrEmpty(vcard.CellularTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.CellularTelephoneNumberLabel,
-            //        vcard.CellularTelephoneNumber);
+                    case EmailAddressType.Internet:
+                        break;
 
-            //// Car phone
-            //if (!string.IsNullOrEmpty(vcard.CarTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.CarTelephoneNumberLabel,
-            //        vcard.CarTelephoneNumber);
+                    case EmailAddressType.MCIMail:
+                        break;
 
-            //// Radio
-            //if (!string.IsNullOrEmpty(vcard.RadioTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.RadioTelephoneNumberLabel,
-            //        vcard.RadioTelephoneNumber);
+                    case EmailAddressType.PowerShare:
+                        break;
 
-            //// Beeper
-            //if (!string.IsNullOrEmpty(vcard.BeeperTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.BeeperTelephoneNumberLabel,
-            //        vcard.BeeperTelephoneNumber);
+                    case EmailAddressType.Prodigy:
+                        break;
 
-            //// Callback
-            //if (!string.IsNullOrEmpty(vcard.CallbackTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.CallbackTelephoneNumberLabel,
-            //        vcard.CallbackTelephoneNumber);
-
-            //// Other
-            //if (!string.IsNullOrEmpty(vcard.OtherTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.OtherTelephoneNumberLabel,
-            //        vcard.OtherTelephoneNumber);
-
-            //// Primary telephone number
-            //if (!string.IsNullOrEmpty(vcard.PrimaryTelephoneNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.PrimaryTelephoneNumberLabel,
-            //        vcard.PrimaryTelephoneNumber);
-
-            //// Telex
-            //if (!string.IsNullOrEmpty(vcard.TelexNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.TelexNumberLabel,
-            //        vcard.TelexNumber);
-
-            //// TTY/TDD phone
-            //if (!string.IsNullOrEmpty(vcard.TextTelephone))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.TextTelephoneLabel,
-            //        vcard.TextTelephone);
-
-            //// ISDN
-            //if (!string.IsNullOrEmpty(vcard.ISDNNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.ISDNNumberLabel,
-            //        vcard.ISDNNumber);
-
-            //// Other fax (primary fax, weird that they call it like this in Outlook)
-            //if (!string.IsNullOrEmpty(vcard.PrimaryFaxNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.PrimaryFaxNumberLabel,
-            //        vcard.OtherTelephoneNumber);
-
-            //// Business fax
-            //if (!string.IsNullOrEmpty(vcard.BusinessFaxNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.BusinessFaxNumberLabel,
-            //        vcard.BusinessFaxNumber);
-
-            //// Home fax
-            //if (!string.IsNullOrEmpty(vcard.HomeFaxNumber))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.HomeFaxNumberLabel,
-            //        vcard.HomeFaxNumber);
-
-            //// Empty line
-            //WriteHeaderEmptyLine(contactHeader, htmlBody);
+                    case EmailAddressType.Telex:
+                        break;
+                }
+            }
 
             //// E-mail
             //if (!string.IsNullOrEmpty(vcard.Email1EmailAddress))

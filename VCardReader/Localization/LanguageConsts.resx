@@ -191,7 +191,7 @@
   <data name="GivenNameLabel" xml:space="preserve">
     <value>First name</value>
   </data>
-  <data name="HomeAddressLabel" xml:space="preserve">
+  <data name="HomeDeliveryAddressLabel" xml:space="preserve">
     <value>Home address</value>
   </data>
   <data name="HomeFaxNumberLabel" xml:space="preserve">
