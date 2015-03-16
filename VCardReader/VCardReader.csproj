@@ -53,11 +53,6 @@
     <Compile Include="Gender.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />
     <Compile Include="Helpers\ExceptionHelpers.cs" />
-    <Compile Include="Localization\LanguageConsts.de.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LanguageConsts.de.resx</DependentUpon>
-    </Compile>
     <Compile Include="Localization\LanguageConsts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,10 +85,6 @@
     <Compile Include="Collections\WebsiteCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\LanguageConsts.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LanguageConsts.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LanguageConsts.nl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageConsts.nl.Designer.cs</LastGenOutput>
