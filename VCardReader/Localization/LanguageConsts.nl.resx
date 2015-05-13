@@ -147,22 +147,22 @@
   <data name="CellularTelephoneNumberLabel" xml:space="preserve">
     <value>Mobiel</value>
   </data>
-  <data name="OrganizationLabel" xml:space="preserve">
+  <data name="CompanyLabel" xml:space="preserve">
     <value>Bedrijf</value>
   </data>
-  <data name="OrganizationMainTelephoneNumberLabel" xml:space="preserve">
+  <data name="CompanyMainTelephoneNumberLabel" xml:space="preserve">
     <value>Hoofdtelefoon bedrijf</value>
   </data>
-  <data name="HomeDeliveryAddressLabel" xml:space="preserve">
+  <data name="DataFormatDataFormat" xml:space="preserve">
     <value>dd-MM-yyyy</value>
-    <comment>The format used for all date related items</comment>
   </data>
-  <data name="DataFormatWithTime" xml:space="preserve">
+  <data name="DateFormatWithTime" xml:space="preserve">
     <value>F</value>
-    <comment>The culture format to use for a date</comment>
+    <comment>The format used for all date related items</comment>
   </data>
   <data name="DepartmentLabel" xml:space="preserve">
     <value>Afdeling</value>
+    <comment>The format used for all date/time related items</comment>
   </data>
   <data name="DisplayNameLabel" xml:space="preserve">
     <value>Volledige naam</value>
@@ -185,7 +185,7 @@
   <data name="Email3EmailAddressLabel" xml:space="preserve">
     <value>E-mail 3</value>
   </data>
-  <data name="TitleLabel" xml:space="preserve">
+  <data name="FunctionLabel" xml:space="preserve">
     <value>Functie</value>
   </data>
   <data name="GivenNameLabel" xml:space="preserve">
@@ -203,26 +203,18 @@
   <data name="HomeTelephoneNumberLabel" xml:space="preserve">
     <value>Thuis</value>
   </data>
-  <data name="WebpageDefaultLabel" xml:space="preserve">
-    <value>Standaard web pagina</value>
-  </data>
-  <data name="ImportanceHighText" xml:space="preserve">
-    <value>Hoog</value>
-  </data>
-  <data name="ImportanceLabel" xml:space="preserve">
-    <value>Prioriteit</value>
-  </data>
-  <data name="ImportanceLowText" xml:space="preserve">
-    <value>Laag</value>
-  </data>
-  <data name="ImportanceNormalText" xml:space="preserve">
-    <value />
+  <data name="HtmlLabel" xml:space="preserve">
+    <value>Web pagina</value>
   </data>
   <data name="InstantMessagingAddressLabel" xml:space="preserve">
     <value>IM-adres</value>
   </data>
   <data name="ISDNNumberLabel" xml:space="preserve">
     <value>ISDN</value>
+  </data>
+  <data name="NameLessFileName" xml:space="preserve">
+    <value>Naamloos</value>
+    <comment>Normally Outlook will use the subject of a MSG object as it's filename. Invalid characters are replaced by spaces. When there is no subject outlook uses "Nameless" as default</comment>
   </data>
   <data name="OtherAddressLabel" xml:space="preserve">
     <value>Ander adres</value>
@@ -239,7 +231,7 @@
   <data name="PrimaryTelephoneNumberLabel" xml:space="preserve">
     <value>Hoofdtelefoon</value>
   </data>
-  <data name="RoleLabel" xml:space="preserve">
+  <data name="ProfessionLabel" xml:space="preserve">
     <value>Beroep</value>
   </data>
   <data name="RadioTelephoneNumberLabel" xml:space="preserve">
@@ -248,7 +240,10 @@
   <data name="SpouseNameLabel" xml:space="preserve">
     <value>Partner</value>
   </data>
-  <data name="FamilyName" xml:space="preserve">
+  <data name="StickyNoteDateLabel" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="SurNameLabel" xml:space="preserve">
     <value>Achternaam</value>
   </data>
   <data name="TelexNumberLabel" xml:space="preserve">
@@ -262,14 +257,5 @@
   </data>
   <data name="WorkAddressLabel" xml:space="preserve">
     <value>Werkadres</value>
-  </data>
-  <data name="CategoriesLabel" xml:space="preserve">
-    <value>Categoriëen</value>
-  </data>
-  <data name="WebpagePersonalLabel" xml:space="preserve">
-    <value>Persoonlijke web pagina</value>
-  </data>
-  <data name="WebPageWorkLabel" xml:space="preserve">
-    <value>Werk web pagina</value>
   </data>
 </root>

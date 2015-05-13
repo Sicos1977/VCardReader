@@ -142,15 +142,6 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categories.
-        /// </summary>
-        internal static string CategoriesLabel {
-            get {
-                return ResourceManager.GetString("CategoriesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mobile.
         /// </summary>
         internal static string CellularTelephoneNumberLabel {
@@ -160,20 +151,38 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        internal static string CompanyLabel {
+            get {
+                return ResourceManager.GetString("CompanyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company main phone.
+        /// </summary>
+        internal static string CompanyMainTelephoneNumberLabel {
+            get {
+                return ResourceManager.GetString("CompanyMainTelephoneNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MM-dd-yyyy.
         /// </summary>
-        internal static string DataFormat {
+        internal static string DataFormatDataFormat {
             get {
-                return ResourceManager.GetString("DataFormat", resourceCulture);
+                return ResourceManager.GetString("DataFormatDataFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to F.
         /// </summary>
-        internal static string DataFormatWithTime {
+        internal static string DateFormatWithTime {
             get {
-                return ResourceManager.GetString("DataFormatWithTime", resourceCulture);
+                return ResourceManager.GetString("DateFormatWithTime", resourceCulture);
             }
         }
         
@@ -250,11 +259,11 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last name.
+        ///   Looks up a localized string similar to Job title.
         /// </summary>
-        internal static string FamilyName {
+        internal static string FunctionLabel {
             get {
-                return ResourceManager.GetString("FamilyName", resourceCulture);
+                return ResourceManager.GetString("FunctionLabel", resourceCulture);
             }
         }
         
@@ -270,9 +279,9 @@ namespace VCardReader.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Home address.
         /// </summary>
-        internal static string HomeDeliveryAddressLabel {
+        internal static string HomeAddressLabel {
             get {
-                return ResourceManager.GetString("HomeDeliveryAddressLabel", resourceCulture);
+                return ResourceManager.GetString("HomeAddressLabel", resourceCulture);
             }
         }
         
@@ -304,38 +313,11 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to High.
+        ///   Looks up a localized string similar to Web page.
         /// </summary>
-        internal static string ImportanceHighText {
+        internal static string HtmlLabel {
             get {
-                return ResourceManager.GetString("ImportanceHighText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Urgent.
-        /// </summary>
-        internal static string ImportanceLabel {
-            get {
-                return ResourceManager.GetString("ImportanceLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Low.
-        /// </summary>
-        internal static string ImportanceLowText {
-            get {
-                return ResourceManager.GetString("ImportanceLowText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ImportanceNormalText {
-            get {
-                return ResourceManager.GetString("ImportanceNormalText", resourceCulture);
+                return ResourceManager.GetString("HtmlLabel", resourceCulture);
             }
         }
         
@@ -358,20 +340,11 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company.
+        ///   Looks up a localized string similar to Nameless.
         /// </summary>
-        internal static string OrganizationLabel {
+        internal static string NameLessFileName {
             get {
-                return ResourceManager.GetString("OrganizationLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Company main phone.
-        /// </summary>
-        internal static string OrganizationMainTelephoneNumberLabel {
-            get {
-                return ResourceManager.GetString("OrganizationMainTelephoneNumberLabel", resourceCulture);
+                return ResourceManager.GetString("NameLessFileName", resourceCulture);
             }
         }
         
@@ -421,6 +394,15 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profession.
+        /// </summary>
+        internal static string ProfessionLabel {
+            get {
+                return ResourceManager.GetString("ProfessionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Radio.
         /// </summary>
         internal static string RadioTelephoneNumberLabel {
@@ -430,20 +412,29 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profession.
-        /// </summary>
-        internal static string RoleLabel {
-            get {
-                return ResourceManager.GetString("RoleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Spouse/Partner.
         /// </summary>
         internal static string SpouseNameLabel {
             get {
                 return ResourceManager.GetString("SpouseNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string StickyNoteDateLabel {
+            get {
+                return ResourceManager.GetString("StickyNoteDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        internal static string SurNameLabel {
+            get {
+                return ResourceManager.GetString("SurNameLabel", resourceCulture);
             }
         }
         
@@ -462,42 +453,6 @@ namespace VCardReader.Localization {
         internal static string TextTelephoneLabel {
             get {
                 return ResourceManager.GetString("TextTelephoneLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Job title.
-        /// </summary>
-        internal static string TitleLabel {
-            get {
-                return ResourceManager.GetString("TitleLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Web page.
-        /// </summary>
-        internal static string WebpageDefaultLabel {
-            get {
-                return ResourceManager.GetString("WebpageDefaultLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Personal webpage.
-        /// </summary>
-        internal static string WebpagePersonalLabel {
-            get {
-                return ResourceManager.GetString("WebpagePersonalLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Work webpage.
-        /// </summary>
-        internal static string WebPageWorkLabel {
-            get {
-                return ResourceManager.GetString("WebPageWorkLabel", resourceCulture);
             }
         }
         

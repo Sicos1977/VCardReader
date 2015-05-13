@@ -50,11 +50,10 @@ namespace VCardReader
         /// </summary>
         /// <param name="inputFile"></param>
         /// <param name="outputFolder"></param>
-        /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or
-        ///     <paramref name="outputFolder" /> is null or empty</exception>
+        /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or <paramref name="outputFolder" /> is null or empty</exception>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
         /// <exception cref="DirectoryNotFoundException">Raised when the <paramref name="outputFolder" /> does not exist</exception>
-        /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf </exception>
+        /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf</exception>
         private static string CheckFileNameAndOutputFolder(string inputFile, string outputFolder)
         {
             if (string.IsNullOrEmpty(inputFile))
@@ -97,54 +96,36 @@ namespace VCardReader
         /// </summary>
         /// <param name="inputFile">The msg file</param>
         /// <param name="outputFolder">The folder where to save the extracted msg file</param>
-        /// <param name="hyperlinks">When true hyperlinks are generated for the To, CC, BCC and attachments</param>
         /// <param name="culture"></param>
         public string[] ExtractToFolderFromCom(string inputFile,
-            string outputFolder,
-            bool hyperlinks = false,
-            string culture = "")
+                                               string outputFolder,
+                                               string culture = "")
         {
             try
             {
                 if (!string.IsNullOrEmpty(culture))
                     SetCulture(culture);
 
-                return ExtractToFolder(inputFile, outputFolder, hyperlinks);
+                return ExtractToFolder(inputFile, outputFolder);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                _errorMessage = ExceptionHelpers.GetInnerException(e);
+                _errorMessage = ExceptionHelpers.GetInnerException(exception);
                 return new string[0];
             }
         }
 
         /// <summary>
-        ///     This method reads the <paramref name="inputFile" /> and when the file is supported it will do the following: <br />
-        ///     - Extract the HTML, RTF (will be converted to html) or TEXT body (in these order) <br />
-        ///     - Puts a header (with the sender, to, cc, etc... (depends on the message type) on top of the body so it looks
-        ///     like if the object is printed from Outlook <br />
-        ///     - Reads all the attachents <br />
-        ///     And in the end writes everything to the given <paramref name="outputFolder" />
+        /// This method will read the given <paramref name="inputFile"/> convert it to HTML and write it to the <paramref name="outputFolder"/>
         /// </summary>
-        /// <param name="inputFile">The msg file</param>
-        /// <param name="outputFolder">The folder where to save the extracted msg file</param>
-        /// <param name="hyperlinks">When true hyperlinks are generated for the To, CC, BCC and attachments</param>
-        /// <returns>String array containing the full path to the message body and its attachments</returns>
-        /// <exception cref="MRFileTypeNotSupported">Raised when the Microsoft Outlook message type is not supported</exception>
-        /// <exception cref="MRInvalidSignedFile">Raised when the Microsoft Outlook signed message is invalid</exception>
-        /// <exception cref="ArgumentNullException">Raised when the
-        ///     <param ref="inputFile" />
-        ///     or
-        ///     <param ref="outputFolder" />
-        ///     is null or empty</exception>
-        /// <exception cref="FileNotFoundException">Raised when the
-        ///     <param ref="inputFile" />
-        ///     does not exists</exception>
-        /// <exception cref="DirectoryNotFoundException">Raised when the
-        ///     <param ref="outputFolder" />
-        ///     does not exists</exception>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
-        public string[] ExtractToFolder(string inputFile, string outputFolder, bool hyperlinks = false)
+        /// <param name="inputFile">The vcf file</param>
+        /// <param name="outputFolder">The folder where to save the converted vcf file</param>
+        /// <returns>String array containing the full path to the converted VCF file</returns>
+        /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or <paramref name="outputFolder" /> is null or empty</exception>
+        /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
+        /// <exception cref="DirectoryNotFoundException">Raised when the <paramref name="outputFolder" /> does not exist</exception>
+        /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf</exception>
+        public string[] ExtractToFolder(string inputFile, string outputFolder)
         {
             outputFolder = FileManager.CheckForBackSlash(outputFolder);
 
@@ -154,12 +135,13 @@ namespace VCardReader
 
             switch (extension)
             {
-                case ".EML":
-                    using (var stream = File.Open(inputFile, FileMode.Open, FileAccess.Read))
-                    {
-                        var message = Mime.Message.Load(stream);
-                        return WriteEmlEmail(message, outputFolder, hyperlinks).ToArray();
-                    }
+                case ".VCF":
+                    //using (var stream = File.Open(inputFile, FileMode.Open, FileAccess.Read))
+                    //{
+                    //    var message = Mime.Message.Load(stream);
+                    //    return WriteEmlEmail(message, outputFolder, hyperlinks).ToArray();
+                    //}
+                    break;
             }
 
             return new string[0];
@@ -309,7 +291,7 @@ namespace VCardReader
                 switch (deliveryLabel.AddressType)
                 {
                     case DeliveryAddressTypes.Domestic:
-                        //WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Home:
