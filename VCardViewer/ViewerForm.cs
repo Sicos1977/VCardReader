@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using MsgViewer.Helpers;
+using VCardReader;
 using VCardViewer.Properties;
 
 namespace VCardViewer
@@ -60,23 +61,18 @@ namespace VCardViewer
                     tempFolder = GetTemporaryFolder();
                     _tempFolders.Add(tempFolder);
 
-                    //var msgReader = new Reader();
-                    ////msgReader.SetCulture("nl-NL");
-                    ////msgReader.SetCulture("de-DE");
-                    //var files = msgReader.ExtractToFolder(openFileDialog1.FileName, tempFolder, HyperLinkCheckBox.Checked);
+                    var vcfReader = new Reader();
+                    //msgReader.SetCulture("nl-NL");
+                    //msgReader.SetCulture("de-DE");
+                    var files = vcfReader.ExtractToFolder(openFileDialog1.FileName, tempFolder, HyperLinkCheckBox.Checked);
 
-                    //var error = msgReader.GetErrorMessage();
+                    if (!string.IsNullOrEmpty(files[0]))
+                        webBrowser1.Navigate(files[0]);
 
-                    //if (!string.IsNullOrEmpty(error))
-                    //    throw new Exception(error);
+                    FilesListBox.Items.Clear();
 
-                    //if (!string.IsNullOrEmpty(files[0]))
-                    //    webBrowser1.Navigate(files[0]);
-
-                    //FilesListBox.Items.Clear();
-
-                    //foreach (var file in files)
-                    //    FilesListBox.Items.Add(file);
+                    foreach (var file in files)
+                        FilesListBox.Items.Add(file);
                 }
                 catch (Exception ex)
                 {

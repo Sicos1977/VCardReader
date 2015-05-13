@@ -153,7 +153,7 @@
   <data name="CompanyMainTelephoneNumberLabel" xml:space="preserve">
     <value>Company main phone</value>
   </data>
-  <data name="DataFormatDataFormat" xml:space="preserve">
+  <data name="DataFormat" xml:space="preserve">
     <value>MM-dd-yyyy</value>
   </data>
   <data name="DateFormatWithTime" xml:space="preserve">
@@ -167,23 +167,14 @@
   <data name="DisplayNameLabel" xml:space="preserve">
     <value>Full name</value>
   </data>
-  <data name="Email1DisplayNameLabel" xml:space="preserve">
+  <data name="DomesticAddressLabel" xml:space="preserve">
+    <value>Domestic address</value>
+  </data>
+  <data name="EmailDisplayNameLabel" xml:space="preserve">
     <value>E-mail display as</value>
   </data>
-  <data name="Email1EmailAddressLabel" xml:space="preserve">
+  <data name="EmailEmailAddressLabel" xml:space="preserve">
     <value>E-mail</value>
-  </data>
-  <data name="Email2DisplayNameLabel" xml:space="preserve">
-    <value>E-mail 2 display as</value>
-  </data>
-  <data name="Email2EmailAddressLabel" xml:space="preserve">
-    <value>E-mail 2</value>
-  </data>
-  <data name="Email3DisplayNameLabel" xml:space="preserve">
-    <value>E-mail 3 display as</value>
-  </data>
-  <data name="Email3EmailAddressLabel" xml:space="preserve">
-    <value>E-mail 3</value>
   </data>
   <data name="FunctionLabel" xml:space="preserve">
     <value>Job title</value>
@@ -209,6 +200,9 @@
   <data name="InstantMessagingAddressLabel" xml:space="preserve">
     <value>IM address</value>
   </data>
+  <data name="InternationalAddressLabel" xml:space="preserve">
+    <value>International address</value>
+  </data>
   <data name="ISDNNumberLabel" xml:space="preserve">
     <value>ISDN</value>
   </data>
@@ -224,6 +218,12 @@
   </data>
   <data name="OtherTelephoneNumberLabel" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="ParcelAddressLabel" xml:space="preserve">
+    <value>Parcel address</value>
+  </data>
+  <data name="PostalAddressLabel" xml:space="preserve">
+    <value>Postal address</value>
   </data>
   <data name="PrimaryFaxNumberLabel" xml:space="preserve">
     <value>Other fax</value>
@@ -257,5 +257,20 @@
   </data>
   <data name="WorkAddressLabel" xml:space="preserve">
     <value>Business address</value>
+  </data>
+  <data name="BBSTelephoneNumberLabel" xml:space="preserve">
+    <value>BBS</value>
+  </data>
+  <data name="ModemTelephoneNumberLabel" xml:space="preserve">
+    <value>Modem</value>
+  </data>
+  <data name="VideoTelephoneNumberLabel" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="VoiceTelephoneNumberLabel" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="CategoriesLabel" xml:space="preserve">
+    <value>Categories</value>
   </data>
 </root>

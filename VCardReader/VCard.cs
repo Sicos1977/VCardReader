@@ -98,6 +98,16 @@ namespace VCardReader
         }
         #endregion
 
+        #region Anniversary
+        /// <summary>
+        ///     The anniversary of the person.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        public DateTime? Anniversary { get; set; }
+        #endregion
+
         #region BirthDate
         /// <summary>
         ///     The birthdate of the person.
@@ -231,6 +241,16 @@ namespace VCardReader
             get { return _givenName ?? string.Empty; }
             set { _givenName = value; }
         }
+        #endregion
+
+        #region InstantMessagingAddress
+        /// <summary>
+        ///     The instantMessagingAddress of the person.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        public string InstantMessagingAddress { get; set; }
         #endregion
 
         #region Latitude
@@ -539,8 +559,7 @@ namespace VCardReader
         /// <param name="path">
         ///     The path to a text file containing vCard data in any recognized vCard format.
         /// </param>
-        public VCard(string path)
-            : this()
+        public VCard(string path) : this()
         {
             using (var streamReader = new StreamReader(path))
             {

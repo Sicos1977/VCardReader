@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -54,7 +53,7 @@ namespace VCardReader
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
         /// <exception cref="DirectoryNotFoundException">Raised when the <paramref name="outputFolder" /> does not exist</exception>
         /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf</exception>
-        private static string CheckFileNameAndOutputFolder(string inputFile, string outputFolder)
+        private static void CheckFileNameAndOutputFolder(string inputFile, string outputFolder)
         {
             if (string.IsNullOrEmpty(inputFile))
                 throw new ArgumentNullException(inputFile);
@@ -77,7 +76,7 @@ namespace VCardReader
             switch (extension)
             {
                 case ".VCF":
-                    return extension;
+                    return;
 
                 default:
                     throw new VCRFileTypeNotSupported("Wrong file extension, expected .vcf");
@@ -94,11 +93,13 @@ namespace VCardReader
         ///     - Reads all the attachents <br />
         ///     And in the end writes everything to the given <paramref name="outputFolder" />
         /// </summary>
-        /// <param name="inputFile">The msg file</param>
-        /// <param name="outputFolder">The folder where to save the extracted msg file</param>
+        /// <param name="inputFile">The vcf file</param>
+        /// <param name="outputFolder">The folder where to save the extracted vcf file</param>
+        /// <param name="hyperlinks">When true hyperlinks are clickable, otherwhise they are written as plain text</param>
         /// <param name="culture"></param>
         public string[] ExtractToFolderFromCom(string inputFile,
                                                string outputFolder,
+                                               bool hyperlinks = false,
                                                string culture = "")
         {
             try
@@ -120,54 +121,50 @@ namespace VCardReader
         /// </summary>
         /// <param name="inputFile">The vcf file</param>
         /// <param name="outputFolder">The folder where to save the converted vcf file</param>
+        /// <param name="hyperlinks">When true hyperlinks are clickable, otherwhise they are written as plain text</param>
         /// <returns>String array containing the full path to the converted VCF file</returns>
         /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or <paramref name="outputFolder" /> is null or empty</exception>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
         /// <exception cref="DirectoryNotFoundException">Raised when the <paramref name="outputFolder" /> does not exist</exception>
         /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf</exception>
-        public string[] ExtractToFolder(string inputFile, string outputFolder)
+        public string[] ExtractToFolder(string inputFile, string outputFolder, bool hyperlinks = false)
         {
             outputFolder = FileManager.CheckForBackSlash(outputFolder);
 
             _errorMessage = string.Empty;
 
-            var extension = CheckFileNameAndOutputFolder(inputFile, outputFolder);
+            CheckFileNameAndOutputFolder(inputFile, outputFolder);
 
-            switch (extension)
+            using (TextReader textReader = File.OpenText(inputFile))
             {
-                case ".VCF":
-                    //using (var stream = File.Open(inputFile, FileMode.Open, FileAccess.Read))
-                    //{
-                    //    var message = Mime.Message.Load(stream);
-                    //    return WriteEmlEmail(message, outputFolder, hyperlinks).ToArray();
-                    //}
-                    break;
+                var vcardReader = new VCardReader();
+                var vCard = new VCard();
+                vcardReader.ReadInto(vCard, textReader);
+                return WriteVCard(vCard, outputFolder, hyperlinks).ToArray();
             }
-
-            return new string[0];
         }
         #endregion
 
-        #region WriteHeader methods
+        #region WriteTable methods
         /// <summary>
-        ///     Writes the start of the header
+        ///     Writes the start of the table
         /// </summary>
-        /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        private static void WriteHeaderStart(StringBuilder header)
+        /// <param name="table">The <see cref="StringBuilder" /> object that is used to write a table</param>
+        private static void WriteTableStart(StringBuilder table)
         {
-            header.AppendLine("<table style=\"font-family: Times New Roman; font-size: 12pt;\">");
+            table.AppendLine("<table style=\"font-family: Times New Roman; font-size: 12pt;\">");
             _emptyLineWritten = false;
         }
 
         /// <summary>
-        ///     Writes a line into the header
+        ///     Writes a row tot the table
         /// </summary>
-        /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
+        /// <param name="table">The <see cref="StringBuilder" /> object that is used to write a table</param>
         /// <param name="label">The label text that needs to be written</param>
         /// <param name="text">The text that needs to be written after the <paramref name="label" /></param>
-        private static void WriteHeaderLine(StringBuilder header, 
-                                            string label,
-                                            string text)
+        private static void WriteTableRow(StringBuilder table, 
+                                          string label,
+                                          string text)
         {
             var lines = text.Split('\n');
             var newText = string.Empty;
@@ -175,7 +172,7 @@ namespace VCardReader
             foreach (var line in lines)
                 newText += HttpUtility.HtmlEncode(line) + "<br/>";
 
-            header.AppendLine(
+            table.AppendLine(
                 "<tr style=\"height: 18px; vertical-align: top; \"><td style=\"font-weight: bold; white-space:nowrap;\">" +
                 HttpUtility.HtmlEncode(label) + ":</td><td>" + newText + "</td></tr>");
 
@@ -183,14 +180,14 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Writes a line into the header without Html encoding the <paramref name="text" />
+        ///     Writes a tow tot the table without Html encoding the <paramref name="text" />
         /// </summary>
-        /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
+        /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a table</param>
         /// <param name="label">The label text that needs to be written</param>
         /// <param name="text">The text that needs to be written after the <paramref name="label" /></param>
-        private static void WriteHeaderLineNoEncoding(StringBuilder header,
-                                                      string label,
-                                                      string text)
+        private static void WriteTableRowNoEncoding(StringBuilder header,
+                                                    string label,
+                                                    string text)
         {
             text = text.Replace("\n", "<br/>");
 
@@ -204,24 +201,24 @@ namespace VCardReader
         /// <summary>
         ///     Writes
         /// </summary>
-        /// <param name="header"></param>
-        private static void WriteHeaderEmptyLine(StringBuilder header)
+        /// <param name="table"></param>
+        private static void WriteEmptyTableRow(StringBuilder table)
         {
             // Prevent that we write 2 empty lines in a row
             if (_emptyLineWritten)
                 return;
 
-            header.AppendLine("<tr style=\"height: 18px; vertical-align: top; \"><td>&nbsp;</td><td>&nbsp;</td></tr>");
+            table.AppendLine("<tr style=\"height: 18px; vertical-align: top; \"><td>&nbsp;</td><td>&nbsp;</td></tr>");
             _emptyLineWritten = true;
         }
 
         /// <summary>
-        ///     Writes the end of the header
+        ///     Writes the end of the table
         /// </summary>
-        /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a header</param>
-        private static void WriteHeaderEnd(StringBuilder header)
+        /// <param name="table">The <see cref="StringBuilder" /> object that is used to write a table</param>
+        private static void WriteTableEnd(StringBuilder table)
         {
-            header.AppendLine("</table><br/>");
+            table.AppendLine("</table><br/>");
         }
         #endregion
 
@@ -238,253 +235,239 @@ namespace VCardReader
         /// <returns></returns>
         private List<string> WriteVCard(VCard vcard, string outputFolder, bool hyperlinks)
         {
-            var fileName = "contact";
-            string body;
+            var fileName = Path.Combine(outputFolder, "contact.html");
             string contactPhotoFileName;
-            List<string> attachmentList;
-            List<string> files;
-
-            var contactHeader = new StringBuilder();
+            var files = new List<string> {fileName};
+            
+            var output = new StringBuilder();
 
             // Start of table
-            WriteHeaderStart(contactHeader);
+            WriteTableStart(output);
 
-            // TODO: Foto verwerking uitprogrammeren
-            //if (!string.IsNullOrEmpty(vcard.Photos[0]))
-            //    contactHeader.Append(
-            //        "<div style=\"height: 250px; position: absolute; top: 20px; right: 20px;\"><img alt=\"\" src=\"" +
-            //        contactPhotoFileName + "\" height=\"100%\"></div>");
+            //foreach (var photo in vcard.Photos)
+            //{
+            //    if (photo.Url)
+            //        contactHeader.Append(
+            //            "<div style=\"height: 250px; position: absolute; top: 20px; right: 20px;\"><img alt=\"\" src=\"" +
+            //            contactPhotoFileName + "\" height=\"100%\"></div>");
+            //}
 
             // Full name
-            if (!string.IsNullOrEmpty(vcard.DisplayName))
-                WriteHeaderLine(contactHeader, LanguageConsts.DisplayNameLabel, vcard.DisplayName);
+            if (!string.IsNullOrEmpty(vcard.FormattedName))
+                WriteTableRow(output, LanguageConsts.DisplayNameLabel, vcard.FormattedName);
 
             // Last name
             if (!string.IsNullOrEmpty(vcard.FamilyName))
-                WriteHeaderLine(contactHeader, LanguageConsts.FamilyName, vcard.FamilyName);
+                WriteTableRow(output, LanguageConsts.SurNameLabel, vcard.FamilyName);
 
             // First name
             if (!string.IsNullOrEmpty(vcard.GivenName))
-                WriteHeaderLine(contactHeader, LanguageConsts.GivenNameLabel,
+                WriteTableRow(output, LanguageConsts.GivenNameLabel,
                     vcard.GivenName);
 
             // Job title
             if (!string.IsNullOrEmpty(vcard.Title))
-                WriteHeaderLine(contactHeader, LanguageConsts.TitleLabel,
+                WriteTableRow(output, LanguageConsts.FunctionLabel,
                     vcard.Title);
 
             // Department
             if (!string.IsNullOrEmpty(vcard.Department))
-                WriteHeaderLine(contactHeader, LanguageConsts.DepartmentLabel,
+                WriteTableRow(output, LanguageConsts.DepartmentLabel,
                     vcard.Department);
 
             // Company
             if (!string.IsNullOrEmpty(vcard.Organization))
-                WriteHeaderLine(contactHeader, LanguageConsts.OrganizationLabel, vcard.Organization);
+                WriteTableRow(output, LanguageConsts.CompanyLabel, vcard.Organization);
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader);
-
+            WriteEmptyTableRow(output);
+            
             // Business address
             foreach (var deliveryLabel in vcard.DeliveryLabels)
             {
                 switch (deliveryLabel.AddressType)
                 {
                     case DeliveryAddressTypes.Domestic:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.DomesticAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Home:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.HomeAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.International:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.InternationalAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Parcel:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.PostalAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Postal:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.PostalAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Work:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.WorkAddressLabel, deliveryLabel.Text);
                         break;
 
                     case DeliveryAddressTypes.Default:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.OtherAddressLabel, deliveryLabel.Text);
                         break;
                 }
             }
 
+            // Instant messaging
+            if (!string.IsNullOrEmpty(vcard.InstantMessagingAddress))
+                WriteTableRow(output, LanguageConsts.InstantMessagingAddressLabel, vcard.InstantMessagingAddress);
+            
             //// Empty line
-            WriteHeaderEmptyLine(contactHeader);
-
+            WriteEmptyTableRow(output);
+            
             foreach (var phone in vcard.Phones)
             {
                 switch (phone.PhoneType)
                 {
                     case PhoneTypes.Bbs:
-                        //WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, deliveryLabel.Text);
+                        WriteTableRow(output, LanguageConsts.BBSTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Car:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.CarTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Cellular:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.CellularTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.CellularVoice:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.CellularTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Fax:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.OtherFaxLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Home:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                    case PhoneTypes.HomeVoice:
+                        WriteTableRow(output, LanguageConsts.HomeTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Isdn:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.ISDNNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.MessagingService:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.BeeperTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Modem:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.ModemTelephoneNumberLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.Pager:
+                    case PhoneTypes.Ttytdd:
+                        WriteTableRow(output, LanguageConsts.TextTelephoneLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Preferred:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.PrimaryTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Video:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.VideoTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Voice:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.VoiceTelephoneNumberLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.Work:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                    case PhoneTypes.WorkVoice:
+                        WriteTableRow(output, LanguageConsts.BusinessTelephoneNumberLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.VoiceCompany:
+                        WriteTableRow(output, LanguageConsts.CompanyMainTelephoneNumberLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.VoiceCallback:
+                        WriteTableRow(output, LanguageConsts.CallbackTelephoneNumberLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.VoiceRadio:
+                        WriteTableRow(output, LanguageConsts.RadioTelephoneNumberLabel, phone.FullNumber);
+                        break;
+
+                    case PhoneTypes.VoiceAssistant:
+                        WriteTableRow(output, LanguageConsts.AssistantLabel, phone.FullNumber);
                         break;
 
                     case PhoneTypes.WorkFax:
-                        WriteHeaderLine(contactHeader, LanguageConsts.HomeDeliveryAddressLabel, phone.FullNumber);
+                        WriteTableRow(output, LanguageConsts.BusinessFaxNumberLabel, phone.FullNumber);
                         break;
                 }
             }
 
             //// Empty line
-            WriteHeaderEmptyLine(contactHeader);
+            WriteEmptyTableRow(output);
+
+            var i = 1;
 
             foreach (var email in vcard.EmailAddresses)
             {
                 switch (email.EmailType)
                 {
                     case EmailAddressType.AOl:
-                        break;
-
                     case EmailAddressType.AppleLink:
-                        break;
-
                     case EmailAddressType.AttMail:
-                        break;
-
                     case EmailAddressType.CompuServe:
-                        break;
-
                     case EmailAddressType.EWorld:
-                        break;
-
                     case EmailAddressType.IBMMail:
-                        break;
-
                     case EmailAddressType.Internet:
-                        break;
-
                     case EmailAddressType.MCIMail:
-                        break;
-
                     case EmailAddressType.PowerShare:
-                        break;
-
                     case EmailAddressType.Prodigy:
+                        WriteTableRow(output, LanguageConsts.EmailEmailAddressLabel + " " + i, email.ToString());
+                        i += 1;
                         break;
 
                     case EmailAddressType.Telex:
+                        WriteTableRow(output, LanguageConsts.TelexNumberLabel, email.ToString());
                         break;
+
                 }
             }
 
-            //// E-mail
-            //if (!string.IsNullOrEmpty(vcard.Email1EmailAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email1EmailAddressLabel,
-            //        vcard.Email1EmailAddress);
+            // Empty line
+            WriteEmptyTableRow(output);
+            /*
+            // Birthday
+            if (vcard.BirthDate != null)
+                WriteTableRow(output, LanguageConsts.BirthdayLabel,
+                    ((DateTime) vcard.BirthDate).ToString(LanguageConsts.DataFormat));
 
-            //// E-mail display as
-            //if (!string.IsNullOrEmpty(vcard.Email1DisplayName))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email1DisplayNameLabel,
-            //        vcard.Email1DisplayName);
+            // Anniversary
+            if (vcard.Anniversary != null)
+                WriteTableRow(output, LanguageConsts.WeddingAnniversaryLabel,
+                    ((DateTime) vcard.Anniversary).ToString(LanguageConsts.DataFormat));
 
-            //// E-mail 2
-            //if (!string.IsNullOrEmpty(vcard.Email2EmailAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email2EmailAddressLabel,
-            //        vcard.Email2EmailAddress);
+            // Spouse/Partner
+            if (!string.IsNullOrEmpty(vcard.SpouseName))
+                WriteTableRow(output, LanguageConsts.SpouseNameLabel,
+                    vcard.SpouseName);
 
-            //// E-mail display as 2
-            //if (!string.IsNullOrEmpty(vcard.Email2DisplayName))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email2DisplayNameLabel,
-            //        vcard.Email2DisplayName);
+            // Profession
+            if (!string.IsNullOrEmpty(vcard.Role))
+                WriteTableRow(output, LanguageConsts.RoleLabel,
+                    vcard.Role);
 
-            //// E-mail 3
-            //if (!string.IsNullOrEmpty(vcard.Email3EmailAddress))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email3EmailAddressLabel,
-            //        vcard.Email3EmailAddress);
+            // Assistant
+            if (!string.IsNullOrEmpty(vcard.AssistantName))
+                WriteTableRow(output, LanguageConsts.AssistantTelephoneNumberLabel,
+                    vcard.AssistantName);
 
-            //// E-mail display as 3
-            //if (!string.IsNullOrEmpty(vcard.Email3DisplayName))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.Email3DisplayNameLabel,
-            //        vcard.Email3DisplayName);
-
-            //// Empty line
-            //WriteHeaderEmptyLine(contactHeader);
-
-            //// Birthday
-            //if (vcard.BirthDate != null)
-            //    WriteHeaderLine(contactHeader, LanguageConsts.BirthdayLabel,
-            //        ((DateTime) vcard.BirthDate).ToString(LanguageConsts.DataFormat));
-
-            //// Anniversary
-            //if (vcard.WeddingAnniversary != null)
-            //    WriteHeaderLine(contactHeader, LanguageConsts.WeddingAnniversaryLabel,
-            //        ((DateTime) vcard.WeddingAnniversary).ToString(LanguageConsts.DataFormat));
-
-            //// Spouse/Partner
-            //if (!string.IsNullOrEmpty(vcard.SpouseName))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.SpouseNameLabel,
-            //        vcard.SpouseName);
-
-            //// Profession
-            //if (!string.IsNullOrEmpty(vcard.Role))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.RoleLabel,
-            //        vcard.Role);
-
-            //// Assistant
-            //if (!string.IsNullOrEmpty(vcard.AssistantName))
-            //    WriteHeaderLine(contactHeader, LanguageConsts.AssistantTelephoneNumberLabel,
-            //        vcard.AssistantName);
-
+            /*
             // Web page
             foreach (var webpage in vcard.Websites)
             {
@@ -509,47 +492,22 @@ namespace VCardReader
 
             // Empty line
             WriteHeaderEmptyLine(contactHeader);
-
+            */
             // Categories
             var categories = vcard.Categories;
-            if (categories != null)
-                WriteHeaderLine(contactHeader, LanguageConsts.CategoriesLabel,
+            if (categories != null && categories.Count > 0)
+                WriteTableRow(output, LanguageConsts.CategoriesLabel,
                     String.Join("; ", categories));
 
             // Empty line
-            WriteHeaderEmptyLine(contactHeader);
-
-            WriteHeaderEnd(contactHeader);
-
-            body = InjectHeader(body, contactHeader.ToString());
+            WriteEmptyTableRow(output);
+            
+            WriteTableEnd(output);
 
             // Write the body to a file
-            File.WriteAllText(fileName, body, Encoding.UTF8);
+            File.WriteAllText(fileName, output.ToString(), Encoding.UTF8);
 
             return files;
-        }
-        #endregion
-
-        #region InjectHeader
-        /// <summary>
-        /// Inject an outlook style header into the top of the html
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="header"></param>
-        /// <returns></returns>
-        private static string InjectHeader(string body, string header)
-        {
-            var temp = body.ToUpperInvariant();
-
-            var begin = temp.IndexOf("<BODY", StringComparison.Ordinal);
-
-            if (begin > 0)
-            {
-                begin = temp.IndexOf(">", begin, StringComparison.Ordinal);
-                return body.Insert(begin + 1, header);
-            }
-
-            return header + body;
         }
         #endregion
     }

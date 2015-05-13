@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		VCardReader\Languages.xlsx = VCardReader\Languages.xlsx
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test files", "Test files", "{E4B605E8-477A-46A1-8235-F42A4544DE8C}"
+	ProjectSection(SolutionItems) = preProject
+		D:\contactcard.msg = D:\contactcard.msg
+		D:\contactcard.vcf = D:\contactcard.vcf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4B605E8-477A-46A1-8235-F42A4544DE8C} = {90BD5574-E514-4079-978F-AED39E2CB6A5}
 	EndGlobalSection
 EndGlobal

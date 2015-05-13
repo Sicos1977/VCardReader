@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -11,6 +12,7 @@ namespace VCardReader
     ///     Reads a vCard written in the standard 2.0 or 3.0 text formats.
     ///     This is the primary (standard) vCard format used by most applications.
     /// </summary>
+    [SuppressMessage("ReSharper", "FunctionComplexityOverflow")]
     public class VCardReader
     {
         #region Enum QuotedPrintableState
@@ -668,6 +670,21 @@ namespace VCardReader
                 case "WORK":
                     return PhoneTypes.Work;
 
+                case "COMPANY":
+                    return PhoneTypes.Company;
+
+                case "CALLBACK":
+                    return PhoneTypes.Callback;
+
+                case "RADIO":
+                    return PhoneTypes.Radio;
+
+                case "ASSISTANT":
+                    return PhoneTypes.Assistant;
+
+                case "TTYTDD":
+                    return PhoneTypes.Ttytdd;
+
                 default:
                     return PhoneTypes.Default;
             }
@@ -828,7 +845,7 @@ namespace VCardReader
                 case "BDAY":
                     ReadIntoBday(card, property);
                     break;
-
+               
                 case "CATEGORIES":
                     ReadIntoCategories(card, property);
                     break;
@@ -905,6 +922,10 @@ namespace VCardReader
                     ReadIntoTel(card, property);
                     break;
 
+                case "X-MS-TEL":
+                    ReadIntoTel(card, property);
+                    break;
+
                 case "TITLE":
                     ReadIntoTitle(card, property);
                     break;
@@ -924,6 +945,23 @@ namespace VCardReader
                 case "X-WAB-GENDER":
                     ReadIntoXWabGender(card, property);
                     break;
+
+                case "X-MS-ANNIVERSARY":
+                    ReadIntoAnniversary(card, property);
+                    break;
+
+                case "X-MS-IMADDRESS":
+                    ReadIntoInstantMessagingAddress(card, property);
+                    break;
+
+                //case "X-MS-ANNIVERSARY":
+                //    ReadIntoAnniversary(card, property);
+                //    break;
+
+                //case "X-MS-ANNIVERSARY":
+                //    ReadIntoAnniversary(card, property);
+                //    break;
+
 
                     // The property name is not recognized and
                     // will be ignored.
@@ -1038,6 +1076,25 @@ namespace VCardReader
                 else
                     card.BirthDate = null;
             }
+        }
+        #endregion
+
+        #region ReadIntoAnniversary
+        /// <summary>
+        ///     Reads the X-MS-ANNIVERSARY property.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        private static void ReadIntoAnniversary(VCard card, Property property)
+        {
+            DateTime anniversary;
+
+            if (DateTime.TryParseExact(property.ToString(), "yyyyMMdd", CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out anniversary))
+                card.Anniversary = anniversary;
+            else
+                card.Anniversary = null;
         }
         #endregion
 
@@ -1188,6 +1245,16 @@ namespace VCardReader
                     card.Longitude = geoLongitude;
                 }
             }
+        }
+        #endregion
+
+        #region ReadIntoInstantMessagingAddress
+        /// <summary>
+        ///     Reads the X-MS-IMADDRESS property.
+        /// </summary>
+        private static void ReadIntoInstantMessagingAddress(VCard card, Property property)
+        {
+            card.InstantMessagingAddress = property.Value.ToString();
         }
         #endregion
 
@@ -1462,7 +1529,7 @@ namespace VCardReader
             var phone = new Phone {FullNumber = property.ToString()};
 
             // The full telephone number is stored as the 
-            // value of the property.  Currently no formatted
+            // value of the property. Currently no formatted
             // rules are applied since the vCard specification
             // is somewhat confusing on this matter.
             if (string.IsNullOrEmpty(phone.FullNumber))
@@ -1477,12 +1544,12 @@ namespace VCardReader
                     (string.Compare(subproperty.Name, "TYPE", StringComparison.OrdinalIgnoreCase) == 0) &&
                     (!string.IsNullOrEmpty(subproperty.Value)))
                 {
-                    // This is a vCard 3.0 subproperty.  It defines the
+                    // This is a vCard 3.0 subproperty. It defines the
                     // the list of phone types in a comma-delimited list.
                     // Note that the vCard specification allows for
                     // multiple TYPE subproperties (why ?!).
                     phone.PhoneType |=
-                        ParsePhoneType(subproperty.Value.Split(new[] {','}));
+                        ParsePhoneType(subproperty.Value.Split(','));
                 }
                 else
                 {
@@ -1494,6 +1561,7 @@ namespace VCardReader
                     phone.PhoneType |= ParsePhoneType(subproperty.Name);
                 }
             }
+
             card.Phones.Add(phone);
         }
         #endregion

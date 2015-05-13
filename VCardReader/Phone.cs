@@ -93,7 +93,79 @@ namespace VCardReader
         Work = 4096,
 
         /// <summary>
-        ///     Indicates a work fax number.
+        ///     Indicates a company numbe
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        Company = 8192,
+
+        /// <summary>
+        ///     Indicates a work number (Outlook VCARD only).
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        Callback = 16384,
+
+        /// <summary>
+        ///     Indicates a work number.
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        Radio = 32769,
+
+        /// <summary>
+        ///     Indicates a work number.
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        Assistant = 65536,
+
+        /// <summary>
+        ///     Indicates a work number.
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        Ttytdd = 131072,
+        
+        /// <summary>
+        ///     Indicates a voice assistant number
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        VoiceAssistant = Voice + Assistant,
+
+        /// <summary>
+        ///     Indicates a voice company number
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        VoiceCompany = Voice + Company,
+
+        /// <summary>
+        ///     Indicates a voice callback number
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        VoiceCallback = Voice + Callback,
+
+        /// <summary>
+        ///     Indicates a voice radio number
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        VoiceRadio = Voice + Radio,
+
+        /// <summary>
+        ///     Indicates a voice fax number
         /// </summary>
         WorkFax = Work + Fax,
 
@@ -160,255 +232,10 @@ namespace VCardReader
         }
         #endregion
 
-        #region IsBbs
-        /// <summary>
-        ///     Indicates a BBS number.
-        /// </summary>
-        /// <seealso cref="IsModem" />
-        /// <seealso cref="PhoneTypes" />
-        public bool IsBbs
-        {
-            get { return (_phoneType & PhoneTypes.Bbs) == PhoneTypes.Bbs; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Bbs;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Bbs;
-            }
-        }
-        #endregion
-
-        #region IsCar
-        /// <summary>
-        ///     Indicates a car number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsCar
-        {
-            get { return (_phoneType & PhoneTypes.Car) == PhoneTypes.Car; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Car;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Car;
-            }
-        }
-        #endregion
-
-        #region IsCellular
-        /// <summary>
-        ///     Indicates a cellular number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsCellular
-        {
-            get { return (_phoneType & PhoneTypes.Cellular) == PhoneTypes.Cellular; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Cellular;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Cellular;
-            }
-        }
-        #endregion
-
-        #region IsFax
-        /// <summary>
-        ///     Indicates a fax number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsFax
-        {
-            get { return (_phoneType & PhoneTypes.Fax) == PhoneTypes.Fax; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Fax;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Fax;
-            }
-        }
-        #endregion
-
-        #region IsHome
-        /// <summary>
-        ///     Indicates a home number.
-        /// </summary>
-        /// <seealso cref="IsWork" />
-        /// <seealso cref="PhoneTypes" />
-        public bool IsHome
-        {
-            get { return (_phoneType & PhoneTypes.Home) == PhoneTypes.Home; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Home;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Home;
-            }
-        }
-        #endregion
-
-        #region IsIsdn
-        /// <summary>
-        ///     Indicates an ISDN number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsIsdn
-        {
-            get { return (_phoneType & PhoneTypes.Isdn) == PhoneTypes.Isdn; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Isdn;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Isdn;
-            }
-        }
-        #endregion
-
-        #region IsMessagingService
-        /// <summary>
-        ///     Indicates a messaging service number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsMessagingService
-        {
-            get
-            {
-                return (_phoneType & PhoneTypes.MessagingService) ==
-                       PhoneTypes.MessagingService;
-            }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.MessagingService;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.MessagingService;
-            }
-        }
-        #endregion
-
-        #region IsModem
-        /// <summary>
-        ///     Indicates a modem number.
-        /// </summary>
-        /// <seealso cref="IsBbs" />
-        /// <seealso cref="PhoneTypes" />
-        public bool IsModem
-        {
-            get { return (_phoneType & PhoneTypes.Modem) == PhoneTypes.Modem; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Modem;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Modem;
-            }
-        }
-        #endregion
-
-        #region IsPager
-        /// <summary>
-        ///     Indicates a pager number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsPager
-        {
-            get { return (_phoneType & PhoneTypes.Pager) == PhoneTypes.Pager; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Pager;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Pager;
-            }
-        }
-        #endregion
-
-        #region IsPreferred
-        /// <summary>
-        ///     Indicates a preferred number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsPreferred
-        {
-            get { return (_phoneType & PhoneTypes.Preferred) == PhoneTypes.Preferred; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Preferred;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Preferred;
-            }
-        }
-        #endregion
-
-        #region IsVideo
-        /// <summary>
-        ///     Indicates a video number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsVideo
-        {
-            get { return (_phoneType & PhoneTypes.Video) == PhoneTypes.Video; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Video;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Video;
-            }
-        }
-        #endregion
-
-        #region IsVoice
-        /// <summary>
-        ///     Indicates a voice number.
-        /// </summary>
-        /// <seealso cref="PhoneTypes" />
-        public bool IsVoice
-        {
-            get { return (_phoneType & PhoneTypes.Voice) == PhoneTypes.Voice; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Voice;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Voice;
-            }
-        }
-        #endregion
-
-        #region IsWork
-        /// <summary>
-        ///     Indicates a work number.
-        /// </summary>
-        /// <seealso cref="IsHome" />
-        /// <seealso cref="PhoneTypes" />
-        public bool IsWork
-        {
-            get { return (_phoneType & PhoneTypes.Work) == PhoneTypes.Work; }
-            set
-            {
-                if (value)
-                    _phoneType = _phoneType | PhoneTypes.Work;
-                else
-                    _phoneType = _phoneType & ~PhoneTypes.Work;
-            }
-        }
-        #endregion
-
         #region PhoneType
         /// <summary>
         ///     The phone subtype.
         /// </summary>
-        /// <seealso cref="IsVideo" />
-        /// <seealso cref="IsVoice" />
-        /// <seealso cref="IsWork" />
         public PhoneTypes PhoneType
         {
             get { return _phoneType; }

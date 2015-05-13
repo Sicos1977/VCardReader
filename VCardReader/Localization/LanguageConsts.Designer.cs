@@ -79,6 +79,15 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BBS.
+        /// </summary>
+        internal static string BBSTelephoneNumberLabel {
+            get {
+                return ResourceManager.GetString("BBSTelephoneNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pager.
         /// </summary>
         internal static string BeeperTelephoneNumberLabel {
@@ -142,6 +151,15 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string CategoriesLabel {
+            get {
+                return ResourceManager.GetString("CategoriesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mobile.
         /// </summary>
         internal static string CellularTelephoneNumberLabel {
@@ -171,9 +189,9 @@ namespace VCardReader.Localization {
         /// <summary>
         ///   Looks up a localized string similar to MM-dd-yyyy.
         /// </summary>
-        internal static string DataFormatDataFormat {
+        internal static string DataFormat {
             get {
-                return ResourceManager.GetString("DataFormatDataFormat", resourceCulture);
+                return ResourceManager.GetString("DataFormat", resourceCulture);
             }
         }
         
@@ -205,56 +223,29 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Domestic address.
+        /// </summary>
+        internal static string DomesticAddressLabel {
+            get {
+                return ResourceManager.GetString("DomesticAddressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail display as.
         /// </summary>
-        internal static string Email1DisplayNameLabel {
+        internal static string EmailDisplayNameLabel {
             get {
-                return ResourceManager.GetString("Email1DisplayNameLabel", resourceCulture);
+                return ResourceManager.GetString("EmailDisplayNameLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
-        internal static string Email1EmailAddressLabel {
+        internal static string EmailEmailAddressLabel {
             get {
-                return ResourceManager.GetString("Email1EmailAddressLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-mail 2 display as.
-        /// </summary>
-        internal static string Email2DisplayNameLabel {
-            get {
-                return ResourceManager.GetString("Email2DisplayNameLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-mail 2.
-        /// </summary>
-        internal static string Email2EmailAddressLabel {
-            get {
-                return ResourceManager.GetString("Email2EmailAddressLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-mail 3 display as.
-        /// </summary>
-        internal static string Email3DisplayNameLabel {
-            get {
-                return ResourceManager.GetString("Email3DisplayNameLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-mail 3.
-        /// </summary>
-        internal static string Email3EmailAddressLabel {
-            get {
-                return ResourceManager.GetString("Email3EmailAddressLabel", resourceCulture);
+                return ResourceManager.GetString("EmailEmailAddressLabel", resourceCulture);
             }
         }
         
@@ -331,11 +322,29 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to International address.
+        /// </summary>
+        internal static string InternationalAddressLabel {
+            get {
+                return ResourceManager.GetString("InternationalAddressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ISDN.
         /// </summary>
         internal static string ISDNNumberLabel {
             get {
                 return ResourceManager.GetString("ISDNNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modem.
+        /// </summary>
+        internal static string ModemTelephoneNumberLabel {
+            get {
+                return ResourceManager.GetString("ModemTelephoneNumberLabel", resourceCulture);
             }
         }
         
@@ -372,6 +381,24 @@ namespace VCardReader.Localization {
         internal static string OtherTelephoneNumberLabel {
             get {
                 return ResourceManager.GetString("OtherTelephoneNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parcel address.
+        /// </summary>
+        internal static string ParcelAddressLabel {
+            get {
+                return ResourceManager.GetString("ParcelAddressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal address.
+        /// </summary>
+        internal static string PostalAddressLabel {
+            get {
+                return ResourceManager.GetString("PostalAddressLabel", resourceCulture);
             }
         }
         
@@ -453,6 +480,24 @@ namespace VCardReader.Localization {
         internal static string TextTelephoneLabel {
             get {
                 return ResourceManager.GetString("TextTelephoneLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video.
+        /// </summary>
+        internal static string VideoTelephoneNumberLabel {
+            get {
+                return ResourceManager.GetString("VideoTelephoneNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice.
+        /// </summary>
+        internal static string VoiceTelephoneNumberLabel {
+            get {
+                return ResourceManager.GetString("VoiceTelephoneNumberLabel", resourceCulture);
             }
         }
         

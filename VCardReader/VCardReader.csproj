@@ -91,7 +91,6 @@
     <Compile Include="Collections\ValueCollection.cs" />
     <Compile Include="VCard.cs" />
     <Compile Include="VCardReader.cs" />
-    <Compile Include="VCardWriter.cs" />
     <Compile Include="Website.cs" />
     <Compile Include="Collections\WebsiteCollection.cs" />
   </ItemGroup>

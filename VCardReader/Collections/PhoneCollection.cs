@@ -35,7 +35,7 @@ namespace VCardReader.Collections
                     if (firstNonPreferred == null)
                         firstNonPreferred = phone;
 
-                    if (phone.IsPreferred)
+                    if (phone.PhoneType == PhoneTypes.Preferred)
                         return phone;
                 }
             }

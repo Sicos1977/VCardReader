@@ -51,17 +51,18 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 866);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 430);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1062, 37);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 7, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(531, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "Select a MSG file to open";
             // 
             // StatusLabel
             // 
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(287, 32);
-            this.StatusLabel.Text = "Select a MSG file to open";
+            this.StatusLabel.Size = new System.Drawing.Size(134, 17);
+            this.StatusLabel.Text = "Select a VCF file to open";
             // 
             // panel2
             // 
@@ -71,8 +72,9 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1062, 236);
+            this.panel2.Size = new System.Drawing.Size(531, 118);
             this.panel2.TabIndex = 13;
             // 
             // HyperLinkCheckBox
@@ -80,18 +82,20 @@
             this.HyperLinkCheckBox.AutoSize = true;
             this.HyperLinkCheckBox.Checked = global::VCardViewer.Properties.Settings.Default.GenereateHyperLinks;
             this.HyperLinkCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::VCardViewer.Properties.Settings.Default, "GenereateHyperLinks", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.HyperLinkCheckBox.Location = new System.Drawing.Point(288, 20);
+            this.HyperLinkCheckBox.Location = new System.Drawing.Point(144, 10);
+            this.HyperLinkCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.HyperLinkCheckBox.Name = "HyperLinkCheckBox";
-            this.HyperLinkCheckBox.Size = new System.Drawing.Size(237, 29);
+            this.HyperLinkCheckBox.Size = new System.Drawing.Size(120, 17);
             this.HyperLinkCheckBox.TabIndex = 21;
             this.HyperLinkCheckBox.Text = "Generate hyperlinks";
             this.HyperLinkCheckBox.UseVisualStyleBackColor = true;
             // 
             // SelectButton
             // 
-            this.SelectButton.Location = new System.Drawing.Point(12, 12);
+            this.SelectButton.Location = new System.Drawing.Point(6, 6);
+            this.SelectButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SelectButton.Name = "SelectButton";
-            this.SelectButton.Size = new System.Drawing.Size(257, 42);
+            this.SelectButton.Size = new System.Drawing.Size(128, 21);
             this.SelectButton.TabIndex = 20;
             this.SelectButton.Text = "Select VCF file";
             this.SelectButton.UseVisualStyleBackColor = true;
@@ -103,18 +107,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FilesListBox.FormattingEnabled = true;
-            this.FilesListBox.ItemHeight = 25;
-            this.FilesListBox.Location = new System.Drawing.Point(12, 70);
+            this.FilesListBox.Location = new System.Drawing.Point(6, 35);
+            this.FilesListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FilesListBox.Name = "FilesListBox";
-            this.FilesListBox.Size = new System.Drawing.Size(1038, 154);
+            this.FilesListBox.Size = new System.Drawing.Size(521, 69);
             this.FilesListBox.TabIndex = 17;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-158, 23);
+            this.label1.Location = new System.Drawing.Point(-79, 12);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 25);
+            this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 14;
             this.label1.Text = "Extracted files:";
             // 
@@ -123,9 +128,11 @@
             this.groupBox1.Controls.Add(this.webBrowser1);
             this.groupBox1.Controls.Add(this.toolStrip1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 236);
+            this.groupBox1.Location = new System.Drawing.Point(0, 118);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1062, 630);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(531, 312);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview";
@@ -133,10 +140,11 @@
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(3, 52);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Location = new System.Drawing.Point(2, 40);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(10, 10);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1056, 575);
+            this.webBrowser1.Size = new System.Drawing.Size(527, 270);
             this.webBrowser1.TabIndex = 12;
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated_1);
             // 
@@ -147,9 +155,10 @@
             this.ForwardButton,
             this.BackButton,
             this.SaveAsTextButton});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 27);
+            this.toolStrip1.Location = new System.Drawing.Point(2, 15);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1056, 25);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.toolStrip1.Size = new System.Drawing.Size(527, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -191,13 +200,14 @@
             // 
             // ViewerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1062, 903);
+            this.ClientSize = new System.Drawing.Size(531, 452);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.statusStrip1);
             this.DataBindings.Add(new System.Windows.Forms.Binding("WindowState", global::VCardViewer.Properties.Settings.Default, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ViewerForm";
             this.Text = "VCard viewer 1.0.0";
             this.WindowState = global::VCardViewer.Properties.Settings.Default.WindowState;
