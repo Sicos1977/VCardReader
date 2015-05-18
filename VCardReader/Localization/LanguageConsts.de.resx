@@ -247,7 +247,7 @@
     <value>Telex</value>
   </data>
   <data name="TextTelephoneLabel" xml:space="preserve">
-    <value>TTY/TDD phone</value>
+    <value>Textphone</value>
   </data>
   <data name="WeddingAnniversaryLabel" xml:space="preserve">
     <value>Jahrestag</value>
@@ -272,5 +272,11 @@
   </data>
   <data name="CategoriesLabel" xml:space="preserve">
     <value>Kategorien</value>
+  </data>
+  <data name="NotesLabel" xml:space="preserve">
+    <value>Aufzeichnungen</value>
+  </data>
+  <data name="PhotoLabel" xml:space="preserve">
+    <value>Foto</value>
   </data>
 </root>

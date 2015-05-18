@@ -28,6 +28,11 @@ namespace VCardReader
         Car = 2,
 
         /// <summary>
+        ///     Indicates a car phone.
+        /// </summary>
+        CarVoice = Car + Voice,
+
+        /// <summary>
         ///     Indicates a cell phone.
         /// </summary>
         Cellular = 4,
@@ -114,7 +119,7 @@ namespace VCardReader
         /// <remarks>
         ///     Only present when the contact card is made by Microsoft Outlook
         /// </remarks>
-        Radio = 32769,
+        Radio = 32768,
 
         /// <summary>
         ///     Indicates a work number.
@@ -131,7 +136,15 @@ namespace VCardReader
         ///     Only present when the contact card is made by Microsoft Outlook
         /// </remarks>
         Ttytdd = 131072,
-        
+
+        /// <summary>
+        ///     Indicates a pager number
+        /// </summary>
+        /// <remarks>
+        ///     Only present when the contact card is made by Microsoft Outlook
+        /// </remarks>
+        VoicePager = Voice + Pager,
+
         /// <summary>
         ///     Indicates a voice assistant number
         /// </summary>
@@ -172,7 +185,12 @@ namespace VCardReader
         /// <summary>
         ///     Indicates a work and voice number.
         /// </summary>
-        WorkVoice = Work + Voice
+        WorkVoice = Work + Voice,
+
+        /// <summary>
+        ///     Indicates a home fax number
+        /// </summary>
+        HomeFax = Home + Fax
     }
     #endregion
 

@@ -899,6 +899,7 @@ namespace VCardReader
                     break;
 
                 case "PHOTO":
+                case "X-MS-CARDPICTURE":
                     ReadIntoPhoto(card, property);
                     break;
 
@@ -954,17 +955,22 @@ namespace VCardReader
                     ReadIntoInstantMessagingAddress(card, property);
                     break;
 
-                //case "X-MS-ANNIVERSARY":
-                //    ReadIntoAnniversary(card, property);
-                //    break;
+                case "X-MS-MANAGER":
+                    ReadIntoManager(card, property);
+                    break;
 
-                //case "X-MS-ANNIVERSARY":
-                //    ReadIntoAnniversary(card, property);
-                //    break;
+                case "X-MS-ASSISTANT":
+                    ReadIntoAssistant(card, property);
+                    break;
+                    
+                case "X-MS-SPOUSE":
+                    ReadIntoSpouse(card, property);
+                    break;
 
-
+                default:
                     // The property name is not recognized and
                     // will be ignored.
+                    break;
             }
         }
         #endregion
@@ -991,7 +997,7 @@ namespace VCardReader
             // the specification (e.g. the additional components may be from a future specification).
 
             var addressParts =
-                property.Value.ToString().Split(new[] {';'});
+                property.Value.ToString().Split(';');
 
             var deliveryAddress = new DeliveryAddress();
 
@@ -1307,7 +1313,7 @@ namespace VCardReader
                     (string.Compare("TYPE", subproperty.Name, StringComparison.OrdinalIgnoreCase) == 0))
                 {
                     deliveryLabel.AddressType |=
-                        ParseDeliveryAddressType(subproperty.Value.Split(new[] {','}));
+                        ParseDeliveryAddressType(subproperty.Value.Split(','));
                 }
             }
 
@@ -1642,6 +1648,36 @@ namespace VCardReader
                     card.Gender = Gender.Male;
                     break;
             }
+        }
+        #endregion
+
+        #region ReadIntoManager
+        /// <summary>
+        ///     Reads a X-MS-MANAGER property.
+        /// </summary>
+        private static void ReadIntoManager(VCard card, Property property)
+        {
+            card.Manager = property.ToString();
+        }
+        #endregion
+
+        #region ReadIntoAssistant
+        /// <summary>
+        ///     Reads a X-MS-ASSISTANT property.
+        /// </summary>
+        private static void ReadIntoAssistant(VCard card, Property property)
+        {
+            card.Assistant = property.ToString();
+        }
+        #endregion
+
+        #region ReadIntoSpouse
+        /// <summary>
+        ///     Reads a X-MS-SPOUSE property.
+        /// </summary>
+        private static void ReadIntoSpouse(VCard card, Property property)
+        {
+            card.Spouse = property.ToString();
         }
         #endregion
 

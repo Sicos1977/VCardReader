@@ -273,4 +273,10 @@
   <data name="CategoriesLabel" xml:space="preserve">
     <value>Categoriëen</value>
   </data>
+  <data name="NotesLabel" xml:space="preserve">
+    <value>Notities</value>
+  </data>
+  <data name="PhotoLabel" xml:space="preserve">
+    <value>Foto</value>
+  </data>
 </root>

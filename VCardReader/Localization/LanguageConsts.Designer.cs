@@ -358,6 +358,15 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        internal static string NotesLabel {
+            get {
+                return ResourceManager.GetString("NotesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other address.
         /// </summary>
         internal static string OtherAddressLabel {
@@ -390,6 +399,15 @@ namespace VCardReader.Localization {
         internal static string ParcelAddressLabel {
             get {
                 return ResourceManager.GetString("ParcelAddressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        internal static string PhotoLabel {
+            get {
+                return ResourceManager.GetString("PhotoLabel", resourceCulture);
             }
         }
         
@@ -475,7 +493,7 @@ namespace VCardReader.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TTY/TDD phone.
+        ///   Looks up a localized string similar to Textphone.
         /// </summary>
         internal static string TextTelephoneLabel {
             get {

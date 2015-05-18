@@ -108,6 +108,16 @@ namespace VCardReader
         public DateTime? Anniversary { get; set; }
         #endregion
 
+        #region Assistant
+        /// <summary>
+        ///     The assistant.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        public string Assistant { get; set; }
+        #endregion
+
         #region BirthDate
         /// <summary>
         ///     The birthdate of the person.
@@ -288,6 +298,16 @@ namespace VCardReader
         }
         #endregion
 
+        #region Manager
+        /// <summary>
+        ///     The Manager.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        public string Manager { get; set; }
+        #endregion
+
         #region NamePrefix
         /// <summary>
         ///     The prefix (e.g. "Mr.") of the person.
@@ -435,6 +455,16 @@ namespace VCardReader
         ///     obtain updated information.
         /// </remarks>
         public SourceCollection Sources { get; private set; }
+        #endregion
+
+        #region Spouse
+        /// <summary>
+        ///     The Spouse.
+        /// </summary>
+        /// <remarks>
+        ///     Only available when the contact card has been generated with Microsoft Outlook
+        /// </remarks>
+        public string Spouse { get; set; }
         #endregion
 
         #region TimeZone
