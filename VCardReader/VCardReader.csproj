@@ -46,9 +46,6 @@
     <Compile Include="Collections\DeliveryLabelCollection.cs" />
     <Compile Include="EmailAddress.cs" />
     <Compile Include="Collections\EmailAddressCollection.cs" />
-    <Compile Include="Exceptions\VCardException.cs" />
-    <Compile Include="Exceptions\VCRFileContainsNoData.cs" />
-    <Compile Include="Exceptions\VCRFileIsCorrupt.cs" />
     <Compile Include="Exceptions\VCRFileTypeNotSupported.cs" />
     <Compile Include="Gender.cs" />
     <Compile Include="Helpers\EmailAddress.cs" />

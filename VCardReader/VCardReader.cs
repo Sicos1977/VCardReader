@@ -833,7 +833,7 @@ namespace VCardReader
             if (property == null)
                 throw new ArgumentNullException("property");
 
-            if (string.IsNullOrEmpty(property.Name))
+            if (string.IsNullOrWhiteSpace(property.Name))
                 return;
 
             switch (property.Name.ToUpperInvariant())
