@@ -11,7 +11,7 @@ The easiest way to install VCardReader is via NuGet.
 
 In Visual Studio's Package Manager Console, simply enter the following command:
 
-    Install-Package IFilterTextReader
+    Install-Package VCardReader
 
 License
 =======
