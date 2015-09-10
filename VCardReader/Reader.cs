@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
-using OfficeConverter.Exceptions;
+using VCardReader.Exceptions;
 using VCardReader.Helpers;
 using VCardReader.Localization;
 // ReSharper disable FunctionComplexityOverflow
