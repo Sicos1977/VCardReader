@@ -2,7 +2,7 @@ using System;
 using VCardReader.Collections;
 
 /*
-   Copyright 2014-2015 Kees van Spelde
+   Copyright 2014-2016 Kees van Spelde
 
    Licensed under The Code Project Open License (CPOL) 1.02;
    you may not use this file except in compliance with the License.
@@ -34,32 +34,32 @@ namespace VCardReader
         /// <summary>
         ///     A domestic delivery address.
         /// </summary>
-        Domestic,
+        Domestic = 1,
 
         /// <summary>
         ///     An international delivery address.
         /// </summary>
-        International,
+        International = 2,
 
         /// <summary>
         ///     A postal delivery address.
         /// </summary>
-        Postal,
+        Postal = 4,
 
         /// <summary>
         ///     A parcel delivery address.
         /// </summary>
-        Parcel,
+        Parcel = 8,
 
         /// <summary>
         ///     A home delivery address.
         /// </summary>
-        Home,
+        Home = 16,
 
         /// <summary>
         ///     A work delivery address.
         /// </summary>
-        Work
+        Work = 32
     }
     #endregion
 
@@ -129,19 +129,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.Domestic) ==
-                       DeliveryAddressTypes.Domestic;
+                return AddressType.HasFlag(DeliveryAddressTypes.Domestic);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.Domestic;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.Domestic;
-                }
             }
         }
         #endregion
@@ -154,19 +149,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.Home) ==
-                       DeliveryAddressTypes.Home;
+                return AddressType.HasFlag(DeliveryAddressTypes.Home);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.Home;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.Home;
-                }
             }
         }
         #endregion
@@ -179,19 +169,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.International) ==
-                       DeliveryAddressTypes.International;
+                return AddressType.HasFlag(DeliveryAddressTypes.International);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.International;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.International;
-                }
             }
         }
         #endregion
@@ -204,19 +189,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.Parcel) ==
-                       DeliveryAddressTypes.Parcel;
+                return AddressType.HasFlag(DeliveryAddressTypes.Parcel);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.Parcel;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.Parcel;
-                }
             }
         }
         #endregion
@@ -229,19 +209,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.Postal) ==
-                       DeliveryAddressTypes.Postal;
+                return AddressType.HasFlag(DeliveryAddressTypes.Postal);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.Postal;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.Postal;
-                }
             }
         }
         #endregion
@@ -254,19 +229,14 @@ namespace VCardReader
         {
             get
             {
-                return (AddressType & DeliveryAddressTypes.Work) ==
-                       DeliveryAddressTypes.Work;
+                return AddressType.HasFlag(DeliveryAddressTypes.Work);
             }
             set
             {
                 if (value)
-                {
                     AddressType |= DeliveryAddressTypes.Work;
-                }
                 else
-                {
                     AddressType &= ~DeliveryAddressTypes.Work;
-                }
             }
         }
         #endregion

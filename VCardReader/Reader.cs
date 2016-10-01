@@ -12,6 +12,23 @@ using VCardReader.Helpers;
 using VCardReader.Localization;
 // ReSharper disable FunctionComplexityOverflow
 
+/*
+   Copyright 2014-2016 Kees van Spelde
+
+   Licensed under The Code Project Open License (CPOL) 1.02;
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.codeproject.com/info/cpol10.aspx
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+
 namespace VCardReader
 {
     /// <summary>
@@ -480,6 +497,30 @@ namespace VCardReader
             // Empty line
             WriteEmptyTableRow(output);
 
+            if (vCard.DeliveryLabels.Count == 0)
+                foreach (var deliveryAddress in vCard.DeliveryAddresses)
+                {
+                    var address = (!string.IsNullOrWhiteSpace(deliveryAddress.Street) ? deliveryAddress.Street : string.Empty) + Environment.NewLine +
+                        (!string.IsNullOrWhiteSpace(deliveryAddress.PostalCode) ? deliveryAddress.PostalCode : string.Empty) + " " +
+                        (!string.IsNullOrWhiteSpace(deliveryAddress.City) ? deliveryAddress.City : string.Empty) + Environment.NewLine +
+                        (!string.IsNullOrWhiteSpace(deliveryAddress.Region) ? deliveryAddress.Region : string.Empty) + Environment.NewLine +
+                        (!string.IsNullOrWhiteSpace(deliveryAddress.Country) ? deliveryAddress.Country : string.Empty);
+
+                    // intl,postal,parcel,work
+                    if (deliveryAddress.IsWork)
+                        WriteTableRow(output, LanguageConsts.WorkAddressLabel, address);
+                    else if (deliveryAddress.IsHome)
+                        WriteTableRow(output, LanguageConsts.HomeAddressLabel, address);
+                    else if (deliveryAddress.IsInternational)
+                        WriteTableRow(output, LanguageConsts.InternationalAddressLabel, address);
+                    else if (deliveryAddress.IsPostal)
+                        WriteTableRow(output, LanguageConsts.PostalAddressLabel, address);
+                    else if (deliveryAddress.IsParcel)
+                        WriteTableRow(output, LanguageConsts.ParcelAddressLabel, address);
+                    else if (deliveryAddress.IsDomestic)
+                        WriteTableRow(output, LanguageConsts.DomesticAddressLabel, address);
+                }
+
             // Business address
             foreach (var deliveryLabel in vCard.DeliveryLabels)
             {
@@ -533,6 +574,7 @@ namespace VCardReader
             WriteTelephone(vCard, output, new List<PhoneTypes> {PhoneTypes.Callback, PhoneTypes.VoiceCallback});
             WriteTelephone(vCard, output, new List<PhoneTypes> {PhoneTypes.Voice});
             WriteTelephone(vCard, output, new List<PhoneTypes> {PhoneTypes.Preferred});
+
             // Telex
             foreach (var email in vCard.EmailAddresses)
             {

@@ -2,7 +2,7 @@ using System;
 using VCardReader.Collections;
 
 /*
-   Copyright 2014-2015 Kees van Spelde
+   Copyright 2014-2016 Kees van Spelde
 
    Licensed under The Code Project Open License (CPOL) 1.02;
    you may not use this file except in compliance with the License.
@@ -35,22 +35,22 @@ namespace VCardReader
         /// <summary>
         ///     An America On-Line email address.
         /// </summary>
-        AOl,
+        AOl = 1,
 
         /// <summary>
         ///     An AppleLink email address.
         /// </summary>
-        AppleLink,
+        AppleLink = 2,
 
         /// <summary>
         ///     An AT&amp;T Mail email address
         /// </summary>
-        AttMail,
+        AttMail = 4,
 
         /// <summary>
         ///     A CompuServe Information Service (CIS) email address.
         /// </summary>
-        CompuServe,
+        CompuServe = 8,
 
         /// <summary>
         ///     An eWorld email address.
@@ -59,39 +59,39 @@ namespace VCardReader
         ///     eWorld was an online service by Apple Computer in the mid 1990s.
         ///     It was officially shut down on March 31, 1996.
         /// </remarks>
-        EWorld,
+        EWorld = 16,
 
         // ReSharper disable InconsistentNaming
         /// <summary>
         ///     An IBM Mail email address.
         /// </summary>
-        IBMMail,
+        IBMMail = 32,
 
         /// <summary>
         ///     An MCI Mail email address.
         /// </summary>
-        MCIMail,
+        MCIMail = 64,
         // ReSharper restore InconsistentNaming
 
         /// <summary>
         ///     A PowerShare email address.
         /// </summary>
-        PowerShare,
+        PowerShare = 128,
 
         /// <summary>
         ///     A Prodigy Information Service email address.
         /// </summary>
-        Prodigy,
+        Prodigy = 256,
 
         /// <summary>
         ///     A telex email address.
         /// </summary>
-        Telex,
+        Telex = 512,
 
         /// <summary>
         ///     An X.400 service email address.
         /// </summary>
-        X400
+        X400 = 1024
     }
     #endregion
 

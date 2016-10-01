@@ -4,7 +4,7 @@ using System.IO;
 using VCardReader.Collections;
 
 /*
-   Copyright 2014-2015 Kees van Spelde
+   Copyright 2014-2016 Kees van Spelde
 
    Licensed under The Code Project Open License (CPOL) 1.02;
    you may not use this file except in compliance with the License.
@@ -35,17 +35,17 @@ namespace VCardReader
         /// <summary>
         ///     Standard escaped text.
         /// </summary>
-        Escaped,
+        Escaped = 1,
 
         /// <summary>
         ///     Binary or BASE64 encoding.
         /// </summary>
-        Base64,
+        Base64 = 2,
 
         /// <summary>
         ///     Quoted-Printable encoding.
         /// </summary>
-        QuotedPrintable
+        QuotedPrintable = 3
     }
     #endregion
 
