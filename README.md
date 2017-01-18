@@ -16,7 +16,7 @@ In Visual Studio's Package Manager Console, simply enter the following command:
 License
 =======
 
-Copyright 2013-2015 Kees van Spelde and David Pinch.
+Copyright 2013-2017 Kees van Spelde and David Pinch.
 
 Licensed under the The Code Project Open License (CPOL) 1.02; you may not use this software except in compliance with the License. You may obtain a copy of the License at:
 
