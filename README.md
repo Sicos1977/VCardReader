@@ -2,7 +2,7 @@ VCardReader
 =================
 
 A C# VCardReader that reads an VCard file and converts it to HTML.
-Originally developed by David Pinch (http://www.thoughtproject.com/Libraries/vCard/) but now upgraded to .NET 4.0 and upgraded to the latest standards 
+Originally developed by David Pinch but now upgraded to .NET 4.0 and upgraded to the latest standards 
 
 Installing via NuGet
 ====================
@@ -16,7 +16,7 @@ In Visual Studio's Package Manager Console, simply enter the following command:
 License
 =======
 
-Copyright 2013-2017 Kees van Spelde and David Pinch.
+Copyright 2013-2019 Kees van Spelde and David Pinch.
 
 Licensed under the The Code Project Open License (CPOL) 1.02; you may not use this software except in compliance with the License. You may obtain a copy of the License at:
 
