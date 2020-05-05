@@ -49,13 +49,6 @@ namespace VCardReader
         ///     Used to keep track if we already did write an empty line
         /// </summary>
         private static bool _emptyLineWritten;
-
-        /// <summary>
-        ///     Contains an error message when something goes wrong in the <see cref="ExtractToFolderFromCom" /> method.
-        ///     This message can be retreived with the GetErrorMessage. This way we keep .NET exceptions inside
-        ///     when this code is called from a COM language
-        /// </summary>
-        private string _errorMessage;
         #endregion
 
         #region SetCulture
@@ -64,7 +57,7 @@ namespace VCardReader
         ///     Default the current system culture is set. When there is no localization available the
         ///     default will be used. This will be en-US.
         /// </summary>
-        /// <param name="name">The name of the cultere eg. nl-NL</param>
+        /// <param name="name">The name of the culture eg. nl-NL</param>
         public void SetCulture(string name)
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(name);
@@ -97,7 +90,7 @@ namespace VCardReader
 
             var extension = Path.GetExtension(inputFile);
             if (string.IsNullOrEmpty(extension))
-                throw new VCRFileTypeNotSupported("Expected .vcf extension on the inputfile");
+                throw new VCRFileTypeNotSupported("Expected .vcf extension on the inputFile");
 
             extension = extension.ToUpperInvariant();
 
@@ -114,42 +107,11 @@ namespace VCardReader
 
         #region ExtractToFolder
         /// <summary>
-        ///     This method reads the <paramref name="inputFile" /> and when the file is supported it will do the following: <br />
-        ///     - Extract the HTML, RTF (will be converted to html) or TEXT body (in these order) <br />
-        ///     - Puts a header (with the sender, to, cc, etc... (depends on the message type) on top of the body so it looks
-        ///     like if the object is printed from Outlook <br />
-        ///     - Reads all the attachments <br />
-        ///     And in the end writes everything to the given <paramref name="outputFolder" />
-        /// </summary>
-        /// <param name="inputFile">The vcf file</param>
-        /// <param name="outputFolder">The folder where to save the extracted vcf file</param>
-        /// <param name="hyperlinks">When true hyperlinks are click able, otherwise they are written as plain text</param>
-        /// <param name="culture"></param>
-        public string[] ExtractToFolderFromCom(string inputFile,
-                                               string outputFolder,
-                                               bool hyperlinks = false,
-                                               string culture = "")
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(culture))
-                    SetCulture(culture);
-
-                return ExtractToFolder(inputFile, outputFolder);
-            }
-            catch (Exception exception)
-            {
-                _errorMessage = ExceptionHelpers.GetInnerException(exception);
-                return new string[0];
-            }
-        }
-
-        /// <summary>
         /// This method will read the given <paramref name="inputFile"/> convert it to HTML and write it to the <paramref name="outputFolder"/>
         /// </summary>
         /// <param name="inputFile">The vcf file</param>
         /// <param name="outputFolder">The folder where to save the converted vcf file</param>
-        /// <param name="hyperlinks">When true hyperlinks are clickable, otherwhise they are written as plain text</param>
+        /// <param name="hyperlinks">When true hyperlinks are click able, otherwise they are written as plain text</param>
         /// <returns>String array containing the full path to the converted VCF file</returns>
         /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or <paramref name="outputFolder" /> is null or empty</exception>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
@@ -159,28 +121,15 @@ namespace VCardReader
         {
             outputFolder = FileManager.CheckForBackSlash(outputFolder);
 
-            _errorMessage = string.Empty;
-
             CheckFileNameAndOutputFolder(inputFile, outputFolder);
 
             using (TextReader textReader = File.OpenText(inputFile))
             {
-                var vcardReader = new VCardReader();
+                var vCardReader = new VCardReader();
                 var vCard = new VCard();
-                vcardReader.ReadInto(vCard, textReader);
+                vCardReader.ReadInto(vCard, textReader);
                 return WriteVCard(vCard, outputFolder, hyperlinks).ToArray();
             }
-        }
-        #endregion
-
-        #region GetErrorMessage
-        /// <summary>
-        /// Get the last know error message. When the string is empty there are no errors
-        /// </summary>
-        /// <returns></returns>
-        public string GetErrorMessage()
-        {
-            return _errorMessage;
         }
         #endregion
 
@@ -238,7 +187,7 @@ namespace VCardReader
         }
 
         /// <summary>
-        ///     Writes a row tot the table and makes <paramref name="text"/> clickable (hyperlink) />
+        ///     Writes a row tot the table and makes <paramref name="text"/> click able (hyperlink) />
         /// </summary>
         /// <param name="header">The <see cref="StringBuilder" /> object that is used to write a table</param>
         /// <param name="label">The label text that needs to be written</param>
@@ -514,7 +463,7 @@ namespace VCardReader
                         (!string.IsNullOrWhiteSpace(deliveryAddress.Region) ? deliveryAddress.Region : string.Empty) + Environment.NewLine +
                         (!string.IsNullOrWhiteSpace(deliveryAddress.Country) ? deliveryAddress.Country : string.Empty);
 
-                    // intl,postal,parcel,work
+                    // intl, postal, parcel, work
                     if (deliveryAddress.IsWork)
                         WriteTableRow(output, LanguageConsts.WorkAddressLabel, address);
                     else if (deliveryAddress.IsHome)
