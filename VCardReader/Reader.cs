@@ -704,7 +704,7 @@ namespace VCardReader
         }
         #endregion
 
-        #region WriteVCard
+        #region WriteCalender
         /// <summary>
         ///     Writes the body of the MSG Contact to html or text and extracts all the attachments. The
         ///     result is return as a List of strings
