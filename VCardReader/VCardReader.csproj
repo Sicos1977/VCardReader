@@ -14,6 +14,7 @@ Originally developed by David Pinch (http://www.thoughtproject.com/Libraries/vCa
 - Upgraded nuget packages</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright (c) 2014-2021 Magic-Sessions. (www.magic-sessions.com)</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
