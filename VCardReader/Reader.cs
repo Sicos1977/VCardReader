@@ -3,7 +3,7 @@
 //
 // Author: Kees van Spelde <sicos2002@hotmail.com>
 //
-// Copyright (c) 2014-2020 Magic-Sessions. (www.magic-sessions.com)
+// Copyright (c) 2014-2021 Magic-Sessions. (www.magic-sessions.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,31 @@ namespace VCardReader
         private static bool _emptyLineWritten;
         #endregion
 
+        #region Properties
+        /// <summary>
+        ///     An unique id that can be used to identify the logging of the converter when
+        ///     calling the code from multiple threads and writing all the logging to the same file
+        /// </summary>
+        // ReSharper disable once UnusedMember.Global
+        public string InstanceId
+        {
+            get => Logger.InstanceId;
+            set => Logger.InstanceId = value;
+        }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        ///     Creates this object and sets it's needed properties
+        /// </summary>
+        /// <param name="logStream">When set then logging is written to this stream for all conversions. If
+        /// you want a separate log for each conversion then set the logstream on the <see cref="Convert"/> method</param>
+        public Reader(Stream logStream = null)
+        {
+            Logger.LogStream = logStream;
+        }
+        #endregion
+
         #region SetCulture
         /// <summary>
         ///     Sets the culture that needs to be used to localize the output of this class.
@@ -83,27 +108,42 @@ namespace VCardReader
                 throw new ArgumentNullException(outputFolder);
 
             if (!File.Exists(inputFile))
-                throw new FileNotFoundException(inputFile);
+            {
+                var message = $"Could not find the input file '{inputFile}'";
+                Logger.WriteToLog(message);
+                throw new FileNotFoundException(message);
+            }
 
-            if (!Directory.Exists(outputFolder))
-                throw new DirectoryNotFoundException(outputFolder);
+            var directoryInfo = new DirectoryInfo(outputFolder);
+
+            if (!directoryInfo.Exists)
+            {
+                var message = $"The output folder '{outputFolder}' does not exist";
+                Logger.WriteToLog(message);
+                throw new DirectoryNotFoundException(message);
+            }
 
             var extension = Path.GetExtension(inputFile);
             if (string.IsNullOrEmpty(extension))
-                throw new VCRFileTypeNotSupported("Expected .vcf or .ics extension on the inputFile");
+            {
+                var message = "Expected .vcf extension on the inputfile";
+                Logger.WriteToLog(message);
+                throw new VCRFileTypeNotSupported(message);
+            }
 
-            extension = extension.ToLowerInvariant();
+            extension = extension.ToUpperInvariant();
 
             switch (extension)
             {
-                case ".vcf":
-                    return;
-
-                case ".ics":
+                case ".VCF":
                     return;
 
                 default:
-                    throw new VCRFileTypeNotSupported("Wrong file extension, expected .vcf or .ics");
+                {
+                    var message = "Wrong file extension, expected .vcf";
+                    Logger.WriteToLog(message);
+                    throw new VCRFileTypeNotSupported(message);
+                }
             }
         }
         #endregion
@@ -116,21 +156,32 @@ namespace VCardReader
         /// <param name="outputFolder">The folder where to save the converted vcf file</param>
         /// <param name="hyperlinks">When true hyperlinks are click able, otherwise they are written as plain text</param>
         /// <returns>String array containing the full path to the converted VCF file</returns>
+        /// <param name="logStream">When set then logging is written to this stream</param>
         /// <exception cref="ArgumentNullException">Raised when the <paramref name="inputFile" /> or <paramref name="outputFolder" /> is null or empty</exception>
         /// <exception cref="FileNotFoundException">Raised when the <paramref name="inputFile" /> does not exists</exception>
         /// <exception cref="DirectoryNotFoundException">Raised when the <paramref name="outputFolder" /> does not exist</exception>
         /// <exception cref="VCRFileTypeNotSupported">Raised when the extension is not .vcf</exception>
-        public List<string> ExtractToFolder(string inputFile, string outputFolder, bool hyperlinks = false)
+        public List<string> ExtractToFolder(string inputFile, string outputFolder, bool hyperlinks = false, Stream logStream = null)
         {
+            if (logStream != null)
+                Logger.LogStream = logStream;
+
             outputFolder = FileManager.CheckForBackSlash(outputFolder);
             CheckFileNameAndOutputFolder(inputFile, outputFolder);
 
+            Logger.WriteToLog($"Reading inputfile '{inputFile}'");
+
             using (TextReader textReader = File.OpenText(inputFile))
             {
-                var vCardReader = new VCardReader();
+                var vcardReader = new VCardReader();
                 var vCard = new VCard();
-                vCardReader.ReadInto(vCard, textReader);
-                return WriteVCard(vCard, outputFolder, hyperlinks);
+                Logger.WriteToLog("Start reading vCard information");
+                vcardReader.ReadInto(vCard, textReader);
+                Logger.WriteToLog("Done reading vCard information");
+                Logger.WriteToLog("Start writing vCard information to file(s)");
+                var result = WriteVCard(vCard, outputFolder, true);
+                Logger.WriteToLog("Done writing vCard information to file(s)");
+                return result;
             }
         }
         #endregion
