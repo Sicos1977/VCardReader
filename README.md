@@ -15,7 +15,7 @@ In Visual Studio's Package Manager Console, simply enter the following command:
 
 ## License Information
 
-VCardReader is Copyright (C) 2014-2021 Magic-Sessions and is licensed under the MIT license:
+VCardReader is Copyright (C) 2014-2023 Magic-Sessions and is licensed under the MIT license:
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
