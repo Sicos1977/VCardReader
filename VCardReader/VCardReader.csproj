@@ -2,17 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Description>A C# VCardReader that reads an VCard file and converts it to HTML.
 Originally developed by David Pinch (http://www.thoughtproject.com/Libraries/vCard/) but now upgraded to .NET 4.0 and upgraded to the latest standards</Description>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/Sicos1977/VCardReader</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Sicos1977/VCardReader</RepositoryUrl>
     <PackageTags>vcf vcard</PackageTags>
-    <PackageReleaseNotes>- Update nuget packages to fix CVE-2021-26701</PackageReleaseNotes>
+    <PackageReleaseNotes>- Update nuget packages</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Copyright>Copyright (c) 2014-2021 Magic-Sessions. (www.magic-sessions.com)</Copyright>
+    <Copyright>Copyright (c) 2014-2023 Magic-Sessions. (www.magic-sessions.com)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyVersion>1.2.3.0</AssemblyVersion>
+    <FileVersion>1.2.3.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
